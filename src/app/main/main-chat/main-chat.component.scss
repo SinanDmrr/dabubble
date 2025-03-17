@@ -1,11 +1,109 @@
-:host{
+@use "../../styles/mixins.scss" as *;
+
+:host {
     height: 100%;
 }
 
 main {
-    justify-self: center;
-    width: 98%;
+    @include standard-flex(flex-start, flex-start);
+    flex-direction: column;
     height: 100%;
     border-radius: 16px;
     background-color: white;
+}
+
+h2{
+    margin: 0;
+}
+
+header {
+    width: 100%;
+    -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+
+    .header-content {
+        @include standard-flex(space-between);
+        padding: 1rem 2rem;
+    }
+}
+
+.channel-name-container,
+.user-container {
+    @include standard-flex();
+    padding: 0.5rem 1rem;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.channel-name-container, .avatars-container{
+    &:hover{
+        background-color: #ECEEFE;
+        border-radius: 5rem
+    }
+}
+
+.avatars-container {
+    @include standard-flex();
+    padding: 0.25rem 0.5rem;
+    span{
+        padding-left: 2rem;
+    }
+}
+
+.avatar {
+    width: 30px;
+
+    img {
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        border: 2px solid white;
+    }
+}
+
+.person-add-btn{
+    @include standard-flex();
+    background-color: #ECEEFE;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    &:hover{
+        img{
+            scale: 1.1;
+        }
+    }
+}
+
+.chat-container {
+    flex: 1;
+}
+
+.message-container {
+    width: 100%;
+    margin-bottom: 2rem;   
+}
+
+.message-wrapper {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    display: flex;
+    position: relative;
+
+    textarea {
+        font-family: 'Nunito';
+        resize: none;
+        flex: 1;
+        border: 1px solid #ADB0D9;
+        border-radius: 1rem;
+        padding: 1rem;
+        outline: 1px solid #ADB0D9;
+    }
+
+    img{
+        position: absolute;
+        bottom: 1rem;
+        right: 3rem;
+        cursor: pointer;
+    }
+
 }

@@ -1,9 +1,13 @@
 @use "../../styles/mixins.scss" as *;
 
 $headHeight: 8vh;
+$contentHeight: 95%;
 
-main{
+main {
     background-color: #ECEEFE;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 
     >app-header {
         @include standard-flex();
@@ -13,22 +17,25 @@ main{
 
     .main-page-wrapper {
         @include standard-flex(space-between);
+        flex: 1;
 
         >app-dev-space {
             @include standard-flex();
             width: 20%;
-            height: calc(100vh - $headHeight);
+            height: $contentHeight;
         }
 
         .routing-content {
-            height: calc(100vh - $headHeight);
+            display: flex;
+            flex-direction: column;
+            height: $contentHeight;
             flex: 1;
         }
 
         >app-thread-chat {
             @include standard-flex();
             width: 20%;
-            height: calc(100vh - $headHeight);
+            height: $contentHeight;
         }
     }
 }

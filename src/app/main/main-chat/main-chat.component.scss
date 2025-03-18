@@ -99,11 +99,42 @@ header {
         outline: 1px solid #ADB0D9;
     }
 
-    img{
+    .send-btn{
         position: absolute;
+        cursor: pointer;
         bottom: 1rem;
         right: 3rem;
+        padding: 0.5rem;
+        &:hover{
+            content: url('../../../assets/icons/send_hover.png');
+        }
+    }
+
+    .emoji-btn, .tag-btn{
+        position: absolute;
+        @include standard-flex();
+        border-radius: 50%;
+        padding: 0.5rem;
         cursor: pointer;
+        &:hover{
+            background-color: #ECEEFE;
+        }
+    }
+
+    .emoji-btn{
+        bottom: 1rem;
+        left: 3rem;
+        &:hover{
+            content: url('../../../assets/icons/emoji_hover.png');
+        }
+    }
+
+    .tag-btn{
+        bottom: 1rem;
+        left: 6rem;
+        &:hover{
+            content: url('../../../assets/icons/tag_icon_hover.png');
+        }
     }
 
 }

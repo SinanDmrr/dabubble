@@ -14,38 +14,5 @@ import { IChannels } from '../../interfaces/ichannels';
   styleUrl: './landing-page.component.scss'
 })
 export class LandingPageComponent {
-  dummyVar: IChannels = {
-      creator: 'Hendrik',
-      description: 'Tets',
-      messages: [],
-      name: 'qwdqwdqwdqwd',
-      users: [],
-  }
-  dummyVarZwei!: IChannels[];
-    constructor(private firebaseService: FirebaseService) {
-
-  }
-
-  ngOnInit() {
-    this.addDummyData();
-    this.firebaseService.channelList$.subscribe((channels) => {
-      if (channels.length > 0) {
-        this.dummyVarZwei = channels;
-        // console.log(channels);
-        // console.log(channels[0].creator);
-      }
-    });
-    // console.log();
-    this.updateData();
-  }
-
-  addDummyData(){
-    this.firebaseService.addToDatabase('channels', this.dummyVar)
-  }
-
-  updateData(){
-    this.dummyVarZwei[0].creator = 'Sinan';
-    this.firebaseService.updateDocument('channels', this.dummyVarZwei[0].id!, this.dummyVarZwei[0]);
-    
-  }
+  
 }

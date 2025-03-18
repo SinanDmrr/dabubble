@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Firestore, onSnapshot, collection, addDoc, doc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, onSnapshot, collection, addDoc, doc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { IChannels } from '../interfaces/ichannels';
 import { BehaviorSubject } from 'rxjs';
 
@@ -8,8 +8,10 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class FirebaseService {
   firestore: Firestore = inject(Firestore);
+
   private channelListSubject = new BehaviorSubject<IChannels[]>([]);
   channelList$ = this.channelListSubject.asObservable();
+  
   constructor() { 
     this.subContactList();
   }
@@ -23,6 +25,7 @@ export class FirebaseService {
       this.channelListSubject.next(channels); // Daten an das Observable senden
     });
   }
+
   getColRef(colId: string) {
     return collection(this.firestore, colId);
   }
@@ -58,5 +61,14 @@ export class FirebaseService {
 
   getSingleDocRef(colId: string, docId: string) {
     return doc(this.getColRef(colId), docId);
+  }
+
+  async deleteDocument(colId:string, docId:string){
+    try {
+      await deleteDoc(this.getSingleDocRef(colId, docId));
+    } catch (error) {
+      console.log('Error deleting document', error);
+      
+    }
   }
 }

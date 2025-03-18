@@ -1,7 +1,7 @@
 <section (click)="closeUserList()">
     <div class="message-wrapper">
         <textarea [(ngModel)]="message" type="text" rows="5" placeholder="Nachricht an #Entwicklerteam"></textarea>
-        <img class="send-btn" src="assets/icons/send.png" alt="">
+        <img class="send-btn" src="assets/icons/send.png" alt="" (click)="sendMessage()">
         <div class="emoji-btn">
             <img src="assets/icons/emoji.png" alt="">
         </div>
@@ -20,5 +20,5 @@
                 }
         </div>
     </div>
-    }
+    } 
 </section>

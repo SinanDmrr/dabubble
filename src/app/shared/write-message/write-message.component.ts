@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -12,6 +12,7 @@ export class WriteMessageComponent {
   exampleUsers = ["Frederik Beck (Du)", "Sofia Müler", "Noah Braun", "Elise Roth", "Elias Neumann", "Steffen Hoffmann"];
   showUserList = false;
   message: string = "";
+  @Output() messageSent = new EventEmitter<string>();
 
   toggleUserList() {
     this.showUserList = !this.showUserList;
@@ -27,5 +28,12 @@ export class WriteMessageComponent {
 
   tagUser(userToTag: string) {
     this.message = this.message + userToTag;
+  }
+
+  sendMessage(){
+    if (this.message.trim()) {
+      this.messageSent.emit(this.message);
+      this.message = '';
+    }
   }
 }

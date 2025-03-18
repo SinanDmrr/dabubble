@@ -9,5 +9,9 @@ import { WriteMessageComponent } from '../../shared/write-message/write-message.
   styleUrl: './main-chat.component.scss'
 })
 export class MainChatComponent {
+  messages: string[] = [];
 
+  addMessage(newMessage: string){
+    this.messages.push(newMessage);
+  }
 }

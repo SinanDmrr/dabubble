@@ -5,7 +5,7 @@ import { IChannels } from '../interfaces/ichannels';
 @Injectable({
   providedIn: 'root'
 })
-export class ChannelsServiceService {
+export class ChannelsService {
   private collectionName = "channels";
 
   constructor(private firebaseService: FirebaseService) { }

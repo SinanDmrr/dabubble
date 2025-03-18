@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IChannels } from '../../interfaces/ichannels';
-import { FirebaseService } from '../../services/firebase.service';
-import { ChannelsServiceService } from '../../services/channels-service.service';
+import { ChannelsService } from '../../services/channels.service';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +18,7 @@ export class HeaderComponent {
     users: [],
   }
   dummyVarZwei!: IChannels[];
-  constructor(private channelService: ChannelsServiceService) {
+  constructor(private channelService: ChannelsService) {
     
   }
 

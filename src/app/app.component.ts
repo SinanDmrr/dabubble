@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LandingPageComponent } from './main/landing-page/landing-page.component';
 import { LoginComponent } from './login/login.component';
+import { FirebaseService } from './services/firebase.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,4 @@ import { LoginComponent } from './login/login.component';
 })
 export class AppComponent {
   isAuthenticated = true;
-
-
 }

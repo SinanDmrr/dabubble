@@ -12,12 +12,12 @@ import { AuthService } from './services/auth.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  authStatus: boolean = false;
+  authStatus: boolean = true;
   constructor(private authService: AuthService) {}
   
   ngOnInit() {
     this.authService.auth$.subscribe(auth => {
-      this.authStatus = auth;
+      // this.authStatus = auth;
       
     })
   }

@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Firestore, onSnapshot, collection, addDoc, doc, updateDoc, deleteDoc } from '@angular/fire/firestore';
+import { Firestore, onSnapshot, collection, addDoc, doc, updateDoc, deleteDoc, getDoc, query, where, getDocs } from '@angular/fire/firestore';
 import { IChannels } from '../interfaces/ichannels';
 import { BehaviorSubject } from 'rxjs';
 import { IDirectMessage } from '../interfaces/idirect-message';
@@ -10,7 +10,7 @@ import { IUser } from '../interfaces/iuser';
 })
 export class FirebaseService {
   firestore: Firestore = inject(Firestore);
-  
+
   private channelListSubject = new BehaviorSubject<IChannels[]>([]);
   channelList$ = this.channelListSubject.asObservable();
 
@@ -92,6 +92,8 @@ export class FirebaseService {
   }
 
   async addToDatabase(colId: string, item: IChannels | IDirectMessage | IUser) {
+    console.log("adding Data: ", item);
+    
     try {
       await addDoc(this.getColRef(colId), item);
     }
@@ -120,6 +122,15 @@ export class FirebaseService {
       console.error('Error deleting document', error);
 
     }
+  }
+
+  // bitte nicht nachfragen was diese funktion tut, ich hab ka
+  async checkIfUserExists(email: string): Promise<boolean> {
+  
+    const userQuery = query(this.getColRef("users"), where("email", "==", email));
+    const querySnapshot = await getDocs(userQuery);
+  
+    return !querySnapshot.empty;
   }
 
   ngOnDestroy() {

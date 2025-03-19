@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IChannels } from '../../interfaces/ichannels';
 import { ChannelsService } from '../../services/channels.service';
+import { UserService } from '../../services/user.service';
+import { IUser } from '../../interfaces/iuser';
 
 @Component({
   selector: 'app-header',
@@ -10,36 +12,19 @@ import { ChannelsService } from '../../services/channels.service';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  dummyVar: IChannels = {
-    creator: 'Hendrik',
-    description: 'Tets',
-    messages: [],
-    name: 'qwdqwdqwdqwd',
-    users: [],
-  }
-  dummyVarZwei!: IChannels[];
-  constructor(private channelService: ChannelsService) {
-    
-  }
+  dummyUser?: IUser;
+  dummyUserList?: IUser[]; 
+
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.channelService.getChannels().subscribe((channels) => {
-        this.dummyVarZwei = channels;
-    });
+    this.dummyUser = this.userService.getCurrentUser();
   }
-
-  addDummyData() {
-    this.channelService.addChannel(this.dummyVar);
-  }
-
-  changeData() {
-    this.dummyVarZwei[0].creator = 'Sinan';
-    this.channelService.updateChannel(this.dummyVarZwei[0].id!, this.dummyVarZwei[0])
-
-  }
-
-  deleteData() {
-    this.channelService.deleteChannel(this.dummyVarZwei[0].id!);
+  
+  test(){
+    
+    console.log(this.dummyUser);
+    console.log(this.dummyUserList);
   }
 
 }

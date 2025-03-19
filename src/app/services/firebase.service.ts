@@ -10,9 +10,7 @@ import { IUser } from '../interfaces/iuser';
 })
 export class FirebaseService {
   firestore: Firestore = inject(Firestore);
-
   
-
   private channelListSubject = new BehaviorSubject<IChannels[]>([]);
   channelList$ = this.channelListSubject.asObservable();
 
@@ -20,7 +18,8 @@ export class FirebaseService {
   directMessageList$ = this.directMessageListSubject.asObservable();
 
   private UserListSubject = new BehaviorSubject<IUser[]>([]);
-  UserList$ = this.directMessageListSubject.asObservable();
+  UserList$ = this.UserListSubject.asObservable();
+
 
   constructor() {
     this.subContactList();

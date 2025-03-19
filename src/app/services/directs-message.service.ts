@@ -12,7 +12,7 @@ export class DirectsMessageService {
   constructor(private firebaseService: FirebaseService) { }
 
   getDirectMessages() {
-    return this.firebaseService.channelList$;
+    return this.firebaseService.directMessageList$;
   }
 
   async addDirectMessages(item: IDirectMessage) {

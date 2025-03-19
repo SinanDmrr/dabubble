@@ -1,3 +1,79 @@
-<main>
-    channels
-</main>
+<div id="sidebar">
+  <div
+    class="sidebar-icon"
+    [class.main-hidden]="!isMainVisible"
+    (click)="toggleMainVisibility()"
+  ></div>
+</div>
+
+@if (isMainVisible) {
+  <main>
+    <div id="padding-container">
+      <div id="header-section">
+        <img src="./assets/images/Devspace_Logo.png" alt="" />
+        <h2>Devspace</h2>
+        <a routerLink="" routerLinkActive="active"
+          ><div class="edit-icon"></div>
+        </a>
+      </div>
+      <div id="channels-section">
+        <div class="section-header">
+          <div id="section-header-left" (click)="toggleChannels()">
+            <div
+              class="drop-down-icon"
+              [class.rotated]="!isChannelsExpanded"
+            ></div>
+            <div class="channels-icon"></div>
+            <h3>Channels</h3>
+          </div>
+          <div class="add-icon"></div>
+        </div>
+        @if (isChannelsExpanded) {
+          <div class="section-content">
+            <ul>
+              @for (channel of channels; track channel.id) {
+                <li class="channel"># {{ channel.name }}</li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <div id="directmessages-section">
+        <div class="section-header">
+          <div id="section-header-left" (click)="toggleMessages()">
+            <div
+              class="drop-down-icon"
+              [class.rotated]="!isMessagesExpanded"
+            ></div>
+            <div class="person-icon"></div>
+            <h3>Direktnachrichten</h3>
+          </div>
+        </div>
+        @if (isMessagesExpanded) {
+          <div class="section-content">
+            <ul>
+              @for (message of directMessages; track $index) {
+                <li class="messages">
+                  <div id="img-container">
+                    <img src="{{ message.imgPath }}" id="user-icon" />
+                    <img
+                      [src]="
+                        message.online
+                          ? '/assets/icons/online.png'
+                          : '/assets/icons/offline.png'
+                      "
+                      id="online-status"
+                    />
+                  </div>
+
+                  {{ message.name }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </div>
+  </main>
+}

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LandingPageComponent } from './main/landing-page/landing-page.component';
 import { LoginComponent } from './login/login.component';
-import { FirebaseService } from './services/firebase.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -12,5 +12,13 @@ import { FirebaseService } from './services/firebase.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  isAuthenticated = true;
+  authStatus: boolean = false;
+  constructor(private authService: AuthService) {}
+  
+  ngOnInit() {
+    this.authService.auth$.subscribe(auth => {
+      this.authStatus = auth;
+      
+    })
+  }
 }

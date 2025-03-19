@@ -9,15 +9,20 @@ import { map, Observable } from 'rxjs';
 })
 export class UserService {
 
+  private currentUserMail = "";
   private collectionName = "users";
 
-  constructor(private firebaseService: FirebaseService, private authService: AuthService) { }
+  constructor(private firebaseService: FirebaseService) { }
 
   // returns the User Using this site
   getCurrentUser(): Observable<IUser | undefined> {
     return this.firebaseService.UserList$.pipe(
-      map(users => users.find(user => user.name === this.authService.currentUserName))
+      map(users => users.find(user => user.email === this.currentUserMail))
     );
+  }
+
+  changeCurrentUserMail(mail: string) {
+    this.currentUserMail = mail;
   }
 
   // get List of all available users
@@ -35,5 +40,9 @@ export class UserService {
 
   async deleteUser(id: string) {
     await this.firebaseService.deleteDocument(this.collectionName, id);
+  }
+
+  async checkIfUserExists(email: string) {
+    return await this.firebaseService.checkIfUserExists(email);
   }
 }

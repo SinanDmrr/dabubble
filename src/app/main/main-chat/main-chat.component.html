@@ -1,7 +1,7 @@
 <main>
     <header>
         <div class="header-content">
-            <div class="channel-name-container">
+            <div class="channel-name-container" (click)="openEdit()">
                 <h2># Entwicklerteam</h2>
                 <img src="assets/icons/keyboard_arrow_down.png" alt="">
             </div>
@@ -25,14 +25,19 @@
         </div>
     </header>
 
+    @if(editOpen){
+        <app-edit-channel (close)="closeEdit()"></app-edit-channel>
+    }
+
+
     <div class="chat-container">
         main
         @for (message of messages; track $index) {
-            <span>{{message}}</span>
+        <span>{{message}}</span>
         }
     </div>
-   
+
     <section class="message-container">
-         <app-write-message (messageSent)="addMessage($event)"></app-write-message>
+        <app-write-message (messageSent)="addMessage($event)"></app-write-message>
     </section>
 </main>

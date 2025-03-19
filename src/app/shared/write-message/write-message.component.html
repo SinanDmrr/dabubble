@@ -1,23 +1,35 @@
-<section (click)="closeUserList()">
+<section (click)="closeTagList()">
     <div class="message-wrapper">
-        <textarea [(ngModel)]="message" type="text" rows="5" placeholder="Nachricht an #Entwicklerteam"></textarea>
+        <textarea [(ngModel)]="message" type="text" rows="5" placeholder="Nachricht an #Entwicklerteam" (keyup)="checkForAt($event); checkForHash($event)" (keydown)="checkBackspace($event)"></textarea>
         <img class="send-btn" src="assets/icons/send.png" alt="" (click)="sendMessage()">
         <div class="emoji-btn">
             <img src="assets/icons/emoji.png" alt="">
         </div>
-        <div class="tag-btn" (click)="bubblingProtection($event); toggleUserList()">
+        <div class="tag-btn" (click)="bubblingProtection($event); openTagList('user')">
             <img src="assets/icons/tag_icon.png" alt="">
         </div>
     </div>
-    @if(showUserList){
+
+    @if(showTagList && (startListeningAt || startListeningHash)){
     <div class="tag-container">
         <div class="tag-wrapper">
-            @for (user of exampleUsers; track $index) {
-                <div class="tag-item" (click)="tagUser(user)">
-                    <img src="assets/avatars/avatar_1.png" alt="">
-                    <span>{{user}}</span>
-                </div>
-                }
+            @if(showUserList){
+                @for (user of getFilteredUserList(); track $index) {
+                    <div class="tag-item" (click)="tagUser(user)">
+                        <img src="assets/avatars/avatar_1.png" alt="">
+                        <span>{{user}}</span>
+                    </div>
+                    }
+            } 
+            @if (showChannelList){
+                @for (channel of getFilteredChannelList(); track $index) {
+                    <div class="tag-item" (click)="tagChannel(channel)">
+                        <span>#</span>
+                        <span>{{channel}}</span>
+                    </div>
+                    }
+            }
+           
         </div>
     </div>
     } 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -11,9 +11,12 @@ import { FormsModule } from '@angular/forms';
 export class WriteMessageComponent {
   exampleUsers = ["Frederik Beck (Du)", "Sofia Müller", "Noah Braun", "Elise Roth", "Elias Neumann", "Steffen Hoffmann"];
   exampleChannels = ["Allgemein", "Entwickler-Team", "Office-Team"];
+  emojis = ['😊', '😂', '❤️', '👍', '🎉', '✨', '🌍', '🍕', '🌟', '🚀'];
+
   showTagList = false;
   showUserList = false;
   showChannelList = false;
+  showEmojiList = false;
 
   tagStringHash: string = "";
   tagStringAt: string = "";
@@ -22,7 +25,12 @@ export class WriteMessageComponent {
   startListeningAt = false;
 
   message: string = "";
+  textArea: any;
   @Output() messageSent = new EventEmitter<string>();
+
+  ngOnInit() {
+    this.textArea = document.getElementById("textArea");
+  }
 
   openTagList(listToOpen: string) {
     this.showTagList = true;
@@ -33,10 +41,24 @@ export class WriteMessageComponent {
     }
   }
 
+  openEmojiList() {
+    this.showEmojiList = true;
+  }
+
   closeTagList() {
     this.showTagList = false;
     this.showUserList = false;
     this.showChannelList = false;
+  }
+
+  closeEmojiList() {
+    this.showEmojiList = false;
+  }
+
+  addEmoji(emoji: string) {
+    this.message += emoji + ' ';
+    this.textArea?.focus();
+    this.closeEmojiList();
   }
 
   tagUser(userToTag: string) {

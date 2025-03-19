@@ -1,8 +1,8 @@
-<section (click)="closeTagList()">
+<section (click)="closeTagList(); closeEmojiList()">
     <div class="message-wrapper">
-        <textarea [(ngModel)]="message" type="text" rows="5" placeholder="Nachricht an #Entwicklerteam" (keyup)="checkForAt($event); checkForHash($event)" (keydown)="checkBackspace($event)"></textarea>
+        <textarea id="textArea" [(ngModel)]="message" type="text" rows="5" placeholder="Nachricht an #Entwicklerteam" (keyup)="checkForAt($event); checkForHash($event)" (keydown)="checkBackspace($event)"></textarea>
         <img class="send-btn" src="assets/icons/send.png" alt="" (click)="sendMessage()">
-        <div class="emoji-btn">
+        <div class="emoji-btn" (click)="bubblingProtection($event); openEmojiList()">
             <img src="assets/icons/emoji.png" alt="">
         </div>
         <div class="tag-btn" (click)="bubblingProtection($event); openTagList('user')">
@@ -32,5 +32,13 @@
            
         </div>
     </div>
-    } 
+    }
+    
+    @if(showEmojiList){
+        <div class="emoji-container">
+            @for (emoji of emojis; track $index) {
+                <span class="emoji-item" (click)="addEmoji(emoji)">{{emoji}}</span>
+            }
+        </div>
+    }
 </section>

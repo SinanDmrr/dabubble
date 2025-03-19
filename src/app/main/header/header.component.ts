@@ -13,18 +13,17 @@ import { IUser } from '../../interfaces/iuser';
 })
 export class HeaderComponent {
   dummyUser?: IUser;
-  dummyUserList?: IUser[]; 
 
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.dummyUser = this.userService.getCurrentUser();
+    this.userService.getCurrentUser().subscribe(user => {
+      this.dummyUser = user;
+    });
   }
   
   test(){
-    
     console.log(this.dummyUser);
-    console.log(this.dummyUserList);
   }
 
 }

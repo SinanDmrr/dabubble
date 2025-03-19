@@ -4,7 +4,18 @@ main {
     justify-self: center;
     width: 99%;
     height: 95%;
-    border-radius: 16px;
-    background-color: white;
-    @include standard-flex();
+    @include standard-flex(space-between);
+
+    .logo-container {
+        @include standard-flex();
+        width: 20%;
+    }
+    .find-container {
+        flex: 1;
+    }
+    .profile-container {
+        
+        @include standard-flex(end);
+        width: 20%;
+    }
 }

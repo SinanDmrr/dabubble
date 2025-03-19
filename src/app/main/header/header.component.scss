@@ -1,21 +1,67 @@
 @use "../../styles/mixins.scss" as *;
+$inputHeight: 3.5rem;
 
 main {
     justify-self: center;
-    width: 99%;
-    height: 95%;
-    @include standard-flex(space-between);
+    width: 100%;
+    height: 100%;
+    @include standard-flex(space-between, end);
 
     .logo-container {
-        @include standard-flex();
+        @include standard-flex(flex-start);
         width: 20%;
+        gap: 1rem;
+        >img {
+            margin-left: 2rem;
+            width: 15%;
+        }
+        >span {
+            font-size: 2rem;
+            font-weight: bold;
+        }
     }
+
     .find-container {
+        position: relative;
         flex: 1;
+        @include standard-flex();
+
+        >input {
+            width: 100%;
+            height: $inputHeight;
+            padding-left: 2rem;
+            font-size: 2rem;
+            border-radius: 24px;
+            border: unset;
+        }
+        >div {
+            position: absolute;
+            right: 2rem;
+            top: $inputHeight / 4;
+            >img {
+                width: $inputHeight / 2;
+            }
+        }
     }
+
     .profile-container {
-        
         @include standard-flex(end);
+        gap: 1rem;
         width: 20%;
+
+        >span {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .avatar {
+            width: 4rem;
+            border-radius: 50%;
+        }
+
+        .menu-icon {
+            margin-right: 2rem;
+        }
+        
     }
 }

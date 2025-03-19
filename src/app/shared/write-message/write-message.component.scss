@@ -67,7 +67,7 @@ section{
     border-bottom-right-radius: 20px;
     border: 1px solid #ADB0D9;
     background-color: white;
-    top: -20rem;
+    bottom: 8rem;
     left: 3rem;
     max-height: 19rem;
     padding: 0.5rem 1rem;
@@ -91,6 +91,30 @@ section{
     }
     &:hover{
         background-color: #ECEEFE;
+    }
+}
+
+.emoji-container{
+    position: absolute;
+    -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: 1px solid #ADB0D9;
+    background-color: white;
+    bottom: 8rem;
+    left: 3rem;
+    max-height: 2rem;
+    padding: 0.5rem 1rem;
+    @include standard-flex();
+    gap: 1rem;
+}
+
+.emoji-item{
+    cursor: pointer;
+    &:hover{
+        scale: 1.1;
     }
 }
 

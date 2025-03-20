@@ -37,9 +37,6 @@
 
 .name-container,
 .description-container {
-    border: 1px solid #ADB0D9;
-    border-radius: 20px;
-    padding: 1rem;
     margin-bottom: 1rem;
     @include standard-flex(flex-start, flex-start);
     flex-direction: column;
@@ -49,6 +46,12 @@
         @include standard-flex(space-between);
         width: 100%;
     }
+}
+
+.border{
+    border: 1px solid #ADB0D9;
+    border-radius: 20px;
+    padding: 1rem;
 }
 
 .title {
@@ -95,4 +98,15 @@ h3 {
             cursor: pointer;
         }
     }
+}
+
+.edit-textarea{
+    border: 1px solid #ADB0D9;
+    border-radius: 20px;
+    padding: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    font-family: 'Nunito';
+    resize: none;
+    outline: 1px solid #ADB0D9;
 }

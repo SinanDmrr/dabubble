@@ -4,19 +4,38 @@
             <h2># Entwicklerteam</h2>
             <img src="assets/icons/close.png" alt="" (click)="closeEdit()">
         </div>
-        <div class="name-container">
+        <div class="name-container" [ngClass] = "{'border': !titleEdit}">
             <div>
                 <span class="title">Channel-Name</span>
-                <span class="edit-button">Bearbeiten</span>
+                @if(!titleEdit){
+                    <span class="edit-button" (click)="editTitle()">Bearbeiten</span>
+                } @else {
+                    <span class="edit-button" (click)="saveTitle()">Speichern</span>
+                }
+                
             </div>
-            <span># Entwicklerteam</span>
+            @if(!titleEdit){
+                <span># Entwicklerteam</span>
+            } @else {
+                <textarea rows="1" class="edit-textarea" name="" id=""># Entwicklerteam</textarea>
+            }
+            
         </div>
-        <div class="description-container">
+        <div class="description-container" [ngClass] = "{'border': !descriptionEdit}">
             <div>
                 <span class="title">Beschreibung</span>
-                <span class="edit-button">Bearbeiten</span>
+                @if(!descriptionEdit){
+                    <span class="edit-button" (click)="editDescription()">Bearbeiten</span>
+                } @else {
+                    <span class="edit-button" (click)="saveDescription()">Speichern</span>
+                }
             </div>
-            <span class="description">Dieser Channel ist für alles rund um #dfsdf vorgesehen. Hier kannst du zusammen mit deinem Team Meetings abhalten, Dokumente teilen und Entscheidungen treffen.</span>
+            @if(!descriptionEdit){
+                <span class="description">Dieser Channel ist für alles rund um #dfsdf vorgesehen. Hier kannst du zusammen mit deinem Team Meetings abhalten, Dokumente teilen und Entscheidungen treffen.</span>
+            } @else {
+                <textarea class="edit-textarea" name="" id="">Dieser Channel ist für alles rund um #dfsdf vorgesehen. Hier kannst du zusammen mit deinem Team Meetings abhalten, Dokumente teilen und Entscheidungen treffen.</textarea>
+            }
+            
             <span class="title">Erstellt von</span>
             <h3>Noah Braun</h3>
         </div>

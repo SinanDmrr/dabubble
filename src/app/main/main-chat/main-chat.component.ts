@@ -1,44 +1,102 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { WriteMessageComponent } from '../../shared/write-message/write-message.component';
 import { ChannelsService } from '../../services/channels.service';
 import { Observable } from 'rxjs';
 import { IChannels } from '../../interfaces/ichannels';
 import { EditChannelComponent } from './edit-channel/edit-channel.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-main-chat',
   standalone: true,
-  imports: [WriteMessageComponent, EditChannelComponent],
+  imports: [WriteMessageComponent, EditChannelComponent, FormsModule],
   templateUrl: './main-chat.component.html',
   styleUrl: './main-chat.component.scss'
 })
 export class MainChatComponent {
   messages: string[] = [];
   editOpen: boolean = false;
+
+  members: string[] = ["Frederik Beck (Du)", "Sofia Müller"];
+
   membersOpen: boolean = false;
-  exampleMembers: string [] = ["Frederik Beck (Du)", "Sofia Müller", "Noah Braun", "Elise Roth", "Elias Neumann", "Steffen Hoffmann"]
-  constructor(private channelService: ChannelsService){
-    
+  addMemberOpen: boolean = false;
+  memberToAdd: string = "";
+  membersAdded: string[] = [];
+  exampleMembers: string[] = ["Frederik Beck (Du)", "Sofia Müller", "Noah Braun", "Elise Roth", "Elias Neumann", "Steffen Hoffmann"];
+  inputValid = false;
+  constructor(private channelService: ChannelsService) {
+
   }
 
-  addMessage(newMessage: string){
+  addMessage(newMessage: string) {
     this.messages.push(newMessage);
   }
 
-  openEdit(){
+  openEdit() {
     this.editOpen = true;
   }
 
-  closeEdit(){
+  closeEdit() {
     this.editOpen = false;
   }
 
-  openMembers(){
+  openMembers() {
     this.membersOpen = true;
   }
 
-  closeMembers(){
+  closeMembers() {
     this.membersOpen = false;
+  }
+
+  openAddMember() {
+    this.addMemberOpen = true;
+  }
+
+  closeAddMember() {
+    this.addMemberOpen = false;
+    this.membersAdded = [];
+    this.memberToAdd = "";
+  }
+
+  addToMembers(){
+    this.membersAdded.forEach(newMember => {
+      this.members.push(newMember);
+    });
+    this.closeAddMember();
+  }
+
+  addToMembersAdded(newMember?: string){
+    if(newMember){
+      this.membersAdded.push(newMember);
+    } else {
+      this.membersAdded.push(this.memberToAdd);
+    }
+    
+    this.memberToAdd = "";
+  }
+
+  deleteFromMembersAdded(member: string) {
+    let index = this.membersAdded.indexOf(member);
+    if (index !== -1) {
+      this.membersAdded.splice(index, 1);
+    }
+  }
+
+  getFilteredMembers(){
+    let filteredMembers = this.exampleMembers;
+    filteredMembers = filteredMembers.filter(member =>
+      member.toLowerCase().includes(this.memberToAdd.toLowerCase()) && !this.membersAdded.includes(member) && !this.members.includes(member)
+    );
+    return filteredMembers;
+  }
+
+  checkIfInputValid(): boolean {
+    if(this.membersAdded.length>0){
+      return true
+    } else {
+      return false;
+    }
   }
 
   bubblingProtection(event: any) {

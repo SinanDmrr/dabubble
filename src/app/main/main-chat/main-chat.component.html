@@ -5,47 +5,92 @@
                 <h2># Entwicklerteam</h2>
                 <img src="assets/icons/keyboard_arrow_down.png" alt="">
             </div>
-            <div class="user-container" (click)="openMembers()">
-                <div class="avatars-container">
-                    <div class="avatar">
-                        <img src="assets/avatars/avatar_1.png" alt="">
-                    </div>
-                    <div class="avatar">
-                        <img src="assets/avatars/avatar_1.png" alt="">
-                    </div>
-                    <div class="avatar">
-                        <img src="assets/avatars/avatar_1.png" alt="">
-                    </div>
-                    <span>3</span>
+            <div class="user-container">
+                <div class="avatars-container" (click)="openMembers()">
+                    @for (member of members; track $index) {
+                        <div class="avatar">
+                            <img src="assets/avatars/avatar_1.png" alt="">
+                        </div>
+                    }
+                    <span>{{members.length}}</span>
                 </div>
-                <div class="person-add-btn">
+                <div class="person-add-btn" (click)="openAddMember()">
                     <img src="assets/icons/person_add.png" alt="">
                 </div>
 
                 @if(membersOpen){
-                    <div class="bg" (click)="closeMembers(); bubblingProtection($event)" ></div>
-                    <div class="members-container" (click)="bubblingProtection($event)">
-                        <div class="member-header">
-                            <h2>Mitglieder</h2>
-                            <img class="close-button" src="assets/icons/close.png" alt="" (click)="closeMembers(); bubblingProtection($event)">
+                <div class="bg" (click)="closeMembers()"></div>
+                <div class="members-container" (click)="bubblingProtection($event)">
+                    <div class="member-header">
+                        <h2>Mitglieder</h2>
+                        <img class="close-button" src="assets/icons/close.png" alt="" (click)="closeMembers()">
+                    </div>
+                    <div class="member-list">
+                        @for (member of members; track $index) {
+                        <div class="member-item">
+                            <img src="assets/avatars/avatar_1.png" alt="">
+                            <span>{{member}}</span>
                         </div>
-                        <div class="member-list">
-                            @for (member of exampleMembers; track $index) {
-                            <div class="member-item">
-                                <img src="assets/avatars/avatar_1.png" alt="">
-                                <span>{{member}}</span>
+                        }
+                        <div class="add-member">
+                            <div>
+                                <img src="assets/icons/person_add.png" alt="">
+                            </div>
+                            <span>Mitglieder hinzufügen</span>
+                        </div>
+                    </div>
+
+                </div>
+                }
+
+                @if(addMemberOpen){
+                <div class="bg" (click)="closeAddMember(); bubblingProtection($event)"></div>
+                <div class="add-member-container">
+                    <div class="add-member-header">
+                        <h2>Mitglieder hinzufügen</h2>
+                        <img class="close-button" src="assets/icons/close.png" alt=""
+                            (click)="closeAddMember(); bubblingProtection($event)">
+                    </div>
+                    <span class="channel-name"># Entwicklerteam</span>
+                    <div class="input-container">
+                        @for (member of membersAdded; track $index) {
+                        <div class="added-member-container">
+                            <img class="avatar" src="assets/avatars/avatar_1.png" alt="">
+                            <span>{{member}}</span>
+                            <img class="close-button-small" src="assets/icons/close.png" alt=""
+                                (click)="deleteFromMembersAdded(member)">
+                        </div>
+                        }
+                        <div class="input-wrapper">
+                            <input [(ngModel)]="memberToAdd" type="text" placeholder="Name eingeben">
+                            @if(memberToAdd.length>0){
+                            <div class="suggestion-container">
+
+                                @if (getFilteredMembers().length > 0) {
+                                @for (member of getFilteredMembers(); track $index) {
+                                <div class="suggestion-member-item" (click)="addToMembersAdded(member)">
+                                    <img src="assets/avatars/avatar_1.png" alt="">
+                                    <span>{{member}}</span>
+                                </div>
+                                }
+                                } @else {
+                                <span>Keine Übereistimmung gefunden</span>
+                                }
+
                             </div>
                             }
-                            <div class="add-member">
-                                <div>
-                                    <img src="assets/icons/person_add.png" alt="">
-                                </div>
-                                <span>Mitglieder hinzufügen</span>
-                            </div>
                         </div>
-                
                     </div>
-                    }
+                    <div class="add-button-container">
+                        @if(checkIfInputValid()){
+                            <button (click)="addToMembers()">Hinzufügen</button>
+                        } @else {
+                            <button disabled>Hinzufügen</button>
+                        }
+                      
+                    </div>
+                </div>
+                }
             </div>
         </div>
     </header>

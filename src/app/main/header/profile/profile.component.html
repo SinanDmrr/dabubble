@@ -1,0 +1,54 @@
+<main (click)="$event.stopPropagation()">
+
+    @if (currentProfileView == "startView") {
+    <div class="choose-container">
+        <span (click)="changeView('editView')">Profil</span>
+        <span (click)="logout()">Logout</span>
+    </div>
+    }
+
+    @if (currentProfileView == "editView") {
+    <div class="profile-container">
+        <div class="profile-head">
+            <span>Profil</span>
+            <img (click)="closeMe()" src="assets/icons/close.png">
+        </div>
+        <img src="{{currentUser?.picture}}" alt="">
+        <div class="profile-name">
+            <h2>{{currentUser?.name}}</h2>
+            <span (click)="changeView('editName')">Bearbeiten</span>
+        </div>
+        <div class="status" >
+            <span class="status-indicator" [ngClass]="{'online': currentUser?.onlineStatus}"></span>
+            {{currentUser?.onlineStatus ? "Aktiv" : "Offline"}}
+        </div>
+        <div class="mail-container">
+            <img src="assets/icons/mail.png" alt="mail-icon">
+            <div>
+                <h3>E-Mail-Adresse</h3>
+                <a href="mailto:{{currentUser?.email}}">{{currentUser?.email}}</a>
+            </div>
+        </div>
+    </div>
+    }
+
+    @if (currentProfileView == "editName") {
+    <div class="profile-container">
+        <div class="profile-head">
+            <span>Dein Profil bearbeiten</span>
+            <img (click)="closeMe()" src="assets/icons/close.png">
+        </div>
+        <img src="{{currentUser?.picture}}" alt="">
+        <div>
+            <img src="assets/icons/directmessage_Icon.png">
+            <span>Vollständiger Name</span>
+        </div>
+        <input type="text" [(ngModel)]="newUsername" name="changeUser" >
+        <div class="confirmation-buttons">
+            <button type="button" class="" (click)="cancelChangeUsername()">Abbrechen</button>
+            <button type="button" class="" (click)="changeUsername()">Speichern</button>
+        </div>
+    </div>
+    }
+
+</main>

@@ -28,6 +28,10 @@ export class LoginComponent {
     this.authService.loginWithEmailAndPassword("sascha@keinelust.de", "keinelust");
   }
 
+  guestLogin() {
+    this.authService.forceLogin();
+  }
+
   loginGoogle() {
     this.authService.loginWithGoogleAccount();
   }

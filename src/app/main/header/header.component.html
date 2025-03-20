@@ -9,10 +9,14 @@
             <img src="assets/icons/search.png" alt="">
         </div>
     </div>
-    <div class="profile-container">
-        <span>{{dummyUser?.name}}</span>
-        <img class="avatar" src="assets/avatars/avatar_1.png" alt="profile-picture">
+    <div (click)="openProfilePopup($event)" class="profile-container">
+        <span>{{currentUser?.name}}</span>
+        <img class="avatar" src={{currentUser?.picture}} alt="profile-picture">
         <img class="menu-icon" src="assets/icons/keyboard_arrow_down.png" alt="menu">
     </div>
+
+    @if (isProfilePopupOpen) {
+        <app-profile (closePopup)="closeProfilePopup()"></app-profile>
+    }
 
 </main>

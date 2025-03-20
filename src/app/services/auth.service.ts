@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, EmailAuthProvider, getAuth, GoogleAuthProvider, onAuthStateChanged, reauthenticateWithCredential, signInAnonymously, signInWithEmailAndPassword, signInWithPopup, updatePassword, updateProfile } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, EmailAuthProvider, getAuth, GoogleAuthProvider, onAuthStateChanged, reauthenticateWithCredential, signInAnonymously, signInWithEmailAndPassword, signInWithPopup, signOut, updatePassword, updateProfile } from '@angular/fire/auth';
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from './user.service';
 import { IUser } from '../interfaces/iuser';
@@ -136,5 +136,10 @@ export class AuthService {
       console.error('Error updating password:', error);
       throw error; // Propagate the error to the caller
     }
+  }
+
+  async logout() {
+    await signOut(this.auth);
+    this.authSubject.next(false);
   }
 }

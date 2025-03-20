@@ -4,38 +4,77 @@ $headHeight: 8vh;
 $contentHeight: 95%;
 
 main {
-    background-color: #ECEEFE;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+  background-color: #eceefe;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 
-    >app-header {
-        @include standard-flex();
-        width: 100%;
-        height: $headHeight;
+  > app-header {
+    @include standard-flex();
+    width: 100%;
+    height: $headHeight;
+  }
+
+  .main-page-wrapper {
+    @include standard-flex(space-between);
+    flex: 1;
+
+    > app-dev-space {
+      @include standard-flex();
+      width: 20%;
+      height: $contentHeight;
+      transition: width 0.3s ease;
+      overflow: hidden;
+
+      &.hidden {
+        width: 0;
+      }
     }
 
-    .main-page-wrapper {
-        @include standard-flex(space-between);
-        flex: 1;
+    #sidebar {
+      position: fixed;
+      bottom: 2rem;
+      left: 0;
+      z-index: 10;
+      border: 1px solidblack;
 
-        >app-dev-space {
-            @include standard-flex();
-            width: 20%;
-            height: $contentHeight;
+      .sidebar-icon {
+        height: 16rem;
+        width: 3rem;
+        background-image: url("/assets/images/menu_close.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        transition: all 0.2s ease;
+        cursor: pointer;
+
+        &:hover {
+          background-image: url("/assets/images/menu_close_hover.png");
         }
 
-        .routing-content {
-            display: flex;
-            flex-direction: column;
-            height: $contentHeight;
-            flex: 1;
-        }
+        &.main-hidden {
+          background-image: url("/assets/images/menu_open.png");
 
-        >app-thread-chat {
-            @include standard-flex();
-            width: 20%;
-            height: $contentHeight;
+          &:hover {
+            background-image: url("/assets/images/menu_open_hover.png");
+          }
         }
+      }
     }
+
+    .routing-content {
+      display: flex;
+      flex-direction: column;
+      height: $contentHeight;
+      flex: 1;
+      &.padded {
+        padding-left: 1rem;
+      }
+    }
+
+    > app-thread-chat {
+      @include standard-flex();
+      width: 20%;
+      height: $contentHeight;
+    }
+  }
 }

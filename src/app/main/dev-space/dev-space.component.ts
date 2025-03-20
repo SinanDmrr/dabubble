@@ -9,7 +9,6 @@ import { RouterModule } from '@angular/router';
   styleUrl: './dev-space.component.scss',
 })
 export class DevSpaceComponent {
-  isMainVisible = true;
   isChannelsExpanded = true;
   isMessagesExpanded = true;
 
@@ -26,7 +25,7 @@ export class DevSpaceComponent {
     {
       id: 1,
       name: 'Anna Müller',
-      online: true,
+      onlineStatus: true,
       imgPath: '/assets/avatars/avatar_1_round.png',
     },
     {
@@ -48,10 +47,6 @@ export class DevSpaceComponent {
       imgPath: '/assets/avatars/avatar_5_round.png',
     },
   ];
-
-  toggleMainVisibility() {
-    this.isMainVisible = !this.isMainVisible;
-  }
 
   toggleChannels() {
     this.isChannelsExpanded = !this.isChannelsExpanded;

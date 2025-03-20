@@ -1,6 +1,262 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+$primary-font-color: #535af1;
+$primary-bg-color: #eceefe;
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  li {
+    margin-left: 1rem;
+    list-style-type: none;
+
+    display: inline-block;
+    transition: all 0.2s ease;
+    border-radius: 2rem;
+    padding: 0.2rem 0.5rem;
+
+    &:hover {
+      cursor: pointer;
+      color: $primary-font-color;
+      font-weight: 700;
+      border-radius: 2rem;
+      padding: 0.2rem;
+      background-color: $primary-bg-color;
+      transform: scale(1.05);
+    }
+  }
+}
+
+.rotated {
+  transform: rotate(-90deg);
+}
+
+//------------- ↑ Global Styling ↑ --------------
+
+#sidebar {
+  position: fixed;
+  bottom: 2rem;
+  left: 0;
+  z-index: 10;
+  border: 1px solidblack;
+
+  .sidebar-icon {
+    height: 16rem;
+    width: 3rem;
+    background-image: url("/assets/images/menu_close.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+      background-image: url("/assets/images/menu_close_hover.png");
+    }
+
+    &.main-hidden {
+      background-image: url("/assets/images/menu_open.png");
+
+      &:hover {
+        background-image: url("/assets/images/menu_open_hover.png");
+      }
+    }
+  }
+}
 main {
-    width: 90%;
-    height: 100%;
-    border-radius: 16px;
-    background-color: white;
+  width: 90%;
+  height: 100%;
+  border-radius: 16px;
+  background-color: white;
+  #padding-container {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    #header-section {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      img {
+        object-fit: contain;
+        width: 3rem;
+        aspect-ratio: 1/1;
+      }
+      a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .edit-icon {
+          width: 1.2rem;
+          height: 1.2rem;
+          background-image: url("/assets/icons/edit_icon.png");
+          background-size: contain;
+          background-repeat: no-repeat;
+          transition: all 0.2s ease;
+          position: relative;
+          &:hover {
+            background-image: url("/assets/icons/edit_icon_hover.png");
+            &::before {
+              content: "";
+              position: absolute;
+              width: 2rem;
+              height: 2rem;
+              background-color: rgba(128, 128, 128, 0.2);
+              border-radius: 50%;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
+          }
+        }
+      }
+    }
+
+    #channels-section {
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        #section-header-left {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+
+          .drop-down-icon {
+            width: 2rem;
+            height: 2rem;
+            background-image: url("/assets/icons/arrow_drop_down_icon.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            transition: all 0.2s ease;
+          }
+
+          .channels-icon {
+            width: 1rem;
+            height: 1rem;
+            background-image: url("/assets/icons/channels_icon.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            transition: all 0.2s ease;
+          }
+
+          h3 {
+            margin: 0;
+            color: #000;
+            transition: color 0.2s ease;
+          }
+
+          &:hover {
+            .drop-down-icon {
+              background-image: url("/assets/icons/arrow_drop_down_icon_hover.png");
+            }
+            .channels-icon {
+              background-image: url("/assets/icons/channels_icon_hover.png");
+            }
+            h3 {
+              color: $primary-font-color;
+            }
+          }
+        }
+      }
+      .add-icon {
+        width: 0.8rem;
+        height: 0.8rem;
+        background-image: url("/assets/icons/add_icon.png");
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        &:hover {
+          background-image: url("/assets/icons/add_icon_hover.png");
+          transform: scale(1.5);
+          &::before {
+            content: "";
+            position: absolute;
+            width: 1rem;
+            height: 1rem;
+            background-color: rgba(128, 128, 128, 0.2);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+    }
+  }
+
+  #directmessages-section {
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      #section-header-left {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .drop-down-icon {
+          width: 2rem;
+          height: 2rem;
+          background-image: url("/assets/icons/arrow_drop_down_icon.png");
+          background-size: contain;
+          background-repeat: no-repeat;
+          transition: all 0.2s ease;
+        }
+
+        .channels-icon {
+          width: 1rem;
+          height: 1rem;
+          background-image: url("/assets/icons/channels_icon.png");
+          background-size: contain;
+          background-repeat: no-repeat;
+          transition: all 0.2s ease;
+        }
+
+        h3 {
+          margin: 0;
+          color: #000;
+          transition: color 0.2s ease;
+        }
+
+        &:hover {
+          .drop-down-icon {
+            background-image: url("/assets/icons/arrow_drop_down_icon_hover.png");
+          }
+          .channels-icon {
+            background-image: url("/assets/icons/channels_icon_hover.png");
+          }
+          h3 {
+            color: #535af1;
+          }
+        }
+      }
+    }
+    .section-content {
+      .messages {
+        display: flex;
+        align-items: center;
+        #img-container {
+          position: relative;
+          #user-icon {
+            height: 3rem;
+            aspect-ratio: 1/1;
+          }
+          #online-status {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            height: 1rem;
+            aspect-ratio: 1/1;
+          }
+        }
+      }
+    }
+  }
 }

@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInAnonymously, signInWithEmailAndPassword, signInWithPopup, updateProfile } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, EmailAuthProvider, getAuth, GoogleAuthProvider, onAuthStateChanged, reauthenticateWithCredential, signInAnonymously, signInWithEmailAndPassword, signInWithPopup, updatePassword, updateProfile } from '@angular/fire/auth';
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from './user.service';
 import { IUser } from '../interfaces/iuser';
@@ -96,5 +96,45 @@ export class AuthService {
       onlineStatus: true,
     }
     this.userService.addUser(newUser);
+  }
+
+  // Neue Methode: Erneute Authentifizierung
+  async reauthenticate(currentPassword: string) {
+    const user = this.auth.currentUser;
+    if (user && user.email) {
+      const credential = EmailAuthProvider.credential(user.email, currentPassword);
+      try {
+        await reauthenticateWithCredential(user, credential);
+        console.log('Erneute Authentifizierung erfolgreich');
+      } catch (error) {
+        console.error('Fehler bei der erneuten Authentifizierung:', error);
+        throw error;
+      }
+    } else {
+      console.error('Kein Benutzer angemeldet oder keine E-Mail vorhanden');
+      throw new Error('Kein Benutzer angemeldet oder keine E-Mail vorhanden');
+    }
+  }
+
+  // Neue Methode: Passwort ändern
+  async changePassword(currentPassword: string, newPassword: string) {
+    try {
+      // Step 1: Get the current user
+      const user = this.auth.currentUser;
+
+      if (!user) {
+        throw new Error('No user is currently signed in');
+      }
+
+      // Step 2: (Optional) Reauthenticate the user if required
+      await this.reauthenticate(currentPassword); // Uncomment if reauthentication is implemented
+
+      // Step 3: Update the password
+      await updatePassword(user, newPassword);
+      console.log('Password updated successfully');
+    } catch (error) {
+      console.error('Error updating password:', error);
+      throw error; // Propagate the error to the caller
+    }
   }
 }

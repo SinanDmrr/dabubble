@@ -13,7 +13,6 @@ export class WriteMessageComponent {
   exampleChannels = ["Allgemein", "Entwickler-Team", "Office-Team"];
   emojis = ['😊', '😂', '❤️', '👍', '🎉', '✨', '🌍', '🍕', '🌟', '🚀'];
 
-  showTagList = false;
   showUserList = false;
   showChannelList = false;
   showEmojiList = false;
@@ -33,7 +32,6 @@ export class WriteMessageComponent {
   }
 
   openTagList(listToOpen: string) {
-    this.showTagList = true;
     if (listToOpen == "channel") {
       this.showChannelList = true;
     } else if (listToOpen == "user") {
@@ -46,7 +44,6 @@ export class WriteMessageComponent {
   }
 
   closeTagList() {
-    this.showTagList = false;
     this.showUserList = false;
     this.showChannelList = false;
   }

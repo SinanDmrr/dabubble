@@ -1,6 +1,7 @@
 <section (click)="closeTagList(); closeEmojiList()">
     <div class="message-wrapper">
-        <textarea id="textArea" [(ngModel)]="message" type="text" rows="5" placeholder="Nachricht an #Entwicklerteam" (keyup)="checkForAt($event); checkForHash($event)" (keydown)="checkBackspace($event)"></textarea>
+        <textarea id="textArea" [(ngModel)]="message" type="text" rows="5" placeholder="Nachricht an #Entwicklerteam"
+            (keydown)="checkForAt($event); checkForHash($event); checkBackspace($event)"></textarea>
         <img class="send-btn" src="assets/icons/send.png" alt="" (click)="sendMessage()">
         <div class="emoji-btn" (click)="bubblingProtection($event); openEmojiList()">
             <img src="assets/icons/emoji.png" alt="">
@@ -10,35 +11,38 @@
         </div>
     </div>
 
-    @if(showTagList && (startListeningAt || startListeningHash)){
+    @if(showUserList && getFilteredUserList().length > 0){
     <div class="tag-container">
         <div class="tag-wrapper">
-            @if(showUserList){
-                @for (user of getFilteredUserList(); track $index) {
-                    <div class="tag-item" (click)="tagUser(user)">
-                        <img src="assets/avatars/avatar_1.png" alt="">
-                        <span>{{user}}</span>
-                    </div>
-                    }
-            } 
-            @if (showChannelList){
-                @for (channel of getFilteredChannelList(); track $index) {
-                    <div class="tag-item" (click)="tagChannel(channel)">
-                        <span>#</span>
-                        <span>{{channel}}</span>
-                    </div>
-                    }
+            @for (user of getFilteredUserList(); track $index) {
+            <div class="tag-item" (click)="tagUser(user)">
+                <img src="assets/avatars/avatar_1.png" alt="">
+                <span>{{user}}</span>
+            </div>
             }
-           
         </div>
     </div>
     }
-    
-    @if(showEmojiList){
-        <div class="emoji-container">
-            @for (emoji of emojis; track $index) {
-                <span class="emoji-item" (click)="addEmoji(emoji)">{{emoji}}</span>
+
+    @if(showChannelList && getFilteredChannelList().length > 0){
+    <div class="tag-container">
+        <div class="tag-wrapper">
+            @for (channel of getFilteredChannelList(); track $index) {
+            <div class="tag-item" (click)="tagChannel(channel)">
+                <span>#</span>
+                <span>{{channel}}</span>
+            </div>
             }
+
         </div>
+    </div>
+    }
+
+    @if(showEmojiList){
+    <div class="emoji-container">
+        @for (emoji of emojis; track $index) {
+        <span class="emoji-item" (click)="addEmoji(emoji)">{{emoji}}</span>
+        }
+    </div>
     }
 </section>

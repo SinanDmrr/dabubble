@@ -33,4 +33,8 @@ export class EditChannelComponent {
   saveDescription(){
     this.descriptionEdit = false;
   }
+
+  bubblingProtection(event: any) {
+    event.stopPropagation();
+  }
 }

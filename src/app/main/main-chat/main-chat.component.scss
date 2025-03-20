@@ -12,7 +12,7 @@ main {
     background-color: white;
 }
 
-h2{
+h2 {
     margin: 0;
 }
 
@@ -33,10 +33,12 @@ header {
     padding: 0.5rem 1rem;
     gap: 1rem;
     cursor: pointer;
+    position: relative;
 }
 
-.channel-name-container, .avatars-container{
-    &:hover{
+.channel-name-container,
+.avatars-container {
+    &:hover {
         background-color: #ECEEFE;
         border-radius: 5rem
     }
@@ -45,7 +47,8 @@ header {
 .avatars-container {
     @include standard-flex();
     padding: 0.25rem 0.5rem;
-    span{
+
+    span {
         padding-left: 2rem;
     }
 }
@@ -61,14 +64,15 @@ header {
     }
 }
 
-.person-add-btn{
+.person-add-btn {
     @include standard-flex();
     background-color: #ECEEFE;
     border-radius: 50%;
     height: 40px;
     width: 40px;
-    &:hover{
-        img{
+
+    &:hover {
+        img {
             scale: 1.1;
         }
     }
@@ -80,7 +84,92 @@ header {
 
 .message-container {
     width: 100%;
-    margin-bottom: 2rem;   
+    margin-bottom: 2rem;
 }
 
+.bg{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.375);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    cursor: default;
+}
 
+.members-container {
+    position: absolute;
+    z-index: 2;
+    top: 5rem;
+    right: 5rem;
+    background-color: white;
+    border-radius: 20px 0 20px 20px;
+    @include standard-flex(flex-start, flex-start);
+    gap: 1rem;
+    flex-direction: column;
+    -webkit-box-shadow: 0px 6px 10px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 6px 10px 0px rgba(0,0,0,0.2);
+    padding: 2rem;
+    width: 20rem;
+    cursor: default;
+}
+
+.member-header{
+    @include standard-flex(space-between);
+    width: 100%;
+}
+
+.close-button{
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 0.5rem;
+    &:hover {
+        content: url("../../../assets/icons/close_hover.png");
+        background-color: #ECEEFE;
+        transition: background-color 0.1s ease-in-out;
+    }
+}
+
+.member-list{
+    @include standard-flex(flex-start, flex-start);
+    flex-direction: column;
+}
+
+.member-item{
+    @include standard-flex(flex-start, center);
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    img{
+        border-radius: 50%;
+    }
+    &:hover{
+        background-color: #ECEEFE;
+        border-radius: 10rem
+    }
+}
+
+.add-member{
+    @include standard-flex(center, center);
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    div{
+        @include standard-flex(center, center);
+        background-color: #ECEEFE;
+        width: 1rem;
+        height: 1rem;
+        padding: 1rem;
+        border-radius: 50%;
+    }
+
+    &:hover{
+        background-color: #ECEEFE;
+        border-radius: 10rem;
+        color: #797FF4;
+        img{
+            content: url("../../../assets/icons/person_add_hover.png");
+        }
+    }
+}

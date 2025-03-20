@@ -5,7 +5,7 @@
                 <h2># Entwicklerteam</h2>
                 <img src="assets/icons/keyboard_arrow_down.png" alt="">
             </div>
-            <div class="user-container">
+            <div class="user-container" (click)="openMembers()">
                 <div class="avatars-container">
                     <div class="avatar">
                         <img src="assets/avatars/avatar_1.png" alt="">
@@ -21,14 +21,38 @@
                 <div class="person-add-btn">
                     <img src="assets/icons/person_add.png" alt="">
                 </div>
+
+                @if(membersOpen){
+                    <div class="bg" (click)="closeMembers(); bubblingProtection($event)" ></div>
+                    <div class="members-container" (click)="bubblingProtection($event)">
+                        <div class="member-header">
+                            <h2>Mitglieder</h2>
+                            <img class="close-button" src="assets/icons/close.png" alt="" (click)="closeMembers(); bubblingProtection($event)">
+                        </div>
+                        <div class="member-list">
+                            @for (member of exampleMembers; track $index) {
+                            <div class="member-item">
+                                <img src="assets/avatars/avatar_1.png" alt="">
+                                <span>{{member}}</span>
+                            </div>
+                            }
+                            <div class="add-member">
+                                <div>
+                                    <img src="assets/icons/person_add.png" alt="">
+                                </div>
+                                <span>Mitglieder hinzufügen</span>
+                            </div>
+                        </div>
+                
+                    </div>
+                    }
             </div>
         </div>
     </header>
 
     @if(editOpen){
-        <app-edit-channel (close)="closeEdit()"></app-edit-channel>
+    <app-edit-channel (close)="closeEdit()"></app-edit-channel>
     }
-
 
     <div class="chat-container">
         main

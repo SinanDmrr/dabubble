@@ -15,6 +15,8 @@ import { EditChannelComponent } from './edit-channel/edit-channel.component';
 export class MainChatComponent {
   messages: string[] = [];
   editOpen: boolean = false;
+  membersOpen: boolean = false;
+  exampleMembers: string [] = ["Frederik Beck (Du)", "Sofia Müller", "Noah Braun", "Elise Roth", "Elias Neumann", "Steffen Hoffmann"]
   constructor(private channelService: ChannelsService){
     
   }
@@ -29,5 +31,17 @@ export class MainChatComponent {
 
   closeEdit(){
     this.editOpen = false;
+  }
+
+  openMembers(){
+    this.membersOpen = true;
+  }
+
+  closeMembers(){
+    this.membersOpen = false;
+  }
+
+  bubblingProtection(event: any) {
+    event.stopPropagation();
   }
 }

@@ -4,6 +4,10 @@
     height: 100%;
 }
 
+app-profile{
+    position: absolute
+}
+
 main {
     @include standard-flex(flex-start, flex-start);
     flex-direction: column;

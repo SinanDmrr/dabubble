@@ -1,0 +1,35 @@
+<div class="bg" (click)="closeProfile()">
+    <div class="profile-container" (click)="bubblingProtection($event)">
+        <div class="profile-header">
+            <h3>Profil</h3>
+            <img src="assets/icons/close.png" alt="" (click)="closeProfile()">
+        </div>
+        <div class="profile-img-container">
+            <img class="profile-img" src="{{user.picture}}" alt="">
+        </div>
+        <h2>{{user.name}}</h2>
+        @if(user.onlineStatus){
+            <div class="active-container">
+                <div class="point green"></div>
+                <span>Aktiv</span>
+            </div>
+        } @else {
+            <div class="active-container">
+                <div class="point red"></div>
+                <span>Inaktiv</span>
+            </div>
+        }
+        <div class="mail-container">
+            <img src="assets/icons/mail.png" alt="">
+            <span>E-Mail-Adresse</span>s
+        </div>
+        <div class="mail-container">
+            <div class="placeholder"></div>
+            <span>{{user.email}}</span>
+        </div>
+        <div class="button-container">
+            <button><img src="assets/icons/message.png" alt="">Nachricht</button>
+        </div>
+    </div>
+    
+</div>

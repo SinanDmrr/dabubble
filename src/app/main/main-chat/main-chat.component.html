@@ -27,12 +27,12 @@
                     </div>
                     <div class="member-list">
                         @for (member of members; track $index) {
-                        <div class="member-item">
+                        <div class="member-item" (click)="openProfile()">
                             <img src="assets/avatars/avatar_1.png" alt="">
                             <span>{{member}}</span>
                         </div>
                         }
-                        <div class="add-member">
+                        <div class="add-member" (click)="goToAddMember()">
                             <div>
                                 <img src="assets/icons/person_add.png" alt="">
                             </div>
@@ -41,6 +41,10 @@
                     </div>
 
                 </div>
+                }
+
+                @if(profileOpen){
+                    <app-profile (close)="closeProfile()"></app-profile>
                 }
 
                 @if(addMemberOpen){

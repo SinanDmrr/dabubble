@@ -5,11 +5,12 @@ import { Observable } from 'rxjs';
 import { IChannels } from '../../interfaces/ichannels';
 import { EditChannelComponent } from './edit-channel/edit-channel.component';
 import { FormsModule } from '@angular/forms';
+import { ProfileComponent } from '../../shared/profile/profile.component';
 
 @Component({
   selector: 'app-main-chat',
   standalone: true,
-  imports: [WriteMessageComponent, EditChannelComponent, FormsModule],
+  imports: [WriteMessageComponent, EditChannelComponent, FormsModule, ProfileComponent],
   templateUrl: './main-chat.component.html',
   styleUrl: './main-chat.component.scss'
 })
@@ -25,6 +26,8 @@ export class MainChatComponent {
   membersAdded: string[] = [];
   exampleMembers: string[] = ["Frederik Beck (Du)", "Sofia Müller", "Noah Braun", "Elise Roth", "Elias Neumann", "Steffen Hoffmann"];
   inputValid = false;
+
+  profileOpen = false;
   constructor(private channelService: ChannelsService) {
 
   }
@@ -57,6 +60,22 @@ export class MainChatComponent {
     this.addMemberOpen = false;
     this.membersAdded = [];
     this.memberToAdd = "";
+  }
+
+  openProfile(){
+    this.closeMembers();
+    this.profileOpen = true;
+  }
+
+  closeProfile(){
+    this.profileOpen = false;
+    this.openMembers();
+  }
+
+
+  goToAddMember(){
+    this.closeMembers();
+    this.openAddMember();
   }
 
   addToMembers(){

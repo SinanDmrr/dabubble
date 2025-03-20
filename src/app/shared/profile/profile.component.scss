@@ -1,0 +1,105 @@
+@use "../../styles/mixins.scss" as *;
+
+.bg {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.375);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    cursor: default;
+}
+
+.profile-container{
+    position: fixed;
+    z-index: 3;
+    background-color: white;
+    top: 25%;
+    left: 35%;
+    width: 30%;
+    @include standard-flex(flex-start, flex-start);
+    gap: 1rem;
+    flex-direction: column;
+    padding: 2rem;
+    border-radius: 20px;
+}
+
+h2{
+    margin: 0;
+}
+
+h3{
+    margin: 0rem 0rem 0.5rem 0rem;
+}
+
+.profile-header{
+    @include standard-flex(space-between);
+    width: 100%;
+    padding-bottom: 1rem;
+    img {
+        cursor: pointer;
+        border-radius: 50%;
+        padding: 0.5rem;
+        &:hover {
+            content: url("../../../assets/icons/close_hover.png");
+            background-color: #ECEEFE;
+            transition: background-color 0.1s ease-in-out;
+        }
+    }
+}
+
+.active-container, .mail-container{
+    @include standard-flex();
+    gap: 1rem;
+}
+
+.profile-img-container{
+    width: 100%;
+    @include standard-flex();
+}
+
+.profile-img{
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+
+.point{
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
+}
+
+.red{
+    background-color: red;
+}
+
+.green{
+    background-color: green;
+}
+
+.placeholder{
+    width: 26px;
+}
+
+.button-container {
+    @include standard-flex();
+    width: 100%;
+    margin-top: 2rem;
+    button {
+        @include standard-flex();
+        gap: 1rem;
+        padding: 0.5rem 1rem;
+        background-color: #444DF2;
+        font-weight: bold;
+        color: white;
+        border-radius: 2rem;
+        border: none;
+
+        &:hover {
+            background-color: #797EF3;
+            cursor: pointer;
+        }
+    }
+}

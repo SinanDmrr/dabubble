@@ -1,0 +1,55 @@
+<div class="popup-overlay" (click)="onCancel()">
+  <div class="popup-content" (click)="$event.stopPropagation()">
+    @if (addChannelFirstWindow) {
+      <div id="header-close">
+        <h2>Channel erstellen</h2>
+        <p (click)="onCancel()">X</p>
+      </div>
+      <p>
+        Channels dienen deinem Team zur Kommunikation. Am besten sollten sie
+        themenbezogen sein #marketing zum Beispiel.
+      </p>
+      <p class="input-p">Channel-Name <span>(pflicht)</span></p>
+      <input
+        class="input-field"
+        type="text"
+        [class.error]="showError && !channelName"
+        placeholder="# z.B. Kooperationsprojekte"
+        [(ngModel)]="channelName"
+      />
+      <p class="input-p">Beschreibung <span>(optional)</span></p>
+      <input
+        class="input-field"
+        type="text"
+        placeholder="Channelbeschreibung hier eingeben"
+      />
+      <button type="button" (click)="switchPopupWindow()">Erstellen</button>
+    } @else {
+      <div id="header-close">
+        <h2>Leute hinzufügen</h2>
+        <p (click)="onCancel()">X</p>
+      </div>
+      <div class="checkbox-group">
+        <label>
+          <input
+            type="radio"
+            name="memberSelection"
+            [value]="true"
+            [(ngModel)]="addAllMembersSelection"
+          />
+          Alle Mitglieder von <span>OfficeTeam</span> hinzufügen
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="memberSelection"
+            [value]="false"
+            [(ngModel)]="addAllMembersSelection"
+          />
+          Bestimmte Leute hinzufügen
+        </label>
+      </div>
+      <button type="button" (click)="createChannel()">Erstellen</button>
+    }
+  </div>
+</div>

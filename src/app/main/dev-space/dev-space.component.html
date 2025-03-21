@@ -17,7 +17,7 @@
           <div class="channels-icon"></div>
           <h3>Channels</h3>
         </div>
-        <div class="add-icon"></div>
+        <div class="add-icon" (click)="openAddChannel()"></div>
       </div>
       @if (isChannelsExpanded) {
         <div class="section-content">
@@ -25,6 +25,14 @@
             @for (channel of channels; track channel.id) {
               <li class="channel"># {{ channel.name }}</li>
             }
+            <li class="add-channel" (click)="openAddChannel()">
+              <img
+                src="../../../assets/icons/add_circle.png"
+                alt="Add Channel"
+                class="add-channel-icon"
+              />
+              <span>Channel hinzufügen</span>
+            </li>
           </ul>
         </div>
       }
@@ -66,4 +74,11 @@
       }
     </div>
   </div>
+
+  @if (showAddChannelPopup) {
+    <app-add-channel
+      (close)="closeAddChannel()"
+      (channelCreated)="onChannelCreated($event)"
+    ></app-add-channel>
+  }
 </main>

@@ -14,6 +14,8 @@ export class SingleMessageComponent {
   @Input() message!: IMessage;
   currentUser!: IUser;
 
+  testvar = "";
+
   reactions: string[] = ['😂', '❤️', '👍', '🚀'];
 
   constructor(private userService: UserService){

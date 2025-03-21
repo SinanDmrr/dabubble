@@ -2,7 +2,7 @@
 
 .single-message-container{
     width: 100%;
-    @include standard-flex(flex-start, center);
+    @include standard-flex(flex-start, flex-start);
     box-sizing: border-box;
     padding: 0.5rem 2rem;
     gap: 2rem;
@@ -22,7 +22,8 @@
 }
 
 .avatar{
-    border-radius: 50%
+    border-radius: 50%;
+    margin-top: 1rem;
 }
 
 .message-wrapper{
@@ -45,7 +46,7 @@
 }
 
 .answers, .author{
-    @include standard-flex(flex-start, flex-start);
+    @include standard-flex(center, center);
     gap: 1rem;
 }
 
@@ -55,6 +56,21 @@
 
 .answer{
     color: #757BF4;
+    &:hover{
+        font-weight: bold;
+    }
+}
+
+.reactions-div{
+    @include standard-flex(center, center);
+    gap: 0.5rem;
+}
+
+.reaction-item{
+    border: 1px solid #ADB0D9;
+    border-radius: 20px;
+    padding: 0.1rem 0.25rem;
+    background-color: white;
 }
 
 .name{
@@ -66,10 +82,18 @@
     border: 1px solid #ADB0D9;
     background-color: white;
     @include standard-flex(flex-start, flex-start);
-    gap: 1rem;
+    gap: 0.5rem;
     padding: 0.5rem 1rem;
     display: none;
     position: absolute;
     top: -1rem;
     right: 0;
+
+    span{
+        padding: 0.5rem;
+        border-radius: 50%;
+        &:hover{
+            background-color: #ECEEFE;
+        }
+    }   
 }

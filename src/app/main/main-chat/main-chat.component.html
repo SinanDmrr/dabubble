@@ -104,11 +104,10 @@
     }
 
     <div class="chat-container">
-        main
-        @for (message of messages; track $index) {
-        <span>{{message}}</span>
-        }
-        <app-single-message></app-single-message>
+        @for (message of iMessages; track $index) {
+            <app-single-message [message]="message"></app-single-message>
+            }
+       
     </div>
 
     <section class="message-container">

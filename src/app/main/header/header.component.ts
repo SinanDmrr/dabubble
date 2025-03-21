@@ -4,12 +4,12 @@ import { ChannelsService } from '../../services/channels.service';
 import { UserService } from '../../services/user.service';
 import { IUser } from '../../interfaces/iuser';
 import { FormsModule } from '@angular/forms';
-import { ProfileComponent } from './profile/profile.component';
+import { UserProfileComponent } from './profile/userprofile.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [FormsModule, ProfileComponent],
+  imports: [FormsModule, UserProfileComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

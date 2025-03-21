@@ -6,13 +6,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'app-userprofile',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+  templateUrl: './userprofile.component.html',
+  styleUrl: './userprofile.component.scss'
 })
-export class ProfileComponent {
+export class UserProfileComponent {
   @Output() closePopup = new EventEmitter<void>();
   currentProfileView = "startView";
   currentUser? : IUser;

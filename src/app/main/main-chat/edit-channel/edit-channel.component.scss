@@ -31,6 +31,7 @@
         &:hover {
             content: url("../../../../assets/icons/close_hover.png");
             background-color: #ECEEFE;
+            transition: background-color 0.1s ease-in-out;
         }
     }
 }
@@ -60,9 +61,9 @@
 
 .edit-button {
     color: #535AF1;
-
     &:hover {
         cursor: pointer;
+        transition: font-weight 0.1s ease-in-out;
         font-weight: bold;
     }
 }
@@ -108,5 +109,5 @@ h3 {
     width: 100%;
     font-family: 'Nunito';
     resize: none;
-    outline: 1px solid #ADB0D9;
+    outline: none;
 }

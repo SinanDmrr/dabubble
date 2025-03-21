@@ -1,5 +1,5 @@
-<div class="bg">
-    <div class="edit-channel-container">
+<div class="bg" (click)="closeEdit()">
+    <div class="edit-channel-container" (click)="bubblingProtection($event)">
         <div class="header">
             <h2># Entwicklerteam</h2>
             <img src="assets/icons/close.png" alt="" (click)="closeEdit()">

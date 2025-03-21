@@ -2,20 +2,22 @@ import { Component, input } from '@angular/core';
 import { WriteMessageComponent } from '../../shared/write-message/write-message.component';
 import { ChannelsService } from '../../services/channels.service';
 import { Observable } from 'rxjs';
-import { IChannels } from '../../interfaces/ichannels';
+import { IChannels, IMessage } from '../../interfaces/ichannels';
 import { EditChannelComponent } from './edit-channel/edit-channel.component';
 import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from '../../shared/profile/profile.component';
+import { SingleMessageComponent } from "../../shared/single-message/single-message.component";
 
 @Component({
   selector: 'app-main-chat',
   standalone: true,
-  imports: [WriteMessageComponent, EditChannelComponent, FormsModule, ProfileComponent],
+  imports: [WriteMessageComponent, EditChannelComponent, FormsModule, ProfileComponent, SingleMessageComponent],
   templateUrl: './main-chat.component.html',
   styleUrl: './main-chat.component.scss'
 })
 export class MainChatComponent {
   messages: string[] = [];
+  iMessages: IMessage[] = [{writer: "Noah Braun", message: "Welche Version ist aktuell von Angular", answer: []}];
   editOpen: boolean = false;
 
   members: string[] = ["Frederik Beck (Du)", "Sofia Müller"];

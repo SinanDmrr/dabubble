@@ -1,0 +1,70 @@
+@use "../../styles/mixins.scss" as *;
+
+.single-message-container{
+    width: 100%;
+    @include standard-flex(flex-start, center);
+    box-sizing: border-box;
+    padding: 2rem;
+    gap: 2rem;
+
+    &:hover{
+        background-color: #F0F1FE;
+        cursor: pointer;
+
+        .message{
+            background-color: white;
+        }
+
+        .reaction{
+            display: flex;
+        }
+    }
+}
+
+.avatar{
+    border-radius: 50%
+}
+
+.message-wrapper{
+    @include standard-flex(flex-start, flex-start);
+    flex-direction: column;
+    width: 100%;
+}
+
+.message-header{
+    @include standard-flex(space-between);
+    width: 100%;
+}
+
+.message{
+    background-color: #ECEEFE;
+    border-radius: 0 20px 20px 20px;
+    padding: 1rem;
+}
+
+.answers, .author{
+    @include standard-flex(flex-start, flex-start);
+    gap: 1rem;
+}
+
+.time{
+    font-size: smaller;
+}
+
+.answer{
+    color: #757BF4;
+}
+
+.name{
+    font-weight: bold;
+}
+
+.reaction{
+    border-radius: 20px 20px 0 20px;
+    border: 1px solid #ADB0D9;
+    background-color: white;
+    @include standard-flex(flex-start, flex-start);
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    display: none;
+}

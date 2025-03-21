@@ -33,22 +33,22 @@
     }
 
     @if (currentProfileView == "editName") {
-    <div class="profile-container">
-        <div class="profile-head">
-            <span>Dein Profil bearbeiten</span>
-            <img (click)="closeMe()" src="assets/icons/close.png">
+        <div class="profile-container">
+            <div class="profile-head">
+                <span>Dein Profil bearbeiten</span>
+                <img (click)="closeMe()" src="assets/icons/close.png">
+            </div>
+            <img src="{{currentUser?.picture}}" alt="">
+            <div>
+                <img src="assets/icons/directmessage_Icon.png">
+                <span>Vollständiger Name</span>
+            </div>
+            <input type="text" [(ngModel)]="newUsername" name="changeUser" >
+            <div class="confirmation-buttons">
+                <button type="button" class="" (click)="cancelChangeUsername()">Abbrechen</button>
+                <button type="button" class="" (click)="changeUsername()">Speichern</button>
+            </div>
         </div>
-        <img src="{{currentUser?.picture}}" alt="">
-        <div>
-            <img src="assets/icons/directmessage_Icon.png">
-            <span>Vollständiger Name</span>
-        </div>
-        <input type="text" [(ngModel)]="newUsername" name="changeUser" >
-        <div class="confirmation-buttons">
-            <button type="button" class="" (click)="cancelChangeUsername()">Abbrechen</button>
-            <button type="button" class="" (click)="changeUsername()">Speichern</button>
-        </div>
-    </div>
     }
 
 </main>

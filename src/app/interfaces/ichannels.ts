@@ -1,7 +1,15 @@
 export interface IMessage {
     writer: string;
     message: string;
-    answer: string[];    
+    answer?: IMessage[];
+    time: any;
+    emojis: IEmojis[];
+}
+
+export interface IEmojis {
+    unicode: string;
+    username: string;
+    count: number;
 }
 
 export interface IChannels {

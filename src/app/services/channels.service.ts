@@ -1,14 +1,33 @@
 import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebase.service';
 import { IChannels } from '../interfaces/ichannels';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ChannelsService {
   private collectionName = "channels";
 
+  private currentChannelSubject = new BehaviorSubject<IChannels>({
+      creator: "",
+      description: "",
+      messages: [],
+      name: "",
+      users: []
+    });
+    currentChannel$ = this.currentChannelSubject.asObservable();
+
   constructor(private firebaseService: FirebaseService) { }
+
+  setCurrentChannel(channel: IChannels) {
+    this.currentChannelSubject.next(channel);
+  }
+
+  getCurrentChannel() {
+    return this.currentChannel$;
+  }
 
   getChannels() {
     return this.firebaseService.channelList$;

@@ -64,6 +64,10 @@ export class DevSpaceComponent {
     },
   ];
 
+  changeChannelToDisplay(channel: IChannels) {
+    this.channelsService.setCurrentChannel(channel);
+  }
+
   toggleChannels() {
     this.isChannelsExpanded = !this.isChannelsExpanded;
   }

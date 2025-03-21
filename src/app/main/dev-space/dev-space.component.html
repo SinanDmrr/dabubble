@@ -23,7 +23,7 @@
         <div class="section-content">
           <ul>
             @for (channel of channels; track channel.id) {
-              <li class="channel"># {{ channel.name }}</li>
+              <li (click)="changeChannelToDisplay(channel)" class="channel"># {{ channel.name }}</li>
             }
             <li class="add-channel" (click)="openAddChannel()">
               <img

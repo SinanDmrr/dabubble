@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { IChannels } from '../../../interfaces/ichannels';
 
 @Component({
   selector: 'app-edit-channel',
@@ -11,26 +12,28 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class EditChannelComponent {
   @Output() close = new EventEmitter<void>();
 
+  @Input() channel!: IChannels;
+
   titleEdit: boolean = false;
   descriptionEdit: boolean = false;
 
-  closeEdit(){
+  closeEdit() {
     this.close.emit();
   }
 
-  editTitle(){
+  editTitle() {
     this.titleEdit = true;
   }
 
-  saveTitle(){
+  saveTitle() {
     this.titleEdit = false;
   }
 
-  editDescription(){
+  editDescription() {
     this.descriptionEdit = true;
   }
 
-  saveDescription(){
+  saveDescription() {
     this.descriptionEdit = false;
   }
 

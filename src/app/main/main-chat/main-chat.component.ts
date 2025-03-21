@@ -16,10 +16,11 @@ import { SingleMessageComponent } from "../../shared/single-message/single-messa
   styleUrl: './main-chat.component.scss'
 })
 export class MainChatComponent {
-  messages: string[] = [];
+  currentChannel!: IChannels;
+
   iMessages: IMessage[] = [
-    {writer: "Noah Braun", message: "Welche Version ist aktuell von Angular?", answer: []},
-    {writer: "Ben Schmidt", message: "Schwöre hab nicht geklaut", answer: ["Ja genau", "Lüge"]}
+    {writer: "Noah Braun", message: "Welche Version ist aktuell von Angular?", answer: [], time: "13:45", emojis: []},
+    {writer: "Ben Schmidt", message: "Schwöre hab nicht geklaut", answer: [], time: "15:45", emojis: []},
   ];
   editOpen: boolean = false;
 
@@ -33,12 +34,15 @@ export class MainChatComponent {
   inputValid = false;
 
   profileOpen = false;
-  constructor(private channelService: ChannelsService) {
 
+  constructor(private channelService: ChannelsService) {
+    this.channelService.getCurrentChannel().subscribe((channel) => {
+      this.currentChannel = channel;
+    });
   }
 
   addMessage(newMessage: string) {
-    this.messages.push(newMessage);
+    
   }
 
   openEdit() {

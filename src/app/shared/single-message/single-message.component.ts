@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { IMessage } from '../../interfaces/ichannels';
+import { IEmojis, IMessage } from '../../interfaces/ichannels';
+import { UserService } from '../../services/user.service';
+import { IUser } from '../../interfaces/iuser';
 
 @Component({
   selector: 'app-single-message',
@@ -10,37 +12,34 @@ import { IMessage } from '../../interfaces/ichannels';
 })
 export class SingleMessageComponent {
   @Input() message!: IMessage;
+  currentUser!: IUser;
 
   reactions: string[] = ['😂', '❤️', '👍', '🚀'];
-  reactionsGot = [
-    {
-      reaction: '😂',
-      number: 1,
-    },
-    {
-      reaction: '❤️',
-      number: 3,
-    }
-  ];
 
-  reactToMessage(reaction: string) {
+  constructor(private userService: UserService){
+    this.userService.getCurrentUser().subscribe((user) => {
+      this.currentUser = user!;
+    });
+  }
+
+  reactToMessage(newEmoji: string) {
     let found = false;
-    this.reactionsGot.forEach(element => {
-      if(element.reaction == reaction){
-        element.number++
+    this.message.emojis.forEach(emoji => {
+      if(emoji.unicode == newEmoji){
+        emoji.count++
         found = true;
       }
     });
     
     if(!found){
-      this.reactionsGot.push({reaction: reaction, number: 1});
+      this.message.emojis.push({unicode: newEmoji, count: 1, username: this.currentUser.name});
     }
   }
 
-  reactWithGivenReaction(reaction: string){
-    this.reactionsGot.forEach(element => {
-      if(element.reaction == reaction){
-        element.number++
+  reactWithGivenReaction(newEmoji: string){
+    this.message.emojis.forEach(emoji => {
+      if(emoji.unicode == newEmoji){
+        emoji.count++
       }
     });
   }

@@ -2,17 +2,17 @@
     <header>
         <div class="header-content">
             <div class="channel-name-container" (click)="openEdit()">
-                <h2># Entwicklerteam</h2>
+                <h2># {{currentChannel.name}}</h2>
                 <img src="assets/icons/keyboard_arrow_down.png" alt="">
             </div>
             <div class="user-container">
                 <div class="avatars-container" (click)="openMembers()">
-                    @for (member of members; track $index) {
+                    @for (member of currentChannel.users; track $index) {
                         <div class="avatar">
                             <img src="assets/avatars/avatar_1.png" alt="">
                         </div>
                     }
-                    <span>{{members.length}}</span>
+                    <span>{{currentChannel.users.length}}</span>
                 </div>
                 <div class="person-add-btn" (click)="openAddMember()">
                     <img src="assets/icons/person_add.png" alt="">
@@ -26,7 +26,7 @@
                         <img class="close-button" src="assets/icons/close.png" alt="" (click)="closeMembers()">
                     </div>
                     <div class="member-list">
-                        @for (member of members; track $index) {
+                        @for (member of currentChannel.users; track $index) {
                         <div class="member-item" (click)="openProfile()">
                             <img src="assets/avatars/avatar_1.png" alt="">
                             <span>{{member}}</span>
@@ -55,7 +55,7 @@
                         <img class="close-button" src="assets/icons/close.png" alt=""
                             (click)="closeAddMember(); bubblingProtection($event)">
                     </div>
-                    <span class="channel-name"># Entwicklerteam</span>
+                    <span class="channel-name"># {{currentChannel.name}}</span>
                     <div class="input-container">
                         @for (member of membersAdded; track $index) {
                         <div class="added-member-container">
@@ -100,7 +100,7 @@
     </header>
 
     @if(editOpen){
-    <app-edit-channel (close)="closeEdit()"></app-edit-channel>
+    <app-edit-channel (close)="closeEdit()" [channel]="currentChannel"></app-edit-channel>
     }
 
     <div class="chat-container">

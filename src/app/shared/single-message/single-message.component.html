@@ -9,8 +9,8 @@
                 <span class="time">14:25 Uhr</span>
             </div>
             <div class="reaction">
-                @for (reaction of reactions; track $index) {
-                    <span (click)="reactToMessage(reaction)">{{reaction}}</span>
+                @for (emoji of reactions; track $index) {
+                    <span (click)="reactToMessage(emoji)">{{emoji}}</span>
                 }
             </div>
         </div>
@@ -19,15 +19,18 @@
         </div>
         <div class="answers">
             <div class="reactions-div">
-                @for (reaction of reactionsGot; track $index) {
+                @for (emoji of message.emojis; track $index) {
                     <div class="reaction-item">
-                        <span (click)="reactWithGivenReaction(reaction.reaction)">{{reaction.reaction}} {{reaction.number}}</span>
+                        <span (click)="reactWithGivenReaction(emoji.unicode)">{{emoji.unicode}} {{emoji.count}}</span>
                     </div>
                 }     
             </div> 
-            @if (message.answer.length>0) {
-                <span class="answer">{{message.answer.length}} Antworten</span>
+            @if (message.answer) {
+                @if (message.answer.length>0) {
+                    <span class="answer">{{message.answer.length}} Antworten</span>
+                }
             }
+            
             <span class="time">Letzte Antwort 14:56 Uhr</span>
         </div>
     </div>

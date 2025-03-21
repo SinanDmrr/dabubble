@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AddChannelComponent } from './add-channel/add-channel.component';
+import { IChannels } from '../../interfaces/ichannels';
+import { ChannelsService } from '../../services/channels.service';
+import { UserService } from '../../services/user.service';
+import { IUser } from '../../interfaces/iuser';
 
 @Component({
   selector: 'app-dev-space',
@@ -14,14 +18,25 @@ export class DevSpaceComponent {
   isMessagesExpanded = true;
   showAddChannelPopup = false;
 
-  // Beispiel-Array für Channels
-  channels: { id: number; name: string; description?: string }[] = [
-    { id: 1, name: 'general', description: '' },
-    { id: 2, name: 'development', description: '' },
-    { id: 3, name: 'design', description: '' },
-  ];
+  currentUser!: IUser;
+  channels: IChannels[] = [];
 
-  // Beispiel-Array für Direktnachrichten
+  constructor(
+    private channelsService: ChannelsService,
+    private userService: UserService,
+  ) {}
+
+  ngOnInit() {
+    // Channels aus dem Service abonnieren
+    this.channelsService.getChannels().subscribe((channels) => {
+      this.channels = channels;
+    });
+
+    this.userService.getCurrentUser().subscribe((user) => {
+      this.currentUser = user!;
+    });
+  }
+
   directMessages = [
     {
       id: 1,
@@ -66,18 +81,14 @@ export class DevSpaceComponent {
   }
 
   onChannelCreated(channelData: { name: string; description?: string }) {
-    const nextId =
-      this.channels.length > 0
-        ? Math.max(...this.channels.map((c) => c.id)) + 1
-        : 1;
-
-    this.channels.push({
-      id: nextId,
+    const newChannel: IChannels = {
+      creator: this.currentUser.name,
       name: channelData.name,
-      description: channelData.description,
-    });
-    console.log(this.channels);
-
+      description: channelData.description || '',
+      messages: [],
+      users: [],
+    };
+    this.channelsService.addChannel(newChannel);
     this.closeAddChannel();
   }
 }

@@ -17,7 +17,10 @@ import { SingleMessageComponent } from "../../shared/single-message/single-messa
 })
 export class MainChatComponent {
   messages: string[] = [];
-  iMessages: IMessage[] = [{writer: "Noah Braun", message: "Welche Version ist aktuell von Angular", answer: []}];
+  iMessages: IMessage[] = [
+    {writer: "Noah Braun", message: "Welche Version ist aktuell von Angular?", answer: []},
+    {writer: "Ben Schmidt", message: "Schwöre hab nicht geklaut", answer: ["Ja genau", "Lüge"]}
+  ];
   editOpen: boolean = false;
 
   members: string[] = ["Frederik Beck (Du)", "Sofia Müller"];

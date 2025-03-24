@@ -5,6 +5,9 @@ import { IChannels } from '../../interfaces/ichannels';
 import { ChannelsService } from '../../services/channels.service';
 import { UserService } from '../../services/user.service';
 import { IUser } from '../../interfaces/iuser';
+import { DirectsMessageService } from '../../services/directs-message.service';
+import { IDirectMessage } from '../../interfaces/idirect-message';
+import { user } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-dev-space',
@@ -21,10 +24,14 @@ export class DevSpaceComponent {
   currentUser!: IUser;
   channels: IChannels[] = [];
   allUsers: IUser[] = [];
+  allDirectMessages: IDirectMessage[] = [];
+  currentDirectMessages: IDirectMessage[] = [];
+  userOfDirectMessages: IUser[] = [];
 
   constructor(
     private channelsService: ChannelsService,
     private userService: UserService,
+    private directMessagesService: DirectsMessageService,
   ) {}
 
   ngOnInit() {
@@ -39,34 +46,32 @@ export class DevSpaceComponent {
     this.userService.getUserList().subscribe((users) => {
       this.allUsers = users;
     });
+
+    this.directMessagesService.getDirectMessages().subscribe((dM) => {
+      this.allDirectMessages = dM;
+      this.filterCurrentDirectMessages();
+    });
+    console.log(this.allDirectMessages);
+    console.log(this.currentDirectMessages);
   }
 
-  directMessages = [
-    {
-      id: 1,
-      name: 'Anna Müller',
-      onlineStatus: true,
-      imgPath: '/assets/avatars/avatar_1_round.png',
-    },
-    {
-      id: 2,
-      name: 'Ben Schmidt',
-      online: false,
-      imgPath: '/assets/avatars/avatar_2_round.png',
-    },
-    {
-      id: 3,
-      name: 'Clara Weber',
-      online: true,
-      imgPath: '/assets/avatars/avatar_6_round.png',
-    },
-    {
-      id: 4,
-      name: 'David Koch',
-      online: false,
-      imgPath: '/assets/avatars/avatar_5_round.png',
-    },
-  ];
+  filterCurrentDirectMessages() {
+    if (this.currentUser && this.allDirectMessages.length > 0) {
+      this.currentDirectMessages = this.allDirectMessages.filter(
+        (dm) => dm.receiver === this.currentUser.id,
+      );
+      this.filterUserDirectMessages();
+    }
+  }
+
+  filterUserDirectMessages() {
+    if (this.currentDirectMessages.length > 0 && this.allUsers.length > 0) {
+      const senderIds = this.currentDirectMessages.map((dm) => dm.sender);
+      this.userOfDirectMessages = this.allUsers.filter(
+        (user) => user.id !== undefined && senderIds.includes(user.id),
+      );
+    }
+  }
 
   changeChannelToDisplay(channel: IChannels) {
     this.channelsService.setCurrentChannel(channel);

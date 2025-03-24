@@ -7,6 +7,7 @@ import { EditChannelComponent } from './edit-channel/edit-channel.component';
 import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from '../../shared/profile/profile.component';
 import { SingleMessageComponent } from "../../shared/single-message/single-message.component";
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-main-chat',
@@ -30,15 +31,21 @@ export class MainChatComponent {
   addMemberOpen: boolean = false;
   memberToAdd: string = "";
   membersAdded: string[] = [];
-  exampleMembers: string[] = ["Frederik Beck (Du)", "Sofia Müller", "Noah Braun", "Elise Roth", "Elias Neumann", "Steffen Hoffmann"];
+  channelMembers: string[] = [];
   inputValid = false;
 
   profileOpen = false;
 
-  constructor(private channelService: ChannelsService) {
+  constructor(private channelService: ChannelsService, private userService: UserService) {
     this.channelService.getCurrentChannel().subscribe((channel) => {
       this.currentChannel = channel;
     });
+
+    this.userService.getUserList().subscribe((userList) => {
+      userList.forEach(user => {
+        this.channelMembers.push(user.name);
+      });
+    })
   }
 
   addMessage(newMessage: string) {
@@ -67,6 +74,10 @@ export class MainChatComponent {
 
   closeAddMember() {
     this.addMemberOpen = false;
+    this.membersAdded.forEach(newUser => {
+      this.currentChannel.users.push(newUser)
+    });
+    this.channelService.updateChannel(this.currentChannel.id!, this.currentChannel);
     this.membersAdded = [];
     this.memberToAdd = "";
   }
@@ -112,7 +123,7 @@ export class MainChatComponent {
   }
 
   getFilteredMembers(){
-    let filteredMembers = this.exampleMembers;
+    let filteredMembers = this.channelMembers;
     filteredMembers = filteredMembers.filter(member =>
       member.toLowerCase().includes(this.memberToAdd.toLowerCase()) && !this.membersAdded.includes(member) && !this.members.includes(member)
     );

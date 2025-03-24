@@ -76,13 +76,13 @@ export class AuthService {
 
         this.authSubject.next(true);
 
+        this.userService.changeCurrentUserMail(userData.email as string);
         const userExists = await this.userService.checkIfUserExists(userData.email as string);
 
-      if (!userExists) {
-        this.createNewUser(userData.displayName as string, userData.email as string, "assets/avatars/avatar_1.png");
-      } 
+        if (!userExists) {
+          this.createNewUser(userData.displayName as string, userData.email as string, "assets/avatars/avatar_1.png");
+        }
 
-        this.userService.changeCurrentUserMail(userData.email as string);
       }
     } catch (error) {
       console.error('Google login Error', error);
@@ -124,13 +124,13 @@ export class AuthService {
         throw new Error('No user is currently signed in');
       }
 
-      await this.reauthenticate(currentPassword); 
+      await this.reauthenticate(currentPassword);
 
       await updatePassword(user, newPassword);
       console.log('Password updated successfully');
     } catch (error) {
       console.error('Error updating password:', error);
-      throw error; 
+      throw error;
     }
   }
 

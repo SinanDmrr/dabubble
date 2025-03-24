@@ -22,6 +22,7 @@
         class="input-field"
         type="text"
         placeholder="Channelbeschreibung hier eingeben"
+        [(ngModel)]="description"
       />
       <button type="button" (click)="switchPopupWindow()">Erstellen</button>
     } @else {
@@ -48,6 +49,45 @@
           />
           Bestimmte Leute hinzufügen
         </label>
+        @if (!addAllMembersSelection) {
+          <div class="user-selection">
+            <input
+              #searchInput
+              class="input-field"
+              type="text"
+              placeholder="User suchen..."
+              (focus)="onInputFocus()"
+              (input)="onInputChange($event)"
+              (blur)="onInputBlur()"
+            />
+            @if (showUserList && filteredUsers.length > 0) {
+              <ul #userList class="user-list">
+                @for (user of filteredUsers; track user.id) {
+                  <li (click)="selectUser(user)">
+                    <img src="{{ user.picture }}" alt="" />{{ user.name }}
+                  </li>
+                }
+              </ul>
+            }
+            <p>
+              Ausgewählte Mitglieder:
+              @if (selectedMembers.length > 0) {
+                <span class="selected-members">
+                  @for (member of selectedMembers; track member) {
+                    <span class="member-tag">
+                      {{ member }}
+                      <span class="remove-member" (click)="removeMember(member)"
+                        >x</span
+                      >
+                    </span>
+                  }
+                </span>
+              } @else {
+                Keine
+              }
+            </p>
+          </div>
+        }
       </div>
       <button type="button" (click)="createChannel()">Erstellen</button>
     }

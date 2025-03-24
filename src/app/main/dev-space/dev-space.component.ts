@@ -20,6 +20,7 @@ export class DevSpaceComponent {
 
   currentUser!: IUser;
   channels: IChannels[] = [];
+  allUsers: IUser[] = [];
 
   constructor(
     private channelsService: ChannelsService,
@@ -27,13 +28,16 @@ export class DevSpaceComponent {
   ) {}
 
   ngOnInit() {
-    // Channels aus dem Service abonnieren
     this.channelsService.getChannels().subscribe((channels) => {
       this.channels = channels;
     });
 
     this.userService.getCurrentUser().subscribe((user) => {
       this.currentUser = user!;
+    });
+
+    this.userService.getUserList().subscribe((users) => {
+      this.allUsers = users;
     });
   }
 
@@ -84,15 +88,33 @@ export class DevSpaceComponent {
     this.showAddChannelPopup = false;
   }
 
-  onChannelCreated(channelData: { name: string; description?: string }) {
+  onChannelCreated(channelData: {
+    name: string;
+    description?: string;
+    members?: string[];
+  }) {
+    if (!this.currentUser) {
+      console.error('Current user is not loaded yet!');
+      return;
+    }
+
+    const usersToAdd =
+      channelData.members || this.allUsers.map((user) => user.name);
+
     const newChannel: IChannels = {
       creator: this.currentUser.name,
       name: channelData.name,
       description: channelData.description || '',
       messages: [],
-      users: [],
+      users: usersToAdd,
     };
-    this.channelsService.addChannel(newChannel);
-    this.closeAddChannel();
+    this.channelsService
+      .addChannel(newChannel)
+      .then(() => {
+        this.closeAddChannel();
+      })
+      .catch((error) => {
+        console.error('Error adding channel to Firebase:', error);
+      });
   }
 }

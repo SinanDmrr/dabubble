@@ -103,5 +103,72 @@ $btn-color-hover: #636af3;
         }
       }
     }
+
+    .user-selection {
+      position: relative;
+      .selected-members {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+
+        .member-tag {
+          background-color: $primary-bg-color;
+          color: $primary-font-color;
+          padding: 0.3rem 0.6rem;
+          border-radius: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+
+          .remove-member {
+            cursor: pointer;
+            font-weight: bold;
+            color: #ff4444; // Rote Farbe für "X"
+            transition: color 0.2s ease;
+
+            &:hover {
+              color: #cc0000; // Dunkleres Rot bei Hover
+            }
+          }
+        }
+      }
+
+      .user-list {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid $primary-font-color;
+        border-radius: 1rem;
+        max-height: 200px;
+        overflow-y: auto;
+        list-style: none;
+        padding: 0.5rem 0;
+        margin: 0.5rem 0 0 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        li {
+          padding: 0.75rem 1rem;
+          cursor: pointer;
+          font-size: 1rem;
+          color: #333;
+          transition: background-color 0.2s ease;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          img {
+            height: 2rem;
+            aspect-ratio: 1/1;
+          }
+
+          &:hover {
+            background-color: $primary-bg-color;
+            color: $primary-font-color;
+          }
+        }
+      }
+    }
   }
 }

@@ -3,6 +3,7 @@ import { Auth, createUserWithEmailAndPassword, EmailAuthProvider, getAuth, Googl
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from './user.service';
 import { IUser } from '../interfaces/iuser';
+import { Router, RouterLink } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class AuthService {
 
   currentUserMail: string = "";
 
-  constructor(private auth: Auth, private userService: UserService) {
+  constructor(private auth: Auth, private userService: UserService, private router: Router) {
     this.initializeAuthState();
     window.addEventListener("beforeunload", () => this.deleteAnonymousUser());
   }
@@ -25,6 +26,7 @@ export class AuthService {
     // onAuthStateChanged(this.auth, (user) => {
     //   if (user) {
     //     this.authSubject.next(true);
+    //     this.router.navigate(['/main']);
     //   } else {
     //     this.authSubject.next(false);
     //   }
@@ -50,6 +52,7 @@ export class AuthService {
       if (userCredential.user) {
         this.authSubject.next(true);
         this.userService.changeCurrentUserMail(userCredential.user.email as string);
+        this.router.navigate(['/main']);
       }
     } catch (error) {
       console.error('login Error', error);
@@ -62,6 +65,7 @@ export class AuthService {
       if (userCredential.user) {
         this.authSubject.next(true);
         this.userService.changeCurrentUserMail("guest@mail.com");
+        this.router.navigate(['/main']);
       }
     } catch (error) {
       console.error('Guest login Error', error);
@@ -82,7 +86,7 @@ export class AuthService {
         if (!userExists) {
           this.createNewUser(userData.displayName as string, userData.email as string, "assets/avatars/avatar_1.png");
         }
-
+        this.router.navigate(['/main']);
       }
     } catch (error) {
       console.error('Google login Error', error);
@@ -144,6 +148,10 @@ export class AuthService {
   async logout() {
     await signOut(this.auth);
     this.authSubject.next(false);
+    this.deleteAnonymousUser();
+  }
+
+  ngOnDestroy() {
     this.deleteAnonymousUser();
   }
 }

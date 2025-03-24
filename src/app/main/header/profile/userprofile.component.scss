@@ -65,9 +65,10 @@
     }
 
     >img {
-        width: 8vh;
-        height: 8vh;
+        width: 15vh;
+        height: 15vh;
         border-radius: 50%;
+        margin: 2rem 0;
     }
 
     .profile-name {
@@ -127,6 +128,52 @@
             }
         }
     }
+
+    /* #region change-name */
+
+    .name-edit-mid {
+        width: 90%;
+        @include standard-flex(start);
+        >img {
+            margin-right: 1rem;
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        >span {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    }
+
+    >input {
+        box-sizing: border-box;
+        margin: 1rem 0;
+        width: 90%;
+        font-size: 1.5rem;
+        border: 1px solid #ADB0D9;
+        border-radius: 2rem;
+        padding: 0.5rem 2rem;
+        outline: 1px solid #ADB0D9;
+
+        &:hover {
+            border: 1px solid #1381FF;
+            outline: 1px solid #1381FF;
+        }
+
+        &:focus {
+            border: 1px solid #1381FF;
+            outline: 1px solid #1381FF;
+        }
+    }
+
+    .confirmation-buttons {
+        width: 90%;
+        @include standard-flex();
+        gap: 2rem;
+    }
+
+    /* #endreagion */
 }
 
 .online {

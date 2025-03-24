@@ -39,14 +39,14 @@
                 <img (click)="closeMe()" src="assets/icons/close.png">
             </div>
             <img src="{{currentUser?.picture}}" alt="">
-            <div>
+            <div class="name-edit-mid">
                 <img src="assets/icons/directmessage_Icon.png">
                 <span>Vollständiger Name</span>
             </div>
-            <input type="text" [(ngModel)]="newUsername" name="changeUser" >
+            <input class="name-change-input" type="text" [(ngModel)]="newUsername" name="changeUser" [placeholder]="currentUser?.name">
             <div class="confirmation-buttons">
-                <button type="button" class="" (click)="cancelChangeUsername()">Abbrechen</button>
-                <button type="button" class="" (click)="changeUsername()">Speichern</button>
+                <button type="button" class="white-button" (click)="cancelChangeUsername()">Abbrechen</button>
+                <button type="button" class="blue-button" (click)="changeUsername()">Speichern</button>
             </div>
         </div>
     }

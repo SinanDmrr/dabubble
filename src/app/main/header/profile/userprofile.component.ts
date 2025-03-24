@@ -14,7 +14,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class UserProfileComponent {
   @Output() closePopup = new EventEmitter<void>();
-  currentProfileView = "startView";
+  // currentProfileView = "startView";
+  currentProfileView = "editName";
   currentUser? : IUser;
   newUsername : string = "";
 

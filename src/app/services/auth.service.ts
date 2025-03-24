@@ -18,6 +18,7 @@ export class AuthService {
 
   constructor(private auth: Auth, private userService: UserService) {
     this.initializeAuthState();
+    window.addEventListener("beforeunload", () => this.deleteAnonymousUser());
   }
 
   private initializeAuthState() {
@@ -98,7 +99,6 @@ export class AuthService {
     this.userService.addUser(newUser);
   }
 
-  // Neue Methode: Erneute Authentifizierung
   async reauthenticate(currentPassword: string) {
     const user = this.auth.currentUser;
     if (user && user.email) {
@@ -116,30 +116,34 @@ export class AuthService {
     }
   }
 
-  // Neue Methode: Passwort ändern
   async changePassword(currentPassword: string, newPassword: string) {
     try {
-      // Step 1: Get the current user
       const user = this.auth.currentUser;
 
       if (!user) {
         throw new Error('No user is currently signed in');
       }
 
-      // Step 2: (Optional) Reauthenticate the user if required
-      await this.reauthenticate(currentPassword); // Uncomment if reauthentication is implemented
+      await this.reauthenticate(currentPassword); 
 
-      // Step 3: Update the password
       await updatePassword(user, newPassword);
       console.log('Password updated successfully');
     } catch (error) {
       console.error('Error updating password:', error);
-      throw error; // Propagate the error to the caller
+      throw error; 
+    }
+  }
+
+  // delete Anonymous User for clearing list in Firebase
+  async deleteAnonymousUser() {
+    if (this.auth.currentUser && this.auth.currentUser.isAnonymous) {
+      await this.auth.currentUser.delete();
     }
   }
 
   async logout() {
     await signOut(this.auth);
     this.authSubject.next(false);
+    this.deleteAnonymousUser();
   }
 }

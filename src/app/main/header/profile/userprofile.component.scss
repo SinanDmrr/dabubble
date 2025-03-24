@@ -64,12 +64,7 @@
         }
     }
 
-    >img {
-        width: 15vh;
-        height: 15vh;
-        border-radius: 50%;
-        margin: 2rem 0;
-    }
+    
 
     .profile-name {
         @include standard-flex(space-between);
@@ -131,6 +126,32 @@
 
     /* #region change-name */
 
+    .picture-container {
+        @include standard-flex();
+        gap: 1rem;
+
+        .previous-button {
+            height: 2rem;
+            width: 1.5rem;
+            rotate: 180deg;
+
+            &:hover {
+                scale: 1.1;
+                cursor: pointer;
+            }
+        }
+
+        .next-button {
+            height: 2rem;
+            width: 1.5rem;
+
+            &:hover {
+                scale: 1.1;
+                cursor: pointer;
+            }
+        }
+    }
+
     .name-edit-mid {
         width: 90%;
         @include standard-flex(start);
@@ -150,10 +171,10 @@
         box-sizing: border-box;
         margin: 1rem 0;
         width: 90%;
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         border: 1px solid #ADB0D9;
         border-radius: 2rem;
-        padding: 0.5rem 2rem;
+        padding: 0.75rem 1.5rem;
         outline: 1px solid #ADB0D9;
 
         &:hover {
@@ -170,10 +191,18 @@
     .confirmation-buttons {
         width: 90%;
         @include standard-flex();
+        margin-top: 2rem;
         gap: 2rem;
     }
 
     /* #endreagion */
+}
+
+.profile-picture {
+    width: 15vh;
+    height: 15vh;
+    border-radius: 50%;
+    margin: 2rem 0;
 }
 
 .online {

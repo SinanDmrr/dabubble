@@ -14,18 +14,28 @@ import { FormsModule } from '@angular/forms';
 })
 export class UserProfileComponent {
   @Output() closePopup = new EventEmitter<void>();
-  // currentProfileView = "startView";
-  currentProfileView = "editName";
-  currentUser? : IUser;
-  newUsername : string = "";
+  currentProfileView = "startView";
+  currentPictureIndex = 0;
+  currentPicture = ""
+  currentUser?: IUser;
+  newUsername: string = "";
 
-  constructor(private authService: AuthService, private userService: UserService) {}
+  availablePictures = [
+    "assets/avatars/avatar_1_round.png",
+    "assets/avatars/avatar_2_round.png",
+    "assets/avatars/avatar_3_round.png",
+    "assets/avatars/avatar_4_round.png",
+    "assets/avatars/avatar_5_round.png",
+    "assets/avatars/avatar_6_round.png"
+  ]
+
+  constructor(private authService: AuthService, private userService: UserService) { }
 
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(user => {
       this.currentUser = user;
-      console.log(this.currentUser);
-      
+      this.newUsername = this.currentUser!.name;
+      this.getCurrentPictureIndex();
     })
   }
 
@@ -41,11 +51,30 @@ export class UserProfileComponent {
     this.authService.logout();
   }
 
-  cancelChangeUsername(){
-
+  getCurrentPictureIndex() {
+    this.availablePictures.forEach((element, index) => {
+      if (element == this.currentUser?.picture) {
+        this.currentPictureIndex = index;
+        this.currentPicture = element;
+      }
+    });
   }
 
-  changeUsername() {
-    
+  previousPicture() {
+    this.currentPictureIndex = this.currentPictureIndex - 1 < 0 ? this.availablePictures.length - 1 : this.currentPictureIndex - 1;
+    this.currentPicture = this.availablePictures[this.currentPictureIndex];
+  }
+
+  nextPicture() {
+    this.currentPictureIndex = this.currentPictureIndex + 1 == this.availablePictures.length ? 0 : this.currentPictureIndex + 1;
+    this.currentPicture = this.availablePictures[this.currentPictureIndex];
+  }
+
+  acceptChanges() {
+    this.currentUser!.name = this.newUsername;
+    this.currentUser!.picture = this.currentPicture;
+
+    this.userService.updateUser(this.currentUser!.id as string, this.currentUser!)
+    this.currentProfileView = "editView";
   }
 }

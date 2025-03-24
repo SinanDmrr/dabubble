@@ -13,7 +13,7 @@
             <span>Profil</span>
             <img (click)="closeMe()" src="assets/icons/close.png">
         </div>
-        <img src="{{currentUser?.picture}}" alt="">
+        <img class="profile-picture" src="{{currentUser?.picture}}" alt="">
         <div class="profile-name">
             <h2>{{currentUser?.name}}</h2>
             <span (click)="changeView('editName')">Bearbeiten</span>
@@ -38,17 +38,20 @@
                 <span>Dein Profil bearbeiten</span>
                 <img (click)="closeMe()" src="assets/icons/close.png">
             </div>
-            <img src="{{currentUser?.picture}}" alt="">
+            <div class="picture-container">
+                <img (click)="previousPicture()" class="previous-button" src="assets/icons/send.png" alt="previous-button">
+                <img class="profile-picture" src="{{currentPicture}}" alt="profile-picture">
+                <img (click)="nextPicture()" class="next-button" src="assets/icons/send.png" alt="next-button">
+            </div>
             <div class="name-edit-mid">
                 <img src="assets/icons/directmessage_Icon.png">
                 <span>Vollständiger Name</span>
             </div>
             <input class="name-change-input" type="text" [(ngModel)]="newUsername" name="changeUser" [placeholder]="currentUser?.name">
             <div class="confirmation-buttons">
-                <button type="button" class="white-button" (click)="cancelChangeUsername()">Abbrechen</button>
-                <button type="button" class="blue-button" (click)="changeUsername()">Speichern</button>
+                <button type="button" class="white-button" (click)="closeMe()">Abbrechen</button>
+                <button type="button" class="blue-button" (click)="acceptChanges()">Speichern</button>
             </div>
         </div>
     }
-
 </main>

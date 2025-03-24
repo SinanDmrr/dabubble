@@ -17,7 +17,7 @@
             @if(!titleEdit){
                 <span># {{channel.name}}</span>
             } @else {
-                <textarea rows="1" class="edit-textarea" name="" id=""># {{channel.name}}</textarea>
+                <textarea [(ngModel)]="channelTitle" rows="1" class="edit-textarea" name="" id=""># {{channel.name}}</textarea>
             }
             
         </div>
@@ -33,7 +33,7 @@
             @if(!descriptionEdit){
                 <span class="description">{{channel.description}}</span>
             } @else {
-                <textarea class="edit-textarea" name="" id="">{{channel.description}}</textarea>
+                <textarea [(ngModel)] ="channelDescription" class="edit-textarea" name="" id="">{{channel.description}}</textarea>
             }
             
             <span class="title">Erstellt von</span>

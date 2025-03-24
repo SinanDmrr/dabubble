@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IChannels } from '../../../interfaces/ichannels';
+import { ChannelsService } from '../../../services/channels.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-channel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './edit-channel.component.html',
   styleUrl: './edit-channel.component.scss'
 })
@@ -16,6 +18,12 @@ export class EditChannelComponent {
 
   titleEdit: boolean = false;
   descriptionEdit: boolean = false;
+  channelTitle = "";
+  channelDescription = "";
+
+  constructor(private channelService: ChannelsService){
+
+  }
 
   closeEdit() {
     this.close.emit();
@@ -23,18 +31,25 @@ export class EditChannelComponent {
 
   editTitle() {
     this.titleEdit = true;
+    this.channelTitle = this.channel.name
   }
 
   saveTitle() {
     this.titleEdit = false;
+    this.channel.name = this.channelTitle;
+    this.channelService.updateChannel(this.channel.id!, this.channel);
   }
 
   editDescription() {
     this.descriptionEdit = true;
+    this.channelDescription = this.channel.description 
   }
 
   saveDescription() {
+    this.channel.description = this.channelDescription;
+    this.channelService.updateChannel(this.channel.id!, this.channel);
     this.descriptionEdit = false;
+    
   }
 
   bubblingProtection(event: any) {

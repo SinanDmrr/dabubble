@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { IEmojis, IMessage } from '../../interfaces/ichannels';
+import { IChannels, IEmojis, IMessage } from '../../interfaces/ichannels';
 import { UserService } from '../../services/user.service';
 import { IUser } from '../../interfaces/iuser';
+import { ChannelsService } from '../../services/channels.service';
 
 @Component({
   selector: 'app-single-message',
@@ -13,13 +14,23 @@ import { IUser } from '../../interfaces/iuser';
 export class SingleMessageComponent {
   @Input() message!: IMessage;
   currentUser!: IUser;
+  currentChannel!: IChannels;
 
   reactions: string[] = ['😂', '❤️', '👍', '🚀'];
 
-  constructor(private userService: UserService){
+  constructor(private userService: UserService, private channelService: ChannelsService){
     this.userService.getCurrentUser().subscribe((user) => {
       this.currentUser = user!;
     });
+   
+  }
+
+  isOwnMessage(): boolean{
+    if(this.message.writer == this.currentUser.name){
+      return true
+    } else {
+      return false;
+    }
   }
 
   reactToMessage(newEmoji: string) {
@@ -42,6 +53,10 @@ export class SingleMessageComponent {
         emoji.count++
       }
     });
+  }
+
+  pushToFirestore(){
+    //hier muss der Channel komplett geupdatet werden (this.channelService.update()) um die Reaktionen auf die Messages zu pushen
   }
 
   getTwoDigitNumber(number: number){

@@ -28,9 +28,9 @@
     <div class="tag-container">
         <div class="tag-wrapper">
             @for (channel of getFilteredChannelList(); track $index) {
-            <div class="tag-item" (click)="tagChannel(channel)">
+            <div class="tag-item" (click)="tagChannel(channel.name)">
                 <span>#</span>
-                <span>{{channel}}</span>
+                <span>{{channel.name}}</span>
             </div>
             }
 

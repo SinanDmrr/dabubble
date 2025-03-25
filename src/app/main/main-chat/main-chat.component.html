@@ -9,7 +9,7 @@
                 <div class="avatars-container" (click)="openMembers()">
                     @for (member of currentChannel.users; track $index) {
                         <div class="avatar">
-                            <img src="assets/avatars/avatar_1.png" alt="">
+                            <img src="assets/avatars/avatar_1.png" alt=""> <!-- Der Channel sollte nicht nur die User als String beinhalten sondern ganze IUser Objekte -->
                         </div>
                     }
                     <span>{{currentChannel.users.length}}</span>

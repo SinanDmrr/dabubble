@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ChannelsService } from '../../services/channels.service';
+import { IChannels } from '../../interfaces/ichannels';
 
 @Component({
   selector: 'app-write-message',
@@ -26,6 +28,19 @@ export class WriteMessageComponent {
   message: string = "";
   textArea: any;
   @Output() messageSent = new EventEmitter<string>();
+
+  currentChannel!: IChannels;
+  channelsList: IChannels[] = [];
+
+  constructor(private channelService: ChannelsService){
+    this.channelService.getCurrentChannel().subscribe((channel) => {
+      this.currentChannel = channel;
+    });
+
+    this.channelService.getChannels().subscribe((channelList) => {
+      this.channelsList = channelList;
+    })
+  }
 
   ngOnInit() {
     this.textArea = document.getElementById("textArea");
@@ -167,12 +182,12 @@ export class WriteMessageComponent {
   }
 
   filterUserList(filterString: string) {
-    let filteredUserList = this.exampleUsers.filter(user => user.toLowerCase().includes(filterString.toLowerCase()));
+    let filteredUserList = this.currentChannel.users.filter(user => user.toLowerCase().includes(filterString.toLowerCase()));
     return filteredUserList;
   }
 
   filterChannelList(filterString: string) {
-    let filteredChannelList = this.exampleChannels.filter(channel => channel.toLowerCase().includes(filterString.toLowerCase()));
+    let filteredChannelList = this.channelsList.filter(channel => channel.name.toLowerCase().includes(filterString.toLowerCase()));
     return filteredChannelList;
   }
 
@@ -180,7 +195,7 @@ export class WriteMessageComponent {
     return this.filterUserList(this.tagStringAt);
   }
 
-  getFilteredChannelList(): string[] {
+  getFilteredChannelList(): IChannels[] {
     return this.filterChannelList(this.tagStringHash);
   }
 

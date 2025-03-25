@@ -44,9 +44,7 @@ export class SingleMessageComponent {
     });
   }
 
-  getStyledTime(date: Date){
-    
-    console.log(date)
-    return date;
+  getTwoDigitNumber(number: number){
+    return number < 10 ? '0' + number : number
   }
 }

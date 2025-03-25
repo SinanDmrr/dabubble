@@ -6,7 +6,7 @@
         <div class="message-header">
             <div class="author">
                 <span class="name">{{message.writer}}</span>
-                <span class="time">{{message.time.hour}}:{{message.time.minute}}</span>
+                <span class="time">{{getTwoDigitNumber(message.time.hour)}}:{{ getTwoDigitNumber(message.time.minute)}}</span>
             </div>
             <div class="reaction">
                 @for (emoji of reactions; track $index) {

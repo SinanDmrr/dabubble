@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, ElementRef, input, ViewChild } from '@angular/core';
 import { WriteMessageComponent } from '../../shared/write-message/write-message.component';
 import { ChannelsService } from '../../services/channels.service';
 import { Observable } from 'rxjs';
@@ -38,6 +38,9 @@ export class MainChatComponent {
   profileOpen = false;
   profileToOpen!: IUser;
 
+  
+  @ViewChild('chatcontainer') chatContainer!: ElementRef;
+
   constructor(private channelService: ChannelsService, private userService: UserService) {
     this.channelService.getCurrentChannel().subscribe((channel) => {
       this.currentChannel = channel;
@@ -57,6 +60,18 @@ export class MainChatComponent {
       }
 
     })
+  }
+
+  ngAfterViewInit() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    setTimeout(() => {
+      if (this.chatContainer) {
+        this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+      }
+    }, 0);
   }
 
   addMessage(newMessage: string) {
@@ -177,13 +192,17 @@ export class MainChatComponent {
   getDate(message: IMessage){
     let date = "";
     let today = new Date;
-    console.log(message.time.fullDate + " zu " + today)
     if(message.time.fullDate == today.toDateString()){
-      date = "Heute"
+      date = "Heute";
     } else {
-      date = message.time.dayName + ", " + message.time.day + ". " + message.time.month + " " + message.time.year
+      date = message.time.dayName + ", " + message.time.day + ". " + this.getMonthName(message.time.month) + " " + message.time.year
     }
     return date
+  }
+
+  getMonthName(month: number){
+    let months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+    return months[month]
   }
 
   newDay(index: number): boolean{

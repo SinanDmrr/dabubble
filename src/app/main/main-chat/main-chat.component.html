@@ -103,13 +103,23 @@
     <app-edit-channel (close)="closeEdit()" [channel]="currentChannel"></app-edit-channel>
     }
 
-    <div class="chat-container">
+    <div class="chat-container" id="chatcontainer">
         @if(iMessages.length>0){
-            <h3>{{getDate(iMessages[0])}}</h3>
+            <div class="seperation">
+                <div class="line"></div>
+                <span>{{getDate(iMessages[0])}}</span>
+                <div class="line"></div>
+            </div>
+            
         }    
         @for (message of iMessages; track $index) {
             @if(newDay($index)){
-                <span>{{getDate(message)}}</span>
+                <div class="seperation">
+                    <div class="line"></div>
+                    <span>{{getDate(message)}}</span>
+                    <div class="line"></div>
+                </div>
+                
             }
             <app-single-message [message]="message"></app-single-message>
             }

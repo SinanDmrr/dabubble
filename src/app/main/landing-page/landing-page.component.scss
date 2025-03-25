@@ -18,6 +18,7 @@ main {
   .main-page-wrapper {
     @include standard-flex(space-between);
     flex: 1;
+    overflow-y: hidden;
 
     > app-dev-space {
       @include standard-flex();

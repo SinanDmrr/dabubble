@@ -43,4 +43,10 @@ export class SingleMessageComponent {
       }
     });
   }
+
+  getStyledTime(date: Date){
+    
+    console.log(date)
+    return date;
+  }
 }

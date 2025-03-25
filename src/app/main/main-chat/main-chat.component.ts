@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from '../../shared/profile/profile.component';
 import { SingleMessageComponent } from "../../shared/single-message/single-message.component";
 import { UserService } from '../../services/user.service';
+import { IUser } from '../../interfaces/iuser';
+import { user } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-main-chat',
@@ -18,11 +20,9 @@ import { UserService } from '../../services/user.service';
 })
 export class MainChatComponent {
   currentChannel!: IChannels;
+  currentUser!: IUser;
 
-  iMessages: IMessage[] = [
-    {writer: "Noah Braun", message: "Welche Version ist aktuell von Angular?", answer: [], time: "13:45", emojis: []},
-    {writer: "Ben Schmidt", message: "Schwöre hab nicht geklaut", answer: [], time: "15:45", emojis: []},
-  ];
+  iMessages: IMessage[] = [];
   editOpen: boolean = false;
 
   members: string[] = ["Frederik Beck (Du)", "Sofia Müller"];
@@ -32,24 +32,55 @@ export class MainChatComponent {
   memberToAdd: string = "";
   membersAdded: string[] = [];
   channelMembers: string[] = [];
+  userList: IUser[] = [];
   inputValid = false;
 
   profileOpen = false;
+  profileToOpen!: IUser;
 
   constructor(private channelService: ChannelsService, private userService: UserService) {
     this.channelService.getCurrentChannel().subscribe((channel) => {
       this.currentChannel = channel;
+      this.iMessages = channel.messages;
     });
 
     this.userService.getUserList().subscribe((userList) => {
+      this.userList = userList;
       userList.forEach(user => {
         this.channelMembers.push(user.name);
       });
     })
+
+    this.userService.getCurrentUser().subscribe(user => {
+      if (user) {
+        this.currentUser = user;
+      }
+
+    })
   }
 
   addMessage(newMessage: string) {
-    
+    let newMessageToAdd: IMessage = {
+      writer: this.currentUser.name,
+      message: newMessage,
+      time: this.styleTime(),
+      emojis: [],
+    };
+    this.currentChannel.messages.push(newMessageToAdd);
+    this.channelService.updateChannel(this.currentChannel.id!, this.currentChannel);
+  }
+
+  styleTime() {
+    let time = new Date();
+    return {
+      hour: time.getHours(),
+      minute: time.getMinutes(),
+      day: time.getDate(),
+      month: time.getMonth(),
+      year: time.getFullYear(),
+      dayName: time.toLocaleDateString('de-DE', { weekday: 'long' }),
+      fullDate: time.toDateString()
+    }
   }
 
   openEdit() {
@@ -82,36 +113,41 @@ export class MainChatComponent {
     this.memberToAdd = "";
   }
 
-  openProfile(){
+  openProfile(member: string) {
+    this.profileToOpen = this.getUserFromName(member);
     this.closeMembers();
     this.profileOpen = true;
   }
 
-  closeProfile(){
+  getUserFromName(name: string): IUser {
+    return this.userList.find(user => user.name === name) || this.userList[0];
+  }
+
+  closeProfile() {
     this.profileOpen = false;
     this.openMembers();
   }
 
 
-  goToAddMember(){
+  goToAddMember() {
     this.closeMembers();
     this.openAddMember();
   }
 
-  addToMembers(){
+  addToMembers() {
     this.membersAdded.forEach(newMember => {
       this.members.push(newMember);
     });
     this.closeAddMember();
   }
 
-  addToMembersAdded(newMember?: string){
-    if(newMember){
+  addToMembersAdded(newMember?: string) {
+    if (newMember) {
       this.membersAdded.push(newMember);
     } else {
       this.membersAdded.push(this.memberToAdd);
     }
-    
+
     this.memberToAdd = "";
   }
 
@@ -122,7 +158,7 @@ export class MainChatComponent {
     }
   }
 
-  getFilteredMembers(){
+  getFilteredMembers() {
     let filteredMembers = this.channelMembers;
     filteredMembers = filteredMembers.filter(member =>
       member.toLowerCase().includes(this.memberToAdd.toLowerCase()) && !this.membersAdded.includes(member) && !this.members.includes(member)
@@ -131,11 +167,32 @@ export class MainChatComponent {
   }
 
   checkIfInputValid(): boolean {
-    if(this.membersAdded.length>0){
+    if (this.membersAdded.length > 0) {
       return true
     } else {
       return false;
     }
+  }
+
+  getDate(message: IMessage){
+    let date = "";
+    let today = new Date;
+    console.log(message.time.fullDate + " zu " + today)
+    if(message.time.fullDate == today.toDateString()){
+      date = "Heute"
+    } else {
+      date = message.time.dayName + ", " + message.time.day + ". " + message.time.month + " " + message.time.year
+    }
+    return date
+  }
+
+  newDay(index: number): boolean{
+    if(index>0){
+      if(this.iMessages[index].time.day > this.iMessages[index-1].time.day){
+        return true
+      }
+    }
+    return false;
   }
 
   bubblingProtection(event: any) {

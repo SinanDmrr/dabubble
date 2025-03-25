@@ -27,7 +27,7 @@
                     </div>
                     <div class="member-list">
                         @for (member of currentChannel.users; track $index) {
-                        <div class="member-item" (click)="openProfile()">
+                        <div class="member-item" (click)="openProfile(member)">
                             <img src="assets/avatars/avatar_1.png" alt="">
                             <span>{{member}}</span>
                         </div>
@@ -44,7 +44,7 @@
                 }
 
                 @if(profileOpen){
-                    <app-profile (close)="closeProfile()"></app-profile>
+                    <app-profile [user] = "profileToOpen" (close)="closeProfile()"></app-profile>
                 }
 
                 @if(addMemberOpen){
@@ -104,7 +104,13 @@
     }
 
     <div class="chat-container">
+        @if(iMessages.length>0){
+            <h3>{{getDate(iMessages[0])}}</h3>
+        }    
         @for (message of iMessages; track $index) {
+            @if(newDay($index)){
+                <span>{{getDate(message)}}</span>
+            }
             <app-single-message [message]="message"></app-single-message>
             }
        

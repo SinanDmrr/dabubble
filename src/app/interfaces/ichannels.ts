@@ -2,7 +2,15 @@ export interface IMessage {
     writer: string;
     message: string;
     answer?: IMessage[];
-    time: any;
+    time: {
+        hour: number,
+        minute: number,
+        day: number,
+        month: number,
+        year: number,
+        dayName: string,
+        fullDate: string
+    }
     emojis: IEmojis[];
 }
 

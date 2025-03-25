@@ -5,10 +5,10 @@
             <img src="assets/icons/close.png" alt="" (click)="closeProfile()">
         </div>
         <div class="profile-img-container">
-            <img class="profile-img" src="{{user.picture}}" alt="">
+            <img class="profile-img" src="{{user?.picture}}" alt="">
         </div>
-        <h2>{{user.name}}</h2>
-        @if(user.onlineStatus){
+        <h2>{{user?.name}}</h2>
+        @if(user?.onlineStatus){
             <div class="active-container">
                 <div class="point green"></div>
                 <span>Aktiv</span>
@@ -25,7 +25,7 @@
         </div>
         <div class="mail-container">
             <div class="placeholder"></div>
-            <span>{{user.email}}</span>
+            <span>{{user?.email}}</span>
         </div>
         <div class="button-container">
             <button><img src="assets/icons/message.png" alt="">Nachricht</button>

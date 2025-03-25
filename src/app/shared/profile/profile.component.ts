@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { IUser } from '../../interfaces/iuser';
 
 @Component({
@@ -9,16 +9,17 @@ import { IUser } from '../../interfaces/iuser';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  user: IUser = {
-    email: "test@test.de",
-    name: "Sofia Müller",
-    picture: "assets/avatars/avatar_1.png",
-    onlineStatus: true,
-  }
+  /*   user: IUser = {
+      email: "test@test.de",
+      name: "Sofia Müller",
+      picture: "assets/avatars/avatar_1.png",
+      onlineStatus: true,
+    } */
 
+  @Input() user!: IUser;
   @Output() close = new EventEmitter<void>();
 
-  closeProfile(){
+  closeProfile() {
     this.close.emit();
   }
 

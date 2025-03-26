@@ -31,6 +31,17 @@ ul {
       transform: scale(1.05);
     }
   }
+
+  .active-li {
+    cursor: pointer;
+    color: $primary-font-color;
+    font-weight: 700;
+    border-radius: 2rem;
+    padding: 0.2rem;
+    background-color: $primary-bg-color;
+    transform: scale(1.05);
+  }
+
   .add-channel {
     display: flex;
     align-items: center;

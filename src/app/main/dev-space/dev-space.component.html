@@ -23,7 +23,11 @@
         <div class="section-content">
           <ul>
             @for (channel of channels; track channel.id) {
-              <li (click)="changeChannelToDisplay(channel)" class="channel">
+              <li
+                (click)="changeChannelToDisplay(channel)"
+                class="channel"
+                [ngClass]="{ 'active-li': activeLiId === channel.id }"
+              >
                 # {{ channel.name }}
               </li>
             }
@@ -55,7 +59,11 @@
         <div class="section-content">
           <ul>
             @for (message of userOfDirectMessages; track $index) {
-              <li class="messages">
+              <li
+                class="messages"
+                (click)="changeMessageUserToDisplay(message)"
+                [ngClass]="{ 'active-li': activeLiId === message.id }"
+              >
                 <div id="img-container">
                   <img src="{{ message.picture }}" id="user-icon" />
                   <img

@@ -8,11 +8,12 @@ import { IUser } from '../../interfaces/iuser';
 import { DirectsMessageService } from '../../services/directs-message.service';
 import { IDirectMessage } from '../../interfaces/idirect-message';
 import { user } from '@angular/fire/auth';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dev-space',
   standalone: true,
-  imports: [RouterModule, AddChannelComponent],
+  imports: [RouterModule, AddChannelComponent, CommonModule],
   templateUrl: './dev-space.component.html',
   styleUrl: './dev-space.component.scss',
 })
@@ -20,6 +21,7 @@ export class DevSpaceComponent {
   isChannelsExpanded = true;
   isMessagesExpanded = true;
   showAddChannelPopup = false;
+  activeLiId: string | undefined;
 
   currentUser!: IUser;
   channels: IChannels[] = [];
@@ -75,6 +77,12 @@ export class DevSpaceComponent {
 
   changeChannelToDisplay(channel: IChannels) {
     this.channelsService.setCurrentChannel(channel);
+    this.activeLiId = channel.id;
+  }
+
+  changeMessageUserToDisplay(user: IUser) {
+    //TODO hier die Logik des Router Outlets zum Switchen auf DirectMessages komponente
+    this.activeLiId = user.id;
   }
 
   toggleChannels() {

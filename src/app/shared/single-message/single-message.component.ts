@@ -5,12 +5,13 @@ import { IUser } from '../../interfaces/iuser';
 import { ChannelsService } from '../../services/channels.service';
 import { CommonModule } from '@angular/common';
 import { ThreadService } from '../../services/thread.service';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-single-message',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './single-message.component.html',
   styleUrl: './single-message.component.scss'
 })
@@ -19,14 +20,23 @@ export class SingleMessageComponent {
   currentUser!: IUser;
   currentChannel!: IChannels;
 
+  messageEditable: boolean = false;
+  textareaMessage: string = "";
+
   reactions: string[] = ['😂', '❤️', '👍', '🚀'];
 
   constructor(private userService: UserService, private channelService: ChannelsService, private threadService: ThreadService){
     this.userService.getCurrentUser().subscribe((user) => {
       this.currentUser = user!;
-      console.log(this.currentUser)
     });
-   
+    
+    this.channelService.getCurrentChannel().subscribe((channel) => {
+      this.currentChannel = channel;
+    })
+  }
+
+  ngOnInit(){
+    this.textareaMessage = this.message.message;
   }
 
   isOwnMessage(): boolean{
@@ -66,9 +76,24 @@ export class SingleMessageComponent {
 
   pushToFirestore(){
     //hier muss der Channel komplett geupdatet werden (this.channelService.update()) um die Reaktionen auf die Messages zu pushen
+    this.channelService.updateChannel(this.currentChannel.id!, this.currentChannel);
   }
 
   getTwoDigitNumber(number: number){
     return number < 10 ? '0' + number : number
+  }
+
+  editMessage(){
+    this.messageEditable = true;
+  }
+
+  saveEdits(){
+    this.message.message = this.textareaMessage;
+    this.pushToFirestore();
+    this.closeEditMessage();
+  }
+
+  closeEditMessage(){
+    this.messageEditable = false;
   }
 }

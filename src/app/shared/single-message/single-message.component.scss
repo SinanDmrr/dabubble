@@ -25,6 +25,20 @@
     }
 }
 
+.bg-blue{
+    background-color: #ECEEFE;
+
+    &:hover{
+        .own-message{
+            background-color: white;
+        }
+
+        .reaction{
+            display: none;
+        }
+    }
+}
+
 .avatar{
     border-radius: 50%;
     margin-top: 1rem;
@@ -93,6 +107,30 @@
     border-radius: 20px 0 20px 20px;
     background-color: #797EF3;
     color: white;
+}
+
+.edit{
+    border: 1px solid #ADB0D9;
+    border-radius: 1rem;
+    width: 90%;
+    background-color: white;
+}
+
+.edit-textarea{
+    resize: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #686868;
+    font-family: 'Nunito';
+    font-size: 1rem;
+    width: 100%;
+}
+
+.edit-btn-container{
+    width: 100%;
+    gap: 1rem;
+    @include standard-flex(flex-end, center);
 }
 
 .reaction{

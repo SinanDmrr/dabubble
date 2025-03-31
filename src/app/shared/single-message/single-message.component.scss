@@ -1,173 +1,175 @@
 @use "../../styles/mixins.scss" as *;
 
-.single-message-container{
-    width: 100%;
-    @include standard-flex(flex-start, flex-start);
-    box-sizing: border-box;
-    padding: 0.5rem 2rem;
-    gap: 2rem;
+.single-message-container {
+  width: 100%;
+  @include standard-flex(flex-start, flex-start);
+  box-sizing: border-box;
+  padding: 0.5rem 2rem;
+  gap: 2rem;
+  overflow-x: hidden;
 
-    &:hover{
-        background-color: #F0F1FE;
-        cursor: pointer;
+  &:hover {
+    background-color: #f0f1fe;
+    cursor: pointer;
 
-        .message{
-            background-color: white;
-        }
-
-        .own-message{
-            background-color: #797EF3;
-        }
-
-        .reaction{
-            display: flex;
-        }
+    .message {
+      background-color: white;
     }
-}
 
-.bg-blue{
-    background-color: #ECEEFE;
-
-    &:hover{
-        .own-message{
-            background-color: white;
-        }
-
-        .reaction{
-            display: none;
-        }
+    .own-message {
+      background-color: #797ef3;
     }
-}
 
-.avatar{
-    border-radius: 50%;
-    margin-top: 1rem;
-}
-
-.message-wrapper{
-    @include standard-flex(flex-start, flex-start);
-    flex-direction: column;
-    width: 100%;
-    gap: 0.5rem
-}
-
-.message-header{
-    @include standard-flex(space-between);
-    width: 100%;
-    position: relative;
-}
-
-.message{
-    background-color: #ECEEFE;
-    border-radius: 0 20px 20px 20px;
-    padding: 1rem;
-}
-
-.answers, .author{
-    @include standard-flex(center, center);
-    gap: 1rem;
-}
-
-.time{
-    font-size: smaller;
-}
-
-.answer{
-    color: #757BF4;
-    &:hover{
-        font-weight: bold;
+    .reaction {
+      display: flex;
     }
+  }
 }
 
-.reactions-div{
-    @include standard-flex(center, center);
-    gap: 0.5rem;
+.bg-blue {
+  background-color: #eceefe;
+
+  &:hover {
+    .own-message {
+      background-color: white;
+    }
+
+    .reaction {
+      display: none;
+    }
+  }
 }
 
-.reaction-item{
-    border: 1px solid #ADB0D9;
-    border-radius: 20px;
-    padding: 0.1rem 0.25rem;
-    background-color: white;
+.avatar {
+  border-radius: 50%;
+  margin-top: 1rem;
 }
 
-.name{
+.message-wrapper {
+  @include standard-flex(flex-start, flex-start);
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.message-header {
+  @include standard-flex(space-between);
+  width: 100%;
+  position: relative;
+}
+
+.message {
+  background-color: #eceefe;
+  border-radius: 0 20px 20px 20px;
+  padding: 1rem;
+}
+
+.answers,
+.author {
+  @include standard-flex(center, center);
+  gap: 1rem;
+}
+
+.time {
+  font-size: smaller;
+}
+
+.answer {
+  color: #757bf4;
+  &:hover {
     font-weight: bold;
+  }
 }
 
-.fd-rr{
-    flex-direction: row-reverse;
+.reactions-div {
+  @include standard-flex(center, center);
+  gap: 0.5rem;
 }
 
-.ai-fe{
-    align-items: flex-end;
+.reaction-item {
+  border: 1px solid #adb0d9;
+  border-radius: 20px;
+  padding: 0.1rem 0.25rem;
+  background-color: white;
 }
 
-.own-message{
-    border-radius: 20px 0 20px 20px;
-    background-color: #797EF3;
-    color: white;
+.name {
+  font-weight: bold;
 }
 
-.edit{
-    border: 1px solid #ADB0D9;
-    border-radius: 1rem;
-    width: 90%;
-    background-color: white;
+.fd-rr {
+  flex-direction: row-reverse;
 }
 
-.edit-textarea{
-    resize: none;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    color: #686868;
-    font-family: 'Nunito';
-    font-size: 1rem;
-    width: 100%;
+.ai-fe {
+  align-items: flex-end;
 }
 
-.edit-btn-container{
-    width: 100%;
-    gap: 1rem;
-    @include standard-flex(flex-end, center);
+.own-message {
+  border-radius: 20px 0 20px 20px;
+  background-color: #797ef3;
+  color: white;
 }
 
-.reaction{
-    border-radius: 20px 20px 0 20px;
-    border: 1px solid #ADB0D9;
-    background-color: white;
-    @include standard-flex(flex-start, center);
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    display: none;
-    position: absolute;
-    top: -1rem;
-    right: 0;
-
-    span{
-        padding: 0.5rem;
-        border-radius: 50%;
-        &:hover{
-            background-color: #ECEEFE;
-        }
-    }   
+.edit {
+  border: 1px solid #adb0d9;
+  border-radius: 1rem;
+  width: 90%;
+  background-color: white;
 }
 
-.reaction-emoji{
+.edit-textarea {
+  resize: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: #686868;
+  font-family: "Nunito";
+  font-size: 1rem;
+  width: 100%;
+}
+
+.edit-btn-container {
+  width: 100%;
+  gap: 1rem;
+  @include standard-flex(flex-end, center);
+}
+
+.reaction {
+  border-radius: 20px 20px 0 20px;
+  border: 1px solid #adb0d9;
+  background-color: white;
+  @include standard-flex(flex-start, center);
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  display: none;
+  position: absolute;
+  top: -1rem;
+  right: 0;
+
+  span {
     padding: 0.5rem;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    @include standard-flex(center, center);
-    &:hover{
-        background-color: #ECEEFE;
+    &:hover {
+      background-color: #eceefe;
     }
+  }
 }
 
-.own-reactions{
-    border-radius: 20px 20px 20px 0;
-    top: -1rem;
-    left: 0;
-    right: unset;
+.reaction-emoji {
+  padding: 0.5rem;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  @include standard-flex(center, center);
+  &:hover {
+    background-color: #eceefe;
+  }
+}
+
+.own-reactions {
+  border-radius: 20px 20px 20px 0;
+  top: -1rem;
+  left: 0;
+  right: unset;
 }

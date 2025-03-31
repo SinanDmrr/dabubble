@@ -1,43 +1,57 @@
 @use "../../styles/mixins.scss" as *;
 
 main {
-    width: 90%;
-    height: 100%;
-    border-radius: 16px;
-    background-color: white;
+  width: 90%;
+  height: 100%;
+  border-radius: 16px;
+  background-color: white;
+  overflow-x: hidden;
 }
 
 .chat-container {
-    flex: 1;
+  flex: 1;
+  width: 100%;
+  overflow-y: scroll;
+  @include standard-flex(flex-start, flex-start);
+  flex-direction: column;
+
+  app-single-message {
     width: 100%;
-    overflow-y: scroll;
-    @include standard-flex(flex-start, flex-start);
-    flex-direction: column;
+  }
 
-    app-single-message {
-        width: 100%;
+  .seperation {
+    width: 100%;
+    text-align: center;
+    @include standard-flex();
+
+    span {
+      border: 1px solid #adb0d9;
+      padding: 0.25rem 1rem;
+      border-radius: 2rem;
     }
 
-    .seperation {
-        width: 100%;
-        text-align: center;
-        @include standard-flex();
-
-        span {
-            border: 1px solid #ADB0D9;
-            padding: 0.25rem 1rem;
-            border-radius: 2rem;
-        }
-
-        .line{
-            flex: 1;
-            height: 1px;
-            background-color: #ADB0D9;
-        }
+    .line {
+      flex: 1;
+      height: 1px;
+      background-color: #adb0d9;
     }
+  }
 }
 
 .message-container {
-    width: 100%;
-    margin-bottom: 2rem;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(200, 200, 200);
+  border-radius: 10px;
 }

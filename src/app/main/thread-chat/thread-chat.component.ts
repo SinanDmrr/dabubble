@@ -40,7 +40,6 @@ export class ThreadChatComponent {
 
   addMessage(newMessage: string) {
     if (!this.currentUser || !this.threadMessage) {
-      console.error('Fehlende Daten: Benutzer, Channel oder Thread-Nachricht');
       return;
     }
 
@@ -49,7 +48,6 @@ export class ThreadChatComponent {
       message: newMessage,
       time: this.styleTime(),
       emojis: [],
-      answer: [],
     };
 
     if (!this.threadMessage.answer) {

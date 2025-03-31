@@ -1,23 +1,32 @@
-<div class="single-message-container">
+<div class="single-message-container" [ngClass] = "isOwnMessage() ? 'fd-rr' : ''">
 
     <!-- Über eine Funktion abfragen, ob der writer und der currentUser übereinstimmen. Wenn ja muss eine Variable gesetzt werden
     Ist diese true, müssen einige Klassen hinzugefügt werden (z.B. rechtsbündig, andere Farbe, andere Reaktionen, Nachricht bearbeiten) -->
 
     <img class="avatar" src="assets/avatars/avatar_1.png" alt="">
 
-    <div class="message-wrapper">
-        <div class="message-header">
+    <div class="message-wrapper" [ngClass] = "isOwnMessage() ? 'ai-fe' : ''">
+        <div class="message-header" [ngClass] = "isOwnMessage() ? 'fd-rr' : ''">
             <div class="author">
                 <span class="name">{{message.writer}}</span>
                 <span class="time">{{getTwoDigitNumber(message.time.hour)}}:{{ getTwoDigitNumber(message.time.minute)}}</span>
             </div>
-            <div class="reaction">
+            <div class="reaction" [ngClass] = "isOwnMessage() ? 'own-reactions' : ''">
                 @for (emoji of reactions; track $index) {
                     <span (click)="reactToMessage(emoji)">{{emoji}}</span>
                 }
+                <div class="reaction-emoji">
+                    <img src="assets/icons/comment.png" alt="" (click)="answerToMessage()">
+                </div>
+                
+                @if (isOwnMessage()){
+                    <div class="reaction-emoji">
+                        <img src="assets/icons/more_vert.png" alt="">
+                    </div>
+                }
             </div>
         </div>
-        <div class="message">
+        <div class="message" [ngClass] = "isOwnMessage() ? 'own-message' : ''">
             <span>{{message.message}}</span>
         </div>
         <div class="answers">

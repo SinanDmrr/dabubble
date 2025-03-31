@@ -15,6 +15,10 @@
             background-color: white;
         }
 
+        .own-message{
+            background-color: #797EF3;
+        }
+
         .reaction{
             display: flex;
         }
@@ -77,11 +81,25 @@
     font-weight: bold;
 }
 
+.fd-rr{
+    flex-direction: row-reverse;
+}
+
+.ai-fe{
+    align-items: flex-end;
+}
+
+.own-message{
+    border-radius: 20px 0 20px 20px;
+    background-color: #797EF3;
+    color: white;
+}
+
 .reaction{
     border-radius: 20px 20px 0 20px;
     border: 1px solid #ADB0D9;
     background-color: white;
-    @include standard-flex(flex-start, flex-start);
+    @include standard-flex(flex-start, center);
     gap: 0.5rem;
     padding: 0.5rem 1rem;
     display: none;
@@ -96,4 +114,22 @@
             background-color: #ECEEFE;
         }
     }   
+}
+
+.reaction-emoji{
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    @include standard-flex(center, center);
+    &:hover{
+        background-color: #ECEEFE;
+    }
+}
+
+.own-reactions{
+    border-radius: 20px 20px 20px 0;
+    top: -1rem;
+    left: 0;
+    right: unset;
 }

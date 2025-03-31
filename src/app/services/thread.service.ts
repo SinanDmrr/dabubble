@@ -33,8 +33,12 @@ export class ThreadService {
     return this.showThread$;
   }
 
-  toogleThread() {
-    this.showThreadSubject.next(!this.showThread$);
+  showThreadComponent() {
+    this.showThreadSubject.next(true);
+  }
+
+  hideThreadComponent() {
+    this.showThreadSubject.next(false);
   }
 
   setThreadMessage(message: IMessage) {

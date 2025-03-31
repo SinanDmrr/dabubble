@@ -24,7 +24,7 @@ export class ThreadService {
   });
   threadMessage$ = this.threadMessageSubject.asObservable();
 
-  private showThreadSubject = new BehaviorSubject<Boolean>(false);
+  private showThreadSubject = new BehaviorSubject<boolean>(false);
   showThread$ = this.showThreadSubject.asObservable();
 
   constructor() { }
@@ -35,6 +35,7 @@ export class ThreadService {
 
   showThreadComponent() {
     this.showThreadSubject.next(true);
+    console.log("show")
   }
 
   hideThreadComponent() {
@@ -43,5 +44,10 @@ export class ThreadService {
 
   setThreadMessage(message: IMessage) {
     this.threadMessageSubject.next(message);
+    console.log("set", message)
+  }
+
+  getThreadMessage(){
+    return this.threadMessage$;
   }
 }

@@ -3,11 +3,13 @@ import { IChannels, IEmojis, IMessage } from '../../interfaces/ichannels';
 import { UserService } from '../../services/user.service';
 import { IUser } from '../../interfaces/iuser';
 import { ChannelsService } from '../../services/channels.service';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-single-message',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './single-message.component.html',
   styleUrl: './single-message.component.scss'
 })
@@ -21,6 +23,7 @@ export class SingleMessageComponent {
   constructor(private userService: UserService, private channelService: ChannelsService){
     this.userService.getCurrentUser().subscribe((user) => {
       this.currentUser = user!;
+      console.log(this.currentUser)
     });
    
   }
@@ -53,6 +56,10 @@ export class SingleMessageComponent {
         emoji.count++
       }
     });
+  }
+
+  answerToMessage(){
+    //hier thread öffnen
   }
 
   pushToFirestore(){

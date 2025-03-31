@@ -11,6 +11,11 @@ export class UserService {
 
   private currentUserMail = "";
   private collectionName = "users";
+  userToRegister = {
+    name: "",
+    email: "",
+    password: "",
+  };
 
   constructor(private firebaseService: FirebaseService) { }
 
@@ -44,5 +49,15 @@ export class UserService {
 
   async checkIfUserExists(email: string) {
     return await this.firebaseService.checkIfUserExists(email);
+  }
+
+  setUserToRegister(name: string, email: string, password: string, ) {
+    this.userToRegister.name = name;
+    this.userToRegister.email = email;
+    this.userToRegister.password = password;
+  }
+
+  getUserToRegister() {
+    return this.userToRegister;
   }
 }

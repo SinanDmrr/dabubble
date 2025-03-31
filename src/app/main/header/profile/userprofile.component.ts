@@ -4,6 +4,7 @@ import { UserService } from '../../../services/user.service';
 import { IUser } from '../../../interfaces/iuser';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AvatarPictureService } from '../../../services/avatar-picture.service';
 
 @Component({
   selector: 'app-userprofile',
@@ -20,23 +21,18 @@ export class UserProfileComponent {
   currentUser?: IUser;
   newUsername: string = "";
 
-  availablePictures = [
-    "assets/avatars/avatar_1_round.png",
-    "assets/avatars/avatar_2_round.png",
-    "assets/avatars/avatar_3_round.png",
-    "assets/avatars/avatar_4_round.png",
-    "assets/avatars/avatar_5_round.png",
-    "assets/avatars/avatar_6_round.png"
-  ]
+  availablePictures : string[] = []
 
-  constructor(private authService: AuthService, private userService: UserService) { }
+  constructor(private authService: AuthService, private userService: UserService, private avatarService: AvatarPictureService) { }
 
   ngOnInit() {
+    this.availablePictures = this.avatarService.avatarPictures;
     this.userService.getCurrentUser().subscribe(user => {
       this.currentUser = user;
       this.newUsername = this.currentUser!.name;
       this.getCurrentPictureIndex();
     })
+    
   }
 
   closeMe() {

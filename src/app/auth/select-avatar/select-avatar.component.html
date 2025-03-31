@@ -1,1 +1,15 @@
-<p>select-avatar works!</p>
+<main>
+    <div>
+        <img src="" alt="">
+        <h2>Wähle deinen Avatar</h2>
+    </div>
+    <img src="{{choosenPicture}}" alt="picture">
+    <h2>name</h2>
+    <span>Aus der liste wählen</span>
+    <div class="picture-list">
+        @for (picture of availablePictures; track $index) {
+            <img (click)="changeAvatarPicture($index)" src="{{picture}}" alt="">
+        }
+    </div>
+    <button class="blue-button">Weiter</button>
+</main>

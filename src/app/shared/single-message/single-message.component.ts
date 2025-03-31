@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { IUser } from '../../interfaces/iuser';
 import { ChannelsService } from '../../services/channels.service';
 import { CommonModule } from '@angular/common';
+import { ThreadService } from '../../services/thread.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class SingleMessageComponent {
 
   reactions: string[] = ['😂', '❤️', '👍', '🚀'];
 
-  constructor(private userService: UserService, private channelService: ChannelsService){
+  constructor(private userService: UserService, private channelService: ChannelsService, private threadService: ThreadService){
     this.userService.getCurrentUser().subscribe((user) => {
       this.currentUser = user!;
       console.log(this.currentUser)
@@ -59,7 +60,8 @@ export class SingleMessageComponent {
   }
 
   answerToMessage(){
-    //hier thread öffnen
+    this.threadService.setThreadMessage(this.message);
+    this.threadService.showThreadComponent()
   }
 
   pushToFirestore(){

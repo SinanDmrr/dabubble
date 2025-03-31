@@ -7,8 +7,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ThreadService {
 
-  showThread: boolean = false;
-
   private threadMessageSubject = new BehaviorSubject<IMessage>({
     writer: "",
     message: "",
@@ -31,6 +29,9 @@ export class ThreadService {
 
   constructor() { }
 
+  getShowThreadStatus(){
+    return this.showThread$;
+  }
 
   toogleThread() {
     this.showThreadSubject.next(!this.showThread$);

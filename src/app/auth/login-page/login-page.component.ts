@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
@@ -9,8 +9,11 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './login-page.component.scss'
 })
 export class LoginPageComponent {
+  
+
   constructor(private router: Router) {}
   ngOnInit() {
     this.router.navigate([{ outlets: { 'login-router': ['login'] } }]);
   }
+
 }

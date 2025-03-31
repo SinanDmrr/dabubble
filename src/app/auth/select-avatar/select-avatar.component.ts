@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { AvatarPictureService } from '../../services/avatar-picture.service';
-import { IUser } from '../../interfaces/iuser';
 import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-select-avatar',
@@ -11,18 +12,23 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './select-avatar.component.scss'
 })
 export class SelectAvatarComponent {
-  @Input() userToRegister = {
+  userToRegister = {
     name: "",
     email: "",
     password: "",
   };
   availablePictures: string[] = [];
-  choosenPicture: string = "";
+  choosenPicture: string = "assets/avatars/avatar_default.png";
 
-  constructor(private avatarService: AvatarPictureService, private authService: AuthService) {}
+  constructor(private router: Router, private avatarService: AvatarPictureService, private authService: AuthService, private userService: UserService) {}
 
   ngOnInit() {
     this.availablePictures = this.avatarService.avatarPictures;
+    this.userToRegister = this.userService.getUserToRegister();
+  }
+
+  returnToRegister() {
+      this.router.navigateByUrl('/(login-router:register)');
   }
 
   changeAvatarPicture(index : number) {
@@ -30,6 +36,6 @@ export class SelectAvatarComponent {
   }
 
   finishRegister() {
-    this.authService.registerUserWithEmailAndPassword(this.userToRegister?.name, this.userToRegister?.email, this.userToRegister.password, this.choosenPicture);
+    this.authService.registerUserWithEmailAndPassword(this.userToRegister.name, this.userToRegister.email, this.userToRegister.password, this.choosenPicture);
   }
 }

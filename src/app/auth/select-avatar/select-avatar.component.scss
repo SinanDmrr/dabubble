@@ -1,0 +1,45 @@
+@use "../../styles/mixins.scss" as *;
+
+main {
+    height: 100%;
+    @include standard-flex();
+    flex-direction: column;
+
+    .headline-container {
+        @include standard-flex(space-between);
+        width: 80%;
+        color: #444DF2;
+        >h2 {
+            font-size: 3rem;
+        }
+    }
+
+    .big-image-container {
+
+        >img {
+            width: 10rem;
+        }
+    }
+
+    >span {
+        margin-left: 10%;
+        font-size: 1.5rem;
+        align-self: flex-start;
+    }
+
+    .picture-list {
+        width: 80%;
+        @include standard-flex(space-between);
+        gap: 1rem;
+
+        >img {
+            cursor: pointer;
+        }
+    }
+
+    >button {
+        margin-right: 10%;
+        margin-top: 2rem;
+        align-self: flex-end;
+    }
+}

@@ -10,7 +10,7 @@
             </div>
             <div class="reaction" [class.own-reactions]="isOwnMessage()">
                 @for (emoji of reactions; track $index) {
-                    <span (click)="reactToMessage(emoji)">{{emoji}}</span>
+                    <span (click)="handleReaction(emoji)" [class.reacted]="checkIfReacted(emoji)">{{emoji}}</span>
                 }
                 <div class="reaction-emoji">
                     <img src="assets/icons/comment.png" alt="" (click)="answerToMessage()">
@@ -37,19 +37,20 @@
         </div>
         <div class="answers">
             <div class="reactions-div">
-                @for (emoji of message.emojis; track $index) {
-                    <div class="reaction-item">
-                        <span (click)="reactWithGivenReaction(emoji.unicode)">{{emoji.unicode}} {{emoji.count}}</span>
+                @for (emoji of getUniqueEmojiArr(message.emojis); track $index) {
+                    <div class="reaction-item" [class.reacted]="checkIfReacted(emoji.unicode)">
+                        <span (click)="handleReaction(emoji.unicode)">{{emoji.unicode}} {{getNumberOfSpecificEmoji(emoji)}}</span>
                     </div>
                 }     
             </div> 
             @if (message.answer) {
                 @if (message.answer.length>0) {
                     <span class="answer">{{message.answer.length}} Antworten</span>
+                    <span class="time">Letzte Antwort {{getTwoDigitNumber(message.answer[message.answer.length-1].time.hour)}}:{{getTwoDigitNumber(message.answer[message.answer.length-1].time.minute)}} Uhr</span>
                 }
             }
+        
             
-            <span class="time">Letzte Antwort 14:56 Uhr</span>
         </div>
     </div>
 </div>

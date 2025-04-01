@@ -24,76 +24,146 @@ export class SingleMessageComponent {
   textareaMessage: string = "";
 
   reactions: string[] = ['😂', '❤️', '👍', '🚀'];
+  reacted: boolean = false;
+  reactedTo: string = "";
 
-  constructor(private userService: UserService, private channelService: ChannelsService, private threadService: ThreadService){
+  constructor(private userService: UserService, private channelService: ChannelsService, private threadService: ThreadService) {
     this.userService.getCurrentUser().subscribe((user) => {
       this.currentUser = user!;
     });
-    
+
     this.channelService.getCurrentChannel().subscribe((channel) => {
       this.currentChannel = channel;
     })
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.textareaMessage = this.message.message;
+    this.checkIfAlreadyReacted();
   }
 
-  isOwnMessage(): boolean{
-    if(this.message.writer == this.currentUser.name){
+  checkIfAlreadyReacted() {
+    this.message.emojis.forEach(emoji => {
+      if (emoji.username == this.currentUser.name) {
+        this.reactedTo = emoji.unicode;
+        this.reacted = true;
+      }
+    });
+  }
+
+  checkIfReacted(emoji: string): boolean {
+    if (this.reactedTo == emoji) {
       return true
     } else {
       return false;
     }
   }
 
-  reactToMessage(newEmoji: string) {
-    let found = false;
-    this.message.emojis.forEach(emoji => {
-      if(emoji.unicode == newEmoji){
-        emoji.count++
-        found = true;
-      }
-    });
-    
-    if(!found){
-      this.message.emojis.push({unicode: newEmoji, count: 1, username: this.currentUser.name});
+  isOwnMessage(): boolean {
+    if (this.message.writer == this.currentUser.name) {
+      return true
+    } else {
+      return false;
     }
   }
 
-  reactWithGivenReaction(newEmoji: string){
+  handleReaction(newEmoji: string) {
+    if (this.reactedTo == newEmoji) {
+      this.unclickReaction(newEmoji);
+    } else {
+      if(this.reacted){
+        this.unclickReaction(this.reactedTo);
+        this.react(newEmoji)
+      } else {
+        this.react(newEmoji)
+      }
+    }
+    
+    this.pushToFirestore()
+  }
+
+  unclickReaction(emojiToUnclick: string) {
     this.message.emojis.forEach(emoji => {
-      if(emoji.unicode == newEmoji){
-        emoji.count++
+      if (emoji.unicode == emojiToUnclick) {
+        this.deleteReaction(emojiToUnclick);
       }
     });
   }
 
-  answerToMessage(){
+  deleteReaction(emojiToDelete: string) {
+    let index = this.message.emojis.findIndex(emoji => emoji.unicode == emojiToDelete && emoji.username == this.currentUser.name);
+    if (index !== -1) {
+      this.message.emojis.splice(index, 1);
+    }
+    this.reacted = false;
+    this.reactedTo = "";
+  }
+
+  react(newEmoji: string) {
+    this.message.emojis.push({ unicode: newEmoji, count: 1, username: this.currentUser.name });
+    this.reactedTo = newEmoji;
+    this.reacted = true;
+  }
+
+  getNumberOfSpecificEmoji(emoji: IEmojis): number{
+    let count = 0;
+    this.message.emojis.forEach(emojiElement => {
+      if(emojiElement.unicode == emoji.unicode){
+        count++
+      }
+    });
+    return count;
+  }
+
+  getUniqueEmojiArr(emojiArr: IEmojis[]){
+    let uniqueEmojis = emojiArr.filter((obj, index, array) =>
+      array.findIndex(item => item.unicode === obj.unicode) === index
+    ); 
+    
+    return uniqueEmojis
+  }
+
+  reactWithGivenReaction(newEmoji: string) {
+    this.message.emojis.forEach(emoji => {
+      if (emoji.unicode == newEmoji) {
+        if (this.reacted) {
+          emoji.count--
+          this.reacted = false;
+        } else {
+          emoji.count++
+          this.reacted = true;
+        }
+      }
+    });
+
+    this.pushToFirestore()
+  }
+
+  answerToMessage() {
     this.threadService.setThreadMessage(this.message);
     this.threadService.showThreadComponent()
   }
 
-  pushToFirestore(){
+  pushToFirestore() {
     //hier muss der Channel komplett geupdatet werden (this.channelService.update()) um die Reaktionen auf die Messages zu pushen
     this.channelService.updateChannel(this.currentChannel.id!, this.currentChannel);
   }
 
-  getTwoDigitNumber(number: number){
+  getTwoDigitNumber(number: number) {
     return number < 10 ? '0' + number : number
   }
 
-  editMessage(){
+  editMessage() {
     this.messageEditable = true;
   }
 
-  saveEdits(){
+  saveEdits() {
     this.message.message = this.textareaMessage;
     this.pushToFirestore();
     this.closeEditMessage();
   }
 
-  closeEditMessage(){
+  closeEditMessage() {
     this.messageEditable = false;
   }
 }

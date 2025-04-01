@@ -1,5 +1,10 @@
 @use "../../styles/mixins.scss" as *;
 
+:host{
+  z-index: 10;
+  overflow: visible;
+}
+
 .single-message-container {
   width: 100%;
   @include standard-flex(flex-start, flex-start);
@@ -7,7 +12,9 @@
   padding: 0.5rem 2rem;
   gap: 2rem;
   overflow-x: hidden;
-
+  z-index: 10;
+  position: relative;
+  overflow: visible;
   &:hover {
     background-color: #f0f1fe;
     cursor: pointer;
@@ -50,12 +57,16 @@
   flex-direction: column;
   width: 100%;
   gap: 0.5rem;
+  z-index: 10;
+  overflow: visible;
 }
 
 .message-header {
   @include standard-flex(space-between);
   width: 100%;
   position: relative;
+  z-index: 10;
+  overflow: visible;
 }
 
 .message {
@@ -76,6 +87,7 @@
 
 .answer {
   color: #757bf4;
+
   &:hover {
     font-weight: bold;
   }
@@ -140,16 +152,16 @@
   border: 1px solid #adb0d9;
   background-color: white;
   @include standard-flex(flex-start, center);
-  gap: 0.5rem;
   padding: 0.5rem 1rem;
   display: none;
   position: absolute;
-  top: -1rem;
+  top: -1.5rem;
   right: 0;
-
+  z-index: 20;
   span {
     padding: 0.5rem;
     border-radius: 50%;
+
     &:hover {
       background-color: #eceefe;
     }
@@ -162,14 +174,19 @@
   width: 20px;
   height: 20px;
   @include standard-flex(center, center);
+
   &:hover {
     background-color: #eceefe;
   }
 }
 
+.reacted{
+  background-color: #eceefe;
+}
+
 .own-reactions {
   border-radius: 20px 20px 20px 0;
-  top: -1rem;
+  top: -1.5rem;
   left: 0;
   right: unset;
 }

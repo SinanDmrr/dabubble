@@ -1,0 +1,84 @@
+@use "../../styles/mixins.scss" as *;
+
+$primary-font-color: #535af1;
+$primary-bg-color: #eceefe;
+$btn-color: #444df2;
+$btn-color-hover: #636af3;
+$input-alert: rgb(237,30,121);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Nunito";
+}
+
+main {
+    @include standard-flex(flex-start);
+    flex-direction: column;
+    padding: 2rem 4rem;
+    // height: 48rem;
+    // width: 38rem;
+
+    h1 {
+        margin: 1.5rem 1rem;
+        font-size: 3rem;
+        color: $primary-font-color;
+    }
+    p {
+        font-size: 1.2rem;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    form {
+        width: 100%;
+    }
+    .input-section {
+        @include standard-flex(flex-start);
+        width: 100%;
+        position: relative;
+        img {
+            position: absolute;
+            left: 3rem;
+            height: 1rem;
+        }
+        .lock-icon {
+            height: 1.5rem;
+        }
+        p {
+            position: absolute;
+            top: 5.5rem;
+            left: 2rem;
+            font-size: 1rem;
+            color: $input-alert
+        }
+    }
+    .text-input {
+        height: 3.5rem;
+        padding: 1rem 1rem 1rem 4rem;
+        border-radius: 2rem;
+        width: 100%;
+        border: 1px solid rgba(128, 128, 128, 0);
+        background-color: rgb(236,238,254);
+        outline: none;
+        margin: 1.5rem;
+        font-size: 1.2rem;
+        &:hover {
+            border: 1px solid rgb(128, 128, 128);
+        }
+        &:focus {
+            border: 1px solid $primary-font-color;
+        }
+        &::placeholder {
+            padding-top: 2px;
+            font-size: 1.2rem;
+        }
+    }
+    a {
+        color: $primary-font-color;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

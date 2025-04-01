@@ -1,7 +1,30 @@
 <main>
-    hi
+    <h1>Anmeldung</h1>
+    <p>Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
+    <form class="login-form" (ngSubmit)="login(loginForm)" #loginForm="ngForm">
+        <div class="input-section"><img class="mail-icon" src="../../../assets/icons/mail.png" alt=""><input class="text-input" #email="ngModel" [(ngModel)]="loginData.email" name="email" id="mail-input-login" type="text" placeholder="beispielname@email.com" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
+            @if (!email.valid && email.touched) {
+                <p>*Diese E-Mail ist leider ungültig</p>
+            }
+        </div>
+        <div class="input-section"><img class="lock-icon" src="../../../assets/icons/lock.png" alt=""><input class="text-input" #password="ngModel" [(ngModel)]="loginData.password" name="password" id="password-input-login" type="password" placeholder="Passwort" required>
+            @if (!password.valid && password.touched) {
+                <p>*Falsches Passwort, oder E-Mail.. Bitte erneut versuchen.</p>
+            }
+        </div>
+        <input type="submit" value="Submit" hidden>
+    </form>
+    <a href="">Passwort vergessen?</a>
+    <div class="division-line">
+        <hr>
+        <p>ODER</p>
+        <hr>
+    </div>
 </main>
-<button (click)="register()">register</button>
-    <button (click)="login()">login</button>
+<button (click)="goToRegister()">Anmelden</button>
+<div class="routing-content">
+    <router-outlet name="login-router"></router-outlet>
+</div>
+    <!-- <button (click)="login()">login</button> -->
     <button (click)="guestLogin()">guestLogin</button>
     <button (click)="loginGoogle()">loginGoogle</button>

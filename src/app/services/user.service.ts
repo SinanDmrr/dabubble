@@ -55,6 +55,7 @@ export class UserService {
     this.userToRegister.name = name;
     this.userToRegister.email = email;
     this.userToRegister.password = password;
+    this.userToRegister = { name, email, password };
   }
 
   getUserToRegister() {

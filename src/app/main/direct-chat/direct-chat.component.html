@@ -1,1 +1,30 @@
-<p>direct-chat works!</p>
+<main>
+  <header>
+    <div class="header-content">
+      <div id="img-container">
+        <img src="{{ clickedDirectChatUser?.picture }}" id="user-icon" />
+        <img
+          [src]="
+            clickedDirectChatUser?.onlineStatus
+              ? '/assets/icons/online.png'
+              : '/assets/icons/offline.png'
+          "
+          id="online-status"
+        />
+        @if (clickedDirectChatUser?.name == currentUser?.name) {
+          <h2>{{ clickedDirectChatUser?.name }} (Du)</h2>
+        } @else {
+          <h2>{{ clickedDirectChatUser?.name }}</h2>
+        }
+      </div>
+    </div>
+  </header>
+
+  <div class="chat-container" id="chatcontainer">
+    <p>test</p>
+  </div>
+
+  <section class="message-container">
+    <app-write-message (messageSent)="addMessage($event)"></app-write-message>
+  </section>
+</main>

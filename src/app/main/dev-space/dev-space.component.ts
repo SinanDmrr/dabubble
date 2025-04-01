@@ -78,8 +78,8 @@ export class DevSpaceComponent {
   }
 
   changeDirectMessageToDisplay(user: IUser) {
-    //TODO hier die Logik des Router Outlets zum Switchen auf DirectMessages komponente
     this.activeLiId = user.id;
+    this.userService.setClickedDirectChatUser(user);
     this.router.navigate(['/direct']);
   }
 

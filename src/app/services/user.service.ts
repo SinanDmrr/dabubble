@@ -1,19 +1,19 @@
-import { Injectable } from '@angular/core';
-import { FirebaseService } from './firebase.service';
-import { IUser } from '../interfaces/iuser';
-import { AuthService } from './auth.service';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { FirebaseService } from "./firebase.service";
+import { IUser } from "../interfaces/iuser";
+import { AuthService } from "./auth.service";
+import { BehaviorSubject, map, Observable } from "rxjs";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class UserService {
-  private currentUserMail = '';
-  private collectionName = 'users';
+  private currentUserMail = "";
+  private collectionName = "users";
   userToRegister = {
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
   };
 
   private clickedDirectChatUser = new BehaviorSubject<IUser | undefined>(

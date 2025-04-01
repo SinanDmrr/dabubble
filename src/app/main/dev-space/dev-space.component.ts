@@ -1,22 +1,22 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { AddChannelComponent } from './add-channel/add-channel.component';
-import { IChannels } from '../../interfaces/ichannels';
-import { ChannelsService } from '../../services/channels.service';
-import { UserService } from '../../services/user.service';
-import { IUser } from '../../interfaces/iuser';
-import { DirectsMessageService } from '../../services/directs-message.service';
-import { IDirectMessage } from '../../interfaces/idirect-message';
-import { user } from '@angular/fire/auth';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Component } from "@angular/core";
+import { RouterModule } from "@angular/router";
+import { AddChannelComponent } from "./add-channel/add-channel.component";
+import { IChannels } from "../../interfaces/ichannels";
+import { ChannelsService } from "../../services/channels.service";
+import { UserService } from "../../services/user.service";
+import { IUser } from "../../interfaces/iuser";
+import { DirectsMessageService } from "../../services/directs-message.service";
+import { IDirectMessage } from "../../interfaces/idirect-message";
+import { user } from "@angular/fire/auth";
+import { CommonModule } from "@angular/common";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-dev-space',
+  selector: "app-dev-space",
   standalone: true,
   imports: [RouterModule, AddChannelComponent, CommonModule],
-  templateUrl: './dev-space.component.html',
-  styleUrl: './dev-space.component.scss',
+  templateUrl: "./dev-space.component.html",
+  styleUrl: "./dev-space.component.scss",
 })
 export class DevSpaceComponent {
   isChannelsExpanded = true;
@@ -74,13 +74,13 @@ export class DevSpaceComponent {
   changeChannelToDisplay(channel: IChannels) {
     this.channelsService.setCurrentChannel(channel);
     this.activeLiId = channel.id;
-    this.router.navigate(['/main']);
+    this.router.navigate(["/main"]);
   }
 
   changeDirectMessageToDisplay(user: IUser) {
     this.activeLiId = user.id;
     this.userService.setClickedDirectChatUser(user);
-    this.router.navigate(['/direct']);
+    this.router.navigate(["/direct"]);
   }
 
   toggleChannels() {
@@ -105,7 +105,7 @@ export class DevSpaceComponent {
     members?: string[];
   }) {
     if (!this.currentUser) {
-      console.error('Current user is not loaded yet!');
+      console.error("Current user is not loaded yet!");
       return;
     }
 
@@ -115,7 +115,7 @@ export class DevSpaceComponent {
     const newChannel: IChannels = {
       creator: this.currentUser.name,
       name: channelData.name,
-      description: channelData.description || '',
+      description: channelData.description || "",
       messages: [],
       users: usersToAdd,
     };
@@ -125,7 +125,7 @@ export class DevSpaceComponent {
         this.closeAddChannel();
       })
       .catch((error) => {
-        console.error('Error adding channel to Firebase:', error);
+        console.error("Error adding channel to Firebase:", error);
       });
   }
 }

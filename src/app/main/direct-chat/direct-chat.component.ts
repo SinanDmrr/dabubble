@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
-import { IUser } from '../../interfaces/iuser';
-import { Subscription } from 'rxjs';
-import { WriteMessageComponent } from '../../shared/write-message/write-message.component';
-import { IDirectMessage } from '../../interfaces/idirect-message';
-import { IMessage } from '../../interfaces/idirect-message';
-import { IEmojis } from '../../interfaces/idirect-message';
+import { Component, OnInit } from "@angular/core";
+import { UserService } from "../../services/user.service";
+import { IUser } from "../../interfaces/iuser";
+import { Subscription } from "rxjs";
+import { WriteMessageComponent } from "../../shared/write-message/write-message.component";
+import { IDirectMessage } from "../../interfaces/idirect-message";
+import { IMessage } from "../../interfaces/idirect-message";
+import { IEmojis } from "../../interfaces/idirect-message";
 
 @Component({
-  selector: 'app-direct-chat',
+  selector: "app-direct-chat",
   standalone: true,
   imports: [WriteMessageComponent],
-  templateUrl: './direct-chat.component.html',
-  styleUrl: './direct-chat.component.scss',
+  templateUrl: "./direct-chat.component.html",
+  styleUrl: "./direct-chat.component.scss",
 })
 export class DirectChatComponent implements OnInit {
   clickedDirectChatUser: IUser | undefined;
@@ -69,7 +69,7 @@ export class DirectChatComponent implements OnInit {
       day: time.getDate(),
       month: time.getMonth(),
       year: time.getFullYear(),
-      dayName: time.toLocaleDateString('de-DE', { weekday: 'long' }),
+      dayName: time.toLocaleDateString("de-DE", { weekday: "long" }),
       fullDate: time.toDateString(),
     };
   }

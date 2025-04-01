@@ -36,6 +36,10 @@ export class ThreadChatComponent {
     this.userService.getCurrentUser().subscribe((user) => {
       this.currentUser = user!;
     });
+
+    this.channelService.getCurrentChannel().subscribe((channel) => {
+      this.currentChannel = channel;
+    });
   }
 
   addMessage(newMessage: string) {

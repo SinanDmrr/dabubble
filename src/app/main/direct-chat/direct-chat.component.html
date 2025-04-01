@@ -21,8 +21,46 @@
   </header>
 
   <div class="chat-container" id="chatcontainer">
-    <p>test</p>
+    @if (emptChatHistory) {
+      <div class="welcomeText">
+        @if (clickedDirectChatUser?.name == currentUser?.name) {
+          <div class="welcomeTextHeader">
+            <img src="{{ clickedDirectChatUser?.picture }}" id="user-icon" />
+            <h3>{{ clickedDirectChatUser?.name }} (Du)</h3>
+          </div>
+          <p>
+            <span class="bold-text">Dieser Raum ist nur für dich da.</span>
+            Mache dir Notizen, liste deine To-dos auf oder bewahre Links und
+            Dateien griffbereit auf. Du kannst hier auch gerne Dinge mit dir
+            selbst besprechen.
+          </p>
+        } @else {
+          <div class="welcomeTextHeader">
+            <img src="{{ clickedDirectChatUser?.picture }}" id="user-icon" />
+            <h3>{{ clickedDirectChatUser?.name }}</h3>
+          </div>
+          <p>
+            Diese Unterhaltung findet nur zwischen
+            <span
+              class="clickable-user"
+              (click)="showProfile(clickedDirectChatUser?.name)"
+            >
+              &#64;{{ clickedDirectChatUser?.name }}
+            </span>
+            und dir statt.
+          </p>
+        }
+      </div>
+    } @else {
+      <!-- TODO Hier kommt die einzelnen Nachrichten rein laden, wenn vorhanden
+       ich holzkopf muss aber erstmal verstehen wie ich das baue... -->
+    }
   </div>
+
+  @if (showProfileCard && clickedDirectChatUser) {
+    <app-profile [user]="clickedDirectChatUser" (close)="closeProfile()">
+    </app-profile>
+  }
 
   <section class="message-container">
     <app-write-message (messageSent)="addMessage($event)"></app-write-message>

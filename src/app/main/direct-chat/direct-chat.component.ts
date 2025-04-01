@@ -3,6 +3,7 @@ import { UserService } from "../../services/user.service";
 import { IUser } from "../../interfaces/iuser";
 import { Subscription } from "rxjs";
 import { WriteMessageComponent } from "../../shared/write-message/write-message.component";
+import { ProfileComponent } from "../../shared/profile/profile.component";
 import { IDirectMessage } from "../../interfaces/idirect-message";
 import { IMessage } from "../../interfaces/idirect-message";
 import { IEmojis } from "../../interfaces/idirect-message";
@@ -10,13 +11,15 @@ import { IEmojis } from "../../interfaces/idirect-message";
 @Component({
   selector: "app-direct-chat",
   standalone: true,
-  imports: [WriteMessageComponent],
+  imports: [WriteMessageComponent, ProfileComponent],
   templateUrl: "./direct-chat.component.html",
   styleUrl: "./direct-chat.component.scss",
 })
 export class DirectChatComponent implements OnInit {
   clickedDirectChatUser: IUser | undefined;
   currentUser: IUser | undefined;
+  emptChatHistory: boolean = true;
+  showProfileCard: boolean = false;
 
   private subscriptionCurrentUser: Subscription | undefined;
   private subscriptionClickedUser: Subscription | undefined;
@@ -42,6 +45,16 @@ export class DirectChatComponent implements OnInit {
       this.subscriptionCurrentUser.unsubscribe();
       this.subscriptionClickedUser.unsubscribe();
     }
+  }
+
+  showProfile(username: string | undefined) {
+    if (username && this.clickedDirectChatUser) {
+      this.showProfileCard = true;
+    }
+  }
+
+  closeProfile() {
+    this.showProfileCard = false;
   }
 
   addMessage(newMessage: string) {

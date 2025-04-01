@@ -135,22 +135,6 @@ export class SingleMessageComponent {
     return uniqueEmojis;
   }
 
-  reactWithGivenReaction(newEmoji: string) {
-    this.message.emojis.forEach((emoji) => {
-      if (emoji.unicode == newEmoji) {
-        if (this.reacted) {
-          emoji.count--;
-          this.reacted = false;
-        } else {
-          emoji.count++;
-          this.reacted = true;
-        }
-      }
-    });
-
-    this.pushToFirestore();
-  }
-
   answerToMessage() {
     this.threadService.setThreadMessage(this.message);
     this.threadService.showThreadComponent();

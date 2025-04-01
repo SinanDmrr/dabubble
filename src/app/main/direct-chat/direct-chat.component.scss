@@ -1,11 +1,20 @@
 @use "../../styles/mixins.scss" as *;
 
+* {
+  box-sizing: border-box;
+}
+
 :host {
   height: 100%;
 }
 
 app-profile {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
 }
 
 main {
@@ -52,29 +61,33 @@ header {
 .chat-container {
   flex: 1;
   width: 100%;
-  overflow-y: scroll;
+  overflow-y: hidden;
   @include standard-flex(flex-start, flex-start);
-  flex-direction: column;
-
+  flex-direction: column-reverse;
+  padding: 0 2rem;
   app-single-message {
     width: 100%;
   }
 
-  .seperation {
-    width: 100%;
-    text-align: center;
-    @include standard-flex();
+  .welcomeText {
+    display: flex;
+    flex-direction: column;
 
-    span {
-      border: 1px solid #adb0d9;
-      padding: 0.25rem 1rem;
-      border-radius: 2rem;
+    .welcomeTextHeader {
+      display: flex;
     }
 
-    .line {
-      flex: 1;
-      height: 1px;
-      background-color: #adb0d9;
+    p {
+      color: #848484;
+    }
+
+    .bold-text {
+      font-weight: 700;
+    }
+
+    .clickable-user {
+      color: #797ef3;
+      cursor: pointer;
     }
   }
 }

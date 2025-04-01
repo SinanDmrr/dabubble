@@ -1,3 +1,16 @@
 <main>
-    thread
-</main>
+    @if(showThread && threadMessage){
+      <section class="chat-container">
+        <app-single-message [message]="threadMessage"></app-single-message>
+        <div class="line"></div>
+        @if(threadMessage.answer){
+          @for (answer of threadMessage.answer; track $index) {
+            <app-single-message [message]="answer"></app-single-message>
+          }
+        }
+      </section>
+      <section class="message-container">
+        <app-write-message (messageSent)="addMessage($event)"></app-write-message>
+      </section>
+    }
+  </main>

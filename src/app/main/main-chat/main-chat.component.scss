@@ -1,347 +1,347 @@
 @use "../../styles/mixins.scss" as *;
 
 :host {
-    height: 100%;
+  height: 100%;
 }
 
 app-profile {
-    position: absolute
+  position: absolute;
 }
 
 main {
-    @include standard-flex(flex-start, flex-start);
-    flex-direction: column;
-    height: 100%;
-    border-radius: 16px;
-    background-color: white;
+  @include standard-flex(flex-start, flex-start);
+  flex-direction: column;
+  height: 100%;
+  border-radius: 16px;
+  background-color: white;
 }
 
 h2 {
-    margin: 0;
+  margin: 0;
 }
 
 header {
-    width: 100%;
-    -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
-    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
 
-    .header-content {
-        @include standard-flex(space-between);
-        padding: 1rem 2rem;
-    }
+  .header-content {
+    @include standard-flex(space-between);
+    padding: 1rem 2rem;
+  }
 }
 
 .channel-name-container,
 .user-container {
-    @include standard-flex();
-    padding: 0.5rem 1rem;
-    gap: 1rem;
-    cursor: pointer;
-    position: relative;
+  @include standard-flex();
+  padding: 0.5rem 1rem;
+  gap: 1rem;
+  cursor: pointer;
+  position: relative;
 }
 
 .channel-name-container,
 .avatars-container {
-    &:hover {
-        background-color: #ECEEFE;
-        border-radius: 5rem
-    }
+  &:hover {
+    background-color: #eceefe;
+    border-radius: 5rem;
+  }
 }
 
 .avatars-container {
-    @include standard-flex();
-    padding: 0.25rem 0.5rem;
+  @include standard-flex();
+  padding: 0.25rem 0.5rem;
 
-    span {
-        padding-left: 2rem;
-    }
+  span {
+    padding-left: 2rem;
+  }
 }
 
 .avatar {
-    width: 30px;
+  width: 30px;
 
-    img {
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        border: 2px solid white;
-    }
-}
-
-.person-add-btn {
-    @include standard-flex();
-    background-color: #ECEEFE;
+  img {
     border-radius: 50%;
     height: 40px;
     width: 40px;
+    border: 2px solid white;
+  }
+}
 
-    &:hover {
-        img {
-            scale: 1.1;
-        }
+.person-add-btn {
+  @include standard-flex();
+  background-color: #eceefe;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+
+  &:hover {
+    img {
+      scale: 1.1;
     }
+  }
 }
 
 .chat-container {
-    flex: 1;
+  flex: 1;
+  width: 100%;
+  overflow-y: scroll;
+  @include standard-flex(flex-start, flex-start);
+  flex-direction: column;
+
+  app-single-message {
     width: 100%;
-    overflow-y: scroll;
-    @include standard-flex(flex-start, flex-start);
-    flex-direction: column;
+  }
 
-    app-single-message {
-        width: 100%;
+  .seperation {
+    width: 100%;
+    text-align: center;
+    @include standard-flex();
+
+    span {
+      border: 1px solid #adb0d9;
+      padding: 0.25rem 1rem;
+      border-radius: 2rem;
     }
 
-    .seperation {
-        width: 100%;
-        text-align: center;
-        @include standard-flex();
-
-        span {
-            border: 1px solid #ADB0D9;
-            padding: 0.25rem 1rem;
-            border-radius: 2rem;
-        }
-
-        .line{
-            flex: 1;
-            height: 1px;
-            background-color: #ADB0D9;
-        }
+    .line {
+      flex: 1;
+      height: 1px;
+      background-color: #adb0d9;
     }
+  }
 }
 
 .message-container {
-    width: 100%;
-    margin-bottom: 2rem;
+  width: 100%;
+  margin-bottom: 2rem;
 }
 
 .bg {
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.375);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    cursor: default;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.375);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  cursor: default;
 }
 
 .members-container {
-    position: absolute;
-    z-index: 2;
-    top: 5rem;
-    right: 5rem;
-    background-color: white;
-    border-radius: 20px 0 20px 20px;
-    @include standard-flex(flex-start, flex-start);
-    gap: 1rem;
-    flex-direction: column;
-    -webkit-box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);
-    box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);
-    padding: 2rem;
-    width: 20rem;
-    cursor: default;
+  position: absolute;
+  z-index: 2;
+  top: 5rem;
+  right: 5rem;
+  background-color: white;
+  border-radius: 20px 0 20px 20px;
+  @include standard-flex(flex-start, flex-start);
+  gap: 1rem;
+  flex-direction: column;
+  -webkit-box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  width: 20rem;
+  cursor: default;
 }
 
 .member-header,
 .add-member-header {
-    @include standard-flex(space-between);
-    width: 100%;
+  @include standard-flex(space-between);
+  width: 100%;
 }
 
 .close-button {
-    cursor: pointer;
-    border-radius: 50%;
-    padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 0.5rem;
 
-    &:hover {
-        content: url("../../../assets/icons/close_hover.png");
-        background-color: #ECEEFE;
-        transition: background-color 0.1s ease-in-out;
-    }
+  &:hover {
+    content: url("../../../assets/icons/close_hover.png");
+    background-color: #eceefe;
+    transition: background-color 0.1s ease-in-out;
+  }
 }
 
 .member-list {
-    @include standard-flex(flex-start, flex-start);
-    flex-direction: column;
+  @include standard-flex(flex-start, flex-start);
+  flex-direction: column;
 }
 
 .member-item {
-    @include standard-flex(flex-start, center);
-    gap: 1rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
+  @include standard-flex(flex-start, center);
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 
-    img {
-        border-radius: 50%;
-    }
+  img {
+    border-radius: 50%;
+  }
 
-    &:hover {
-        background-color: #ECEEFE;
-        border-radius: 10rem
-    }
+  &:hover {
+    background-color: #eceefe;
+    border-radius: 10rem;
+  }
 }
 
 .add-member {
+  @include standard-flex(center, center);
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+
+  div {
     @include standard-flex(center, center);
-    gap: 1rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
+    background-color: #eceefe;
+    width: 1rem;
+    height: 1rem;
+    padding: 1rem;
+    border-radius: 50%;
+  }
 
-    div {
-        @include standard-flex(center, center);
-        background-color: #ECEEFE;
-        width: 1rem;
-        height: 1rem;
-        padding: 1rem;
-        border-radius: 50%;
+  &:hover {
+    background-color: #eceefe;
+    border-radius: 10rem;
+    color: #797ff4;
+
+    img {
+      content: url("../../../assets/icons/person_add_hover.png");
     }
-
-    &:hover {
-        background-color: #ECEEFE;
-        border-radius: 10rem;
-        color: #797FF4;
-
-        img {
-            content: url("../../../assets/icons/person_add_hover.png");
-        }
-    }
+  }
 }
 
 .add-member-container {
-    position: absolute;
-    z-index: 2;
-    top: 5rem;
-    right: 2rem;
-    width: 25rem;
-    background-color: white;
-    border-radius: 20px 0 20px 20px;
-    @include standard-flex(flex-start, flex-start);
-    gap: 1rem;
-    flex-direction: column;
-    -webkit-box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);
-    box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);
-    padding: 2rem;
-    cursor: default;
+  position: absolute;
+  z-index: 2;
+  top: 5rem;
+  right: 2rem;
+  width: 25rem;
+  background-color: white;
+  border-radius: 20px 0 20px 20px;
+  @include standard-flex(flex-start, flex-start);
+  gap: 1rem;
+  flex-direction: column;
+  -webkit-box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  cursor: default;
 
-    .input-container {
-        border: 1px solid #ADB0D9;
-        border-radius: 20px;
-        padding: 0.5rem;
-        box-sizing: border-box;
-        width: 100%;
-        @include standard-flex(flex-start, center);
-        gap: 0.5rem;
-        flex-wrap: wrap;
-    }
+  .input-container {
+    border: 1px solid #adb0d9;
+    border-radius: 20px;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    @include standard-flex(flex-start, center);
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
 
-    input {
-        border: none;
-        outline: none;
-        font-family: 'Nunito';
-        color: black;
-        flex: 1;
-    }
+  input {
+    border: none;
+    outline: none;
+    font-family: "Nunito";
+    color: black;
+    flex: 1;
+  }
 }
 
 .channel-name {
-    color: #797EF3;
+  color: #797ef3;
 }
 
 .added-member-container {
-    @include standard-flex(flex-start);
-    gap: 0.5rem;
-    background-color: #ECEEFE;
-    border-radius: 10rem;
-    max-height: 2rem;
-    white-space: nowrap;
-    padding: 0.25rem 0.5rem;
+  @include standard-flex(flex-start);
+  gap: 0.5rem;
+  background-color: #eceefe;
+  border-radius: 10rem;
+  max-height: 2rem;
+  white-space: nowrap;
+  padding: 0.25rem 0.5rem;
 
-    .avatar {
-        border-radius: 50%;
-        width: 2rem;
-        height: 2rem;
-    }
+  .avatar {
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+  }
 
-    .close-button-small {
-        width: 0.5rem;
-        height: 0.5rem;
-        cursor: pointer;
-    }
+  .close-button-small {
+    width: 0.5rem;
+    height: 0.5rem;
+    cursor: pointer;
+  }
 }
 
 .add-button-container {
-    @include standard-flex(flex-end);
-    width: 100%;
+  @include standard-flex(flex-end);
+  width: 100%;
 
-    button {
-        padding: 0.5rem 1rem;
-        background-color: #444DF2;
-        font-weight: bold;
-        color: white;
-        border-radius: 2rem;
-        border: none;
+  button {
+    padding: 0.5rem 1rem;
+    background-color: #444df2;
+    font-weight: bold;
+    color: white;
+    border-radius: 2rem;
+    border: none;
 
-        &:hover {
-            background-color: #797EF3;
-            cursor: pointer;
-        }
-
-        &:disabled {
-            background-color: grey;
-            pointer-events: none;
-        }
+    &:hover {
+      background-color: #797ef3;
+      cursor: pointer;
     }
+
+    &:disabled {
+      background-color: grey;
+      pointer-events: none;
+    }
+  }
 }
 
 .suggestion-container {
-    position: absolute;
-    -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
-    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
-    border-radius: 0 20px 20px 20px;
-    border: 1px solid #ADB0D9;
-    background-color: white;
-    top: 2rem;
-    left: 1rem;
-    max-height: 19rem;
-    padding: 0.5rem 1rem;
-    @include standard-flex(flex-start, flex-start);
-    flex-direction: column;
-    overflow-y: scroll;
+  position: absolute;
+  -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+  border-radius: 0 20px 20px 20px;
+  border: 1px solid #adb0d9;
+  background-color: white;
+  top: 2rem;
+  left: 1rem;
+  max-height: 19rem;
+  padding: 0.5rem 1rem;
+  @include standard-flex(flex-start, flex-start);
+  flex-direction: column;
+  overflow-y: scroll;
 }
 
 .input-wrapper {
-    position: relative;
+  position: relative;
 }
 
 .suggestion-member-item {
-    @include standard-flex(flex-start, center);
-    gap: 1rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    white-space: nowrap;
+  @include standard-flex(flex-start, center);
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  white-space: nowrap;
 
-    img {
-        border-radius: 50%;
-    }
+  img {
+    border-radius: 50%;
+  }
 
-    &:hover {
-        background-color: #ECEEFE;
-        border-radius: 10rem
-    }
+  &:hover {
+    background-color: #eceefe;
+    border-radius: 10rem;
+  }
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgb(200, 200, 200);
-    border-radius: 10px;
+  background: rgb(200, 200, 200);
+  border-radius: 10px;
 }

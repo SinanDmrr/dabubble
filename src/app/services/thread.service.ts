@@ -3,13 +3,12 @@ import { IMessage } from '../interfaces/ichannels';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ThreadService {
-
   private threadMessageSubject = new BehaviorSubject<IMessage>({
-    writer: "",
-    message: "",
+    writer: '',
+    message: '',
     answer: [],
     time: {
       hour: 0,
@@ -17,25 +16,25 @@ export class ThreadService {
       day: 0,
       month: 0,
       year: 0,
-      dayName: "",
-      fullDate: ""
+      dayName: '',
+      fullDate: '',
     },
-    emojis: []
+    emojis: [],
   });
   threadMessage$ = this.threadMessageSubject.asObservable();
 
   private showThreadSubject = new BehaviorSubject<boolean>(false);
   showThread$ = this.showThreadSubject.asObservable();
 
-  constructor() { }
+  constructor() {}
 
-  getShowThreadStatus(){
+  getShowThreadStatus() {
     return this.showThread$;
   }
 
   showThreadComponent() {
     this.showThreadSubject.next(true);
-    console.log("show")
+    console.log('show');
   }
 
   hideThreadComponent() {
@@ -44,10 +43,10 @@ export class ThreadService {
 
   setThreadMessage(message: IMessage) {
     this.threadMessageSubject.next(message);
-    console.log("set", message)
+    console.log('set', message);
   }
 
-  getThreadMessage(){
+  getThreadMessage() {
     return this.threadMessage$;
   }
 }

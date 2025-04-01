@@ -9,6 +9,7 @@ import { DirectsMessageService } from '../../services/directs-message.service';
 import { IDirectMessage } from '../../interfaces/idirect-message';
 import { user } from '@angular/fire/auth';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dev-space',
@@ -34,6 +35,7 @@ export class DevSpaceComponent {
     private channelsService: ChannelsService,
     private userService: UserService,
     private directMessagesService: DirectsMessageService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -53,36 +55,32 @@ export class DevSpaceComponent {
       this.allDirectMessages = dM;
       this.filterCurrentDirectMessages();
     });
-    console.log(this.allDirectMessages);
-    console.log(this.currentDirectMessages);
   }
 
   filterCurrentDirectMessages() {
-    if (this.currentUser && this.allDirectMessages.length > 0) {
-      this.currentDirectMessages = this.allDirectMessages.filter(
-        (dm) => dm.receiver === this.currentUser.id,
-      );
-      this.filterUserDirectMessages();
-    }
+    this.currentDirectMessages = this.allDirectMessages.filter(
+      (dm) => dm.receiver === this.currentUser.id,
+    );
+    this.filterUserDirectMessages();
   }
 
   filterUserDirectMessages() {
-    if (this.currentDirectMessages.length > 0 && this.allUsers.length > 0) {
-      const senderIds = this.currentDirectMessages.map((dm) => dm.sender);
-      this.userOfDirectMessages = this.allUsers.filter(
-        (user) => user.id !== undefined && senderIds.includes(user.id),
-      );
-    }
+    const senderIds = this.currentDirectMessages.map((dm) => dm.sender);
+    this.userOfDirectMessages = this.allUsers.filter(
+      (user) => user.id !== undefined && senderIds.includes(user.id),
+    );
   }
 
   changeChannelToDisplay(channel: IChannels) {
     this.channelsService.setCurrentChannel(channel);
     this.activeLiId = channel.id;
+    this.router.navigate(['/main']);
   }
 
-  changeMessageUserToDisplay(user: IUser) {
+  changeDirectMessageToDisplay(user: IUser) {
     //TODO hier die Logik des Router Outlets zum Switchen auf DirectMessages komponente
     this.activeLiId = user.id;
+    this.router.navigate(['/direct']);
   }
 
   toggleChannels() {

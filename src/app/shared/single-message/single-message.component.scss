@@ -1,6 +1,6 @@
 @use "../../styles/mixins.scss" as *;
 
-:host{
+:host {
   z-index: 10;
   overflow: visible;
 }
@@ -79,6 +79,16 @@
 .author {
   @include standard-flex(center, center);
   gap: 1rem;
+
+  button{
+    background-color: white;
+    border: none;
+    background: none;
+
+    &:hover{
+      cursor: pointer;
+    }
+  }
 }
 
 .time {
@@ -180,7 +190,7 @@
   }
 }
 
-.reacted{
+.reacted {
   background-color: #eceefe;
 }
 

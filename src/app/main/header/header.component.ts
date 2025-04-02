@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import { IUser } from '../../interfaces/iuser';
 import { FormsModule } from '@angular/forms';
 import { UserProfileComponent } from './profile/userprofile.component';
+import { FilterMessagesService } from '../../services/filter-messages.service';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,7 @@ export class HeaderComponent {
   searchQuery = "";
   isProfilePopupOpen : boolean = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private filterMessageService: FilterMessagesService) {}
 
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(user => {
@@ -26,6 +27,11 @@ export class HeaderComponent {
         console.log(this.currentUser);
     });
   }
+
+  changeFilterWord() {
+    this.filterMessageService.setfilterSubject(this.searchQuery);
+  }
+
   openProfilePopup(event: Event) {
     event.stopPropagation();
     this.isProfilePopupOpen = true;

@@ -10,7 +10,7 @@ main {
         width: 80%;
         color: #444DF2;
         >h2 {
-            font-size: 3rem;
+            font-size: 2.5rem;
         }
     }
 
@@ -28,7 +28,7 @@ main {
     }
 
     .picture-list {
-        width: 80%;
+        width: 85%;
         @include standard-flex(space-between);
         gap: 1rem;
 

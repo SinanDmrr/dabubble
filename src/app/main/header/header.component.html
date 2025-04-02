@@ -4,7 +4,7 @@
         <span>DABubble</span>
     </div>
     <div class="find-container">
-        <input type="text" [(ngModel)]="searchQuery" placeholder="Devspace durchsuchen">
+        <input (keydown)="changeFilterWord()" type="text" [(ngModel)]="searchQuery" placeholder="Devspace durchsuchen">
         <div>
             <img src="assets/icons/search.png" alt="">
         </div>

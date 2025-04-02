@@ -53,13 +53,12 @@ export class MainChatComponent {
     this.channelService.getCurrentChannel().subscribe((channel) => {
       this.currentChannel = channel;
       this.iMessages = channel.messages;
+      this.channelMembers = channel.users;
     });
 
     this.userService.getUserList().subscribe((userList) => {
       this.userList = userList;
-      userList.forEach((user) => {
-        this.channelMembers.push(user.name);
-      });
+      
     });
 
     this.userService.getCurrentUser().subscribe((user) => {
@@ -192,14 +191,16 @@ export class MainChatComponent {
   }
 
   getFilteredMembers() {
-    let filteredMembers = this.channelMembers;
+    /* let filteredMembers = this.userList;
     filteredMembers = filteredMembers.filter(
-      (member) =>
-        member.toLowerCase().includes(this.memberToAdd.toLowerCase()) &&
-        !this.membersAdded.includes(member) &&
-        !this.members.includes(member)
+      (member) => member.name.toLowerCase().includes(this.memberToAdd.toLowerCase()) && !this.membersAdded.includes( member.name) &&
+        !this.members.includes( member.name)
+    ); old version of filter method */ 
+
+    let filteredUsers = this.userList.filter(user =>
+      ![...this.channelMembers, ...this.membersAdded].some(member => member == user.name) && user.name.toLowerCase().includes(this.memberToAdd.toLowerCase())
     );
-    return filteredMembers;
+    return filteredUsers;
   }
 
   checkIfInputValid(): boolean {

@@ -72,9 +72,9 @@
 
                                 @if (getFilteredMembers().length > 0) {
                                 @for (member of getFilteredMembers(); track $index) {
-                                <div class="suggestion-member-item" (click)="addToMembersAdded(member)">
+                                <div class="suggestion-member-item" (click)="addToMembersAdded(member.name)">
                                     <img src="assets/avatars/avatar_1.png" alt="">
-                                    <span>{{member}}</span>
+                                    <span>{{member.name}}</span>
                                 </div>
                                 }
                                 } @else {

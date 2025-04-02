@@ -5,7 +5,7 @@
         <div class="line"></div>
         @if(threadMessage.answer){
           @for (answer of threadMessage.answer; track $index) {
-            <app-single-message [message]="answer"></app-single-message>
+            <app-single-message [isInThread]="true" [message]="answer"></app-single-message>
           }
         }
       </section>

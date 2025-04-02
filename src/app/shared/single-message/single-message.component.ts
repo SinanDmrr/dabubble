@@ -26,6 +26,8 @@ export class SingleMessageComponent {
   reacted: boolean = false;
   reactedTo: string = "";
 
+  @Input() isInThread?: boolean;
+
   constructor(
     private userService: UserService,
     private channelService: ChannelsService,
@@ -43,6 +45,7 @@ export class SingleMessageComponent {
   ngOnInit() {
     this.textareaMessage = this.message.message;
     this.checkIfAlreadyReacted();
+    console.log(this.isInThread);
   }
 
   checkIfAlreadyReacted() {

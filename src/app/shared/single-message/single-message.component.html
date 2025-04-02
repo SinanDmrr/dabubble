@@ -23,13 +23,17 @@
           >{{ emoji }}</span
         >
         }
-        <div class="reaction-emoji">
-          <img
-            src="assets/icons/comment.png"
-            alt=""
-            (click)="answerToMessage()"
-          />
-        </div>
+
+        @if(!isInThread || isInThread == undefined){
+          <div class="reaction-emoji">
+            <img
+              src="assets/icons/comment.png"
+              alt=""
+              (click)="answerToMessage()"
+            />
+          </div>
+        }
+        
 
         @if (isOwnMessage()){
         <div class="reaction-emoji" (click)="editMessage()">

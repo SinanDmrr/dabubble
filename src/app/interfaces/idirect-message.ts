@@ -21,8 +21,8 @@ export interface IEmojis {
 }
 
 export interface IDirectMessage {
-  sender: string;
-  receiver: string;
+  sender?: string;
+  receiver?: string;
   messages: IMessage[];
   id?: string;
 }

@@ -255,8 +255,10 @@ main {
         #img-container {
           position: relative;
           #user-icon {
-            height: 3rem;
+            border-radius: 50%;
+            height: 2.5rem;
             aspect-ratio: 1/1;
+            margin-right: 0.5rem;
           }
           #online-status {
             position: absolute;

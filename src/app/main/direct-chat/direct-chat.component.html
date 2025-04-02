@@ -2,7 +2,7 @@
   <header>
     <div class="header-content">
       <div id="img-container">
-        <img src="{{ clickedDirectChatUser?.picture }}" id="user-icon" />
+        <img src="{{ clickedDirectChatUser?.picture }}" id="user-icon-header" />
         <img
           [src]="
             clickedDirectChatUser?.onlineStatus
@@ -21,11 +21,11 @@
   </header>
 
   <div class="chat-container" id="chatcontainer">
-    @if (emptChatHistory) {
+    @if (!conversation || conversation.messages.length <= 0) {
       <div class="welcomeText">
         @if (clickedDirectChatUser?.name == currentUser?.name) {
           <div class="welcomeTextHeader">
-            <img src="{{ clickedDirectChatUser?.picture }}" id="user-icon" />
+            <img src="{{ clickedDirectChatUser?.picture }}" class="user-icon" />
             <h3>{{ clickedDirectChatUser?.name }} (Du)</h3>
           </div>
           <p>
@@ -36,7 +36,7 @@
           </p>
         } @else {
           <div class="welcomeTextHeader">
-            <img src="{{ clickedDirectChatUser?.picture }}" id="user-icon" />
+            <img src="{{ clickedDirectChatUser?.picture }}" class="user-icon" />
             <h3>{{ clickedDirectChatUser?.name }}</h3>
           </div>
           <p>
@@ -54,6 +54,23 @@
     } @else {
       <!-- TODO Hier kommt die einzelnen Nachrichten rein laden, wenn vorhanden
        ich holzkopf muss aber erstmal verstehen wie ich das baue... -->
+      @if (conversation.messages.length > 0) {
+        <div class="seperation">
+          <div class="line"></div>
+          <!-- <span>{{ getDate(iMessages[0]) }}</span> -->
+          <div class="line"></div>
+        </div>
+      }
+      @for (message of conversation.messages; track $index) {
+        @if (newDay($index)) {
+          <div class="seperation">
+            <div class="line"></div>
+            <span>{{ getDate(message) }}</span>
+            <div class="line"></div>
+          </div>
+        }
+        <app-single-message [message]="message"></app-single-message>
+      }
     }
   </div>
 

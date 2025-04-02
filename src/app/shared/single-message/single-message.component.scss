@@ -1,7 +1,6 @@
 @use "../../styles/mixins.scss" as *;
 
 :host {
-  z-index: 10;
   overflow: visible;
 }
 
@@ -12,7 +11,6 @@
   padding: 0.5rem 2rem;
   gap: 2rem;
   overflow-x: hidden;
-  z-index: 10;
   position: relative;
   overflow: visible;
   &:hover {
@@ -57,7 +55,6 @@
   flex-direction: column;
   width: 100%;
   gap: 0.5rem;
-  z-index: 10;
   overflow: visible;
 }
 
@@ -65,7 +62,6 @@
   @include standard-flex(space-between);
   width: 100%;
   position: relative;
-  z-index: 10;
   overflow: visible;
 }
 

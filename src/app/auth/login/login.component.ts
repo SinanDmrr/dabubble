@@ -14,6 +14,7 @@ export class LoginComponent {
   currentPassword: string = '';
   newPassword: string = '';
   error: string = '';
+  submitAttempted: boolean = false;
 
   loginData = {
     email: "",
@@ -33,6 +34,8 @@ export class LoginComponent {
   }
 
   login(ngForm: NgForm) {
+    this.submitAttempted = true;
+
     if (ngForm.valid && ngForm.submitted) {
       this.authService.loginWithEmailAndPassword(this.loginData.email, this.loginData.password);
       // this.authService.loginWithEmailAndPassword("sascha@keinelust.de", "keinelust");

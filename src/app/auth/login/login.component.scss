@@ -3,14 +3,14 @@
 $primary-font-color: #535af1;
 $primary-bg-color: #eceefe;
 $btn-color: #444df2;
-$btn-color-hover: #636af3;
-$input-alert: rgb(237,30,121);
+$btn-color-hover: #666df8;
+$input-alert: rgb(237, 30, 121);
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Nunito";
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito";
 }
 
 main {
@@ -25,26 +25,32 @@ main {
         font-size: 3rem;
         color: $primary-font-color;
     }
+
     p {
         font-size: 1.2rem;
         text-align: center;
         margin-bottom: 2rem;
     }
+
     form {
         width: 100%;
     }
+
     .input-section {
         @include standard-flex(flex-start);
         width: 100%;
         position: relative;
+
         img {
             position: absolute;
             left: 3rem;
             height: 1rem;
         }
+
         .lock-icon {
             height: 1.5rem;
         }
+
         p {
             position: absolute;
             top: 5.5rem;
@@ -53,32 +59,121 @@ main {
             color: $input-alert
         }
     }
+
     .text-input {
         height: 3.5rem;
         padding: 1rem 1rem 1rem 4rem;
         border-radius: 2rem;
         width: 100%;
         border: 1px solid rgba(128, 128, 128, 0);
-        background-color: rgb(236,238,254);
+        background-color: rgb(236, 238, 254);
         outline: none;
-        margin: 1.5rem;
+        margin: 1.2rem;
         font-size: 1.2rem;
+
         &:hover {
             border: 1px solid rgb(128, 128, 128);
         }
+
         &:focus {
             border: 1px solid $primary-font-color;
         }
+
         &::placeholder {
             padding-top: 2px;
             font-size: 1.2rem;
         }
     }
-    a {
-        color: $primary-font-color;
-        text-decoration: none;
-        &:hover {
-            text-decoration: underline;
+
+    .forgot-password {
+        @include standard-flex();
+        padding: 1rem 0 2rem 0;
+
+        a {
+            color: $primary-font-color;
+            text-decoration: none;
+            font-size: 1.2rem;
+    
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .division-section {
+        @include standard-flex();
+        
+        .division-line {
+            background-color: rgb(173, 176, 217);
+            height: 2px;
+            flex: 1;
+        }
+        
+        p {
+            margin: 0 1rem;
+        }
+    }
+    
+    .login-btns {
+        width: 100%;
+        
+        .google-login {
+            @include standard-flex();
+            gap: 1rem;
+            height: 3.5rem;
+            padding: 1rem;
+            border-radius: 2rem;
+            width: calc(100% - 2.4rem);
+            border: 1px solid rgba(128, 128, 128, 0);
+            background-color: rgb(236, 238, 254);
+            outline: none;
+            margin: 2.4rem 1.2rem;
+            color: $primary-font-color;
+            font-size: 1.1rem;
+
+            &:hover {
+                cursor: pointer;
+                border: 1px solid $primary-font-color;
+                font-weight: 700;
+            }
+        }
+
+        .default-logins {
+            @include standard-flex();
+            gap: 2rem;
+
+            button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1.1rem;
+                color: $primary-font-color;
+                font-weight: 700;
+                border-radius: 2rem;
+                border: solid 1px $btn-color;
+                background-color: white;
+                transition: background-color 0.25s;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: $primary-font-color;
+                    color: white;
+                }
+            }
+            
+            .login {
+                background-color: $primary-font-color;
+                color: white;
+                
+                &:hover {
+                    background-color: $btn-color-hover;
+                }
+            }
+        }
+
+        p {
+            padding-top: 1rem;
+            font-size: 1rem;
+            font-weight: 700;
+            color: $input-alert
         }
     }
 }

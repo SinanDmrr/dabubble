@@ -9,22 +9,31 @@
         </div>
         <div class="input-section"><img class="lock-icon" src="../../../assets/icons/lock.png" alt=""><input class="text-input" #password="ngModel" [(ngModel)]="loginData.password" name="password" id="password-input-login" type="password" placeholder="Passwort" required>
             @if (!password.valid && password.touched) {
-                <p>*Falsches Passwort, oder E-Mail.. Bitte erneut versuchen.</p>
+                <p>*Bitte geben Sie ein Passwort ein.</p>
+                <!-- <p>*Falsches Passwort, oder E-Mail.. Bitte erneut versuchen.</p> -->
             }
         </div>
         <input type="submit" value="Submit" hidden>
+        <div class="forgot-password">
+            <a href="">Passwort vergessen?</a>
+        </div>
+        <div class="division-section">
+            <div class="division-line"></div>
+            <p>ODER</p>
+            <div class="division-line"></div>
+        </div>
+        <div class="login-btns">
+            <button class="google-login" (click)="loginGoogle()"><img src="../../../assets/icons/Google.png" alt="">Anmelden mit Google</button>
+            <div class="default-logins">
+                <button class="login" type="submit" [disabled]="loginForm.invalid">Anmelden</button>
+                <button (click)="guestLogin()">Gäste-Login</button>
+            </div>
+            @if (submitAttempted) {
+                <p>*Falsches Passwort oder E-Mail.. Bitte erneut versuchen.</p>
+            }
+        </div>
     </form>
-    <a href="">Passwort vergessen?</a>
-    <div class="division-line">
-        <hr>
-        <p>ODER</p>
-        <hr>
+    <div class="routing-content">
+        <router-outlet name="login-router"></router-outlet>
     </div>
 </main>
-<button (click)="goToRegister()">Anmelden</button>
-<div class="routing-content">
-    <router-outlet name="login-router"></router-outlet>
-</div>
-    <!-- <button (click)="login()">login</button> -->
-    <button (click)="guestLogin()">guestLogin</button>
-    <button (click)="loginGoogle()">loginGoogle</button>

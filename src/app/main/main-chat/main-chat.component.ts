@@ -1,7 +1,7 @@
 import { Component, ElementRef, input, ViewChild } from '@angular/core';
 import { WriteMessageComponent } from '../../shared/write-message/write-message.component';
 import { ChannelsService } from '../../services/channels.service';
-import { Observable } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 import { IChannels, IMessage } from '../../interfaces/ichannels';
 import { EditChannelComponent } from './edit-channel/edit-channel.component';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +10,7 @@ import { SingleMessageComponent } from '../../shared/single-message/single-messa
 import { UserService } from '../../services/user.service';
 import { IUser } from '../../interfaces/iuser';
 import { user } from '@angular/fire/auth';
+import { FilterMessagesService } from '../../services/filter-messages.service';
 
 @Component({
   selector: 'app-main-chat',
@@ -44,11 +45,14 @@ export class MainChatComponent {
   profileOpen = false;
   profileToOpen!: IUser;
 
+  filterWord: string = "";
+
   @ViewChild('chatcontainer') chatContainer!: ElementRef;
 
   constructor(
     private channelService: ChannelsService,
-    private userService: UserService
+    private userService: UserService,
+    private filterService: FilterMessagesService
   ) {
     this.channelService.getCurrentChannel().subscribe((channel) => {
       this.currentChannel = channel;
@@ -65,6 +69,11 @@ export class MainChatComponent {
       if (user) {
         this.currentUser = user;
       }
+    });
+
+    this.filterService.getfilterSubject().subscribe((filterWord) => {
+      this.filterWord = filterWord;
+      console.log(this.filterWord)
     });
   }
 
@@ -254,6 +263,13 @@ export class MainChatComponent {
       }
     }
     return false;
+  }
+
+  getFilteredMessages(messages: IMessage []){
+    let filteredMessages = messages.filter(msg => 
+      msg.message.toLowerCase().includes(this.filterWord.toLowerCase())
+    );
+    return filteredMessages;
   }
 
   bubblingProtection(event: any) {

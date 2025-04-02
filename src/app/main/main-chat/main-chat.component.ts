@@ -73,6 +73,11 @@ export class MainChatComponent {
     this.scrollToBottom();
   }
 
+  getUserImage(user: string): string {
+    let foundUser = this.userList.find(userElem => userElem.name == user);
+    return foundUser ? foundUser.picture : "";
+  }
+
   scrollToBottom() {
     setTimeout(() => {
       if (this.chatContainer) {

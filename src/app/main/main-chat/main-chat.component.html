@@ -9,10 +9,10 @@
                 <div class="avatars-container" (click)="openMembers()">
                     @for (member of currentChannel.users; track $index) {
                         <div class="avatar">
-                            <img src="assets/avatars/avatar_1.png" alt=""> <!-- Der Channel sollte nicht nur die User als String beinhalten sondern ganze IUser Objekte -->
+                            <img src="{{getUserImage(member)}}" alt=""> <!-- Der Channel sollte nicht nur die User als String beinhalten sondern ganze IUser Objekte -->
                         </div>
                     }
-                    <span>{{currentChannel.users.length}}</span>
+                    <span><b>{{currentChannel.users.length}}</b></span>
                 </div>
                 <div class="person-add-btn" (click)="openAddMember()">
                     <img src="assets/icons/person_add.png" alt="">
@@ -28,7 +28,7 @@
                     <div class="member-list">
                         @for (member of currentChannel.users; track $index) {
                         <div class="member-item" (click)="openProfile(member)">
-                            <img src="assets/avatars/avatar_1.png" alt="">
+                            <img src="{{getUserImage(member)}}" alt="">
                             <span>{{member}}</span>
                         </div>
                         }

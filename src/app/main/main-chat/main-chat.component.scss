@@ -124,13 +124,13 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 21;
   cursor: default;
 }
 
 .members-container {
   position: absolute;
-  z-index: 2;
+  z-index: 22;
   top: 5rem;
   right: 5rem;
   background-color: white;

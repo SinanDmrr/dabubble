@@ -18,7 +18,7 @@ export class ThreadChatComponent {
   showThread: boolean = false;
   threadMessage: IMessage | null = null;
   currentUser: IUser | null = null;
-  currentChannel: IChannels | null = null;
+  currentChannel!: IChannels;
 
   constructor(
     private threadService: ThreadService,
@@ -58,6 +58,7 @@ export class ThreadChatComponent {
       this.threadMessage.answer = [];
     }
     this.threadMessage.answer.push(newMessageToAdd);
+    this.channelService.updateChannel(this.currentChannel.id!, this.currentChannel);
   }
 
   styleTime() {

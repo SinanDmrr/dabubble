@@ -52,25 +52,25 @@
         }
       </div>
     } @else {
-      <!-- TODO Hier kommt die einzelnen Nachrichten rein laden, wenn vorhanden
-       ich holzkopf muss aber erstmal verstehen wie ich das baue... -->
-      @if (conversation.messages.length > 0) {
-        <div class="seperation">
-          <div class="line"></div>
-          <!-- <span>{{ getDate(iMessages[0]) }}</span> -->
-          <div class="line"></div>
-        </div>
-      }
-      @for (message of conversation.messages; track $index) {
-        @if (newDay($index)) {
+      <div class="messages-wrapper">
+        @if (conversation.messages.length > 0) {
           <div class="seperation">
             <div class="line"></div>
-            <span>{{ getDate(message) }}</span>
+            <!-- <span>{{ getDate(iMessages[0]) }}</span> -->
             <div class="line"></div>
           </div>
         }
-        <app-single-message [message]="message"></app-single-message>
-      }
+        @for (message of conversation.messages; track $index) {
+          @if (newDay($index)) {
+            <div class="seperation">
+              <div class="line"></div>
+              <span>{{ getDate(message) }}</span>
+              <div class="line"></div>
+            </div>
+          }
+          <app-single-message [message]="message"></app-single-message>
+        }
+      </div>
     }
   </div>
 

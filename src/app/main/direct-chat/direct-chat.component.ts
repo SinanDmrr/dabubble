@@ -23,7 +23,6 @@ export class DirectChatComponent implements OnInit {
   emptChatHistory: boolean = true;
   showProfileCard: boolean = false;
   directMessages: IDirectMessage[] = [];
-  iMessages: IMessage[] = [];
   conversation: IDirectMessage | undefined;
 
   private subscriptionCurrentUser: Subscription | undefined;
@@ -85,7 +84,6 @@ export class DirectChatComponent implements OnInit {
             dm.receiver === this.currentUser!.id),
       );
       if (!this.conversation) {
-        // Falls keine Unterhaltung existiert, erstelle eine leere
         this.conversation = {
           sender: this.currentUser.id,
           receiver: this.clickedDirectChatUser.id,
@@ -95,51 +93,54 @@ export class DirectChatComponent implements OnInit {
     }
   }
 
-  addMessage(newMessage: string) {
+  async addMessage(newMessage: string) {
     if (!this.currentUser || !this.clickedDirectChatUser) {
       console.error("Current user or clicked user is not defined!");
       return;
     }
-    let newMessageToAdd: IMessage = {
+
+    const newMessageToAdd: IMessage = {
       writer: this.currentUser!.name,
       message: newMessage,
       time: this.styleTime(),
       emojis: [],
     };
 
-    //   // Finde die Unterhaltung zwischen currentUser und clickedDirectChatUser
-    //   let conversation = this.directMessages.find(
-    //     (dm) =>
-    //       (dm.sender === this.currentUser!.id &&
-    //         dm.receiver === this.clickedDirectChatUser!.id) ||
-    //       (dm.sender === this.clickedDirectChatUser!.id &&
-    //         dm.receiver === this.currentUser!.id),
-    //   );
-
-    //   if (conversation) {
-    //     // Wenn die Unterhaltung existiert, füge die Nachricht hinzu
-    //     conversation.messages.push(newMessageToAdd);
-    //   } else {
-    //     // Wenn keine Unterhaltung existiert, erstelle eine neue
-    //     const newConversation: IDirectMessage = {
-    //       sender: this.currentUser.id,
-    //       receiver: this.clickedDirectChatUser.id,
-    //       messages: [newMessageToAdd],
-    //     };
-    //     this.directMessages.push(newConversation);
-    //   }
-
-    //   // Optional: Aktualisiere den Service, falls nötig
-    //   this.directMessageService.setDirectMessageBetweenTwo(this.directMessages);
-    // }
     if (this.conversation) {
-      this.conversation.messages.push(newMessageToAdd);
-      // Falls die Unterhaltung noch nicht in directMessages ist, füge sie hinzu
-      this.iMessages = this.conversation.messages;
-      if (!this.directMessages.includes(this.conversation)) {
-        this.directMessages.push(this.conversation);
+      if (this.conversation.id) {
+        try {
+          await this.directMessageService.addMessageToConversation(
+            this.conversation.id,
+            newMessageToAdd,
+          );
+        } catch (error) {
+          console.error(
+            "Fehler beim Hinzufügen der Nachricht in Firestore:",
+            error,
+          );
+        }
+      } else {
+        const newConversation: IDirectMessage = {
+          sender: this.currentUser.id,
+          receiver: this.clickedDirectChatUser.id,
+          messages: [newMessageToAdd],
+        };
+        try {
+          await this.directMessageService.addDirectMessages(newConversation);
+        } catch (error) {
+          console.error(
+            "Fehler beim Erstellen der Unterhaltung in Firestore:",
+            error,
+          );
+        }
       }
-      this.directMessageService.setDirectMessageBetweenTwo(this.directMessages);
+
+      setTimeout(() => {
+        const chatContainer = document.getElementById("chatcontainer");
+        if (chatContainer) {
+          chatContainer.scrollTop = 0;
+        }
+      }, 0);
     }
   }
 
@@ -193,14 +194,21 @@ export class DirectChatComponent implements OnInit {
   }
 
   newDay(index: number): boolean {
-    if (index > 0) {
-      if (this.iMessages[index].time.day > this.iMessages[index - 1].time.day) {
-        return true;
-      }
+    if (!this.conversation || !this.conversation.messages || index <= 0) {
+      return false;
+    }
+    const currentMessage = this.conversation.messages[index];
+    const previousMessage = this.conversation.messages[index - 1];
+    if (
+      currentMessage &&
+      previousMessage &&
+      currentMessage.time &&
+      previousMessage.time
+    ) {
+      return currentMessage.time.day > previousMessage.time.day;
     }
     return false;
   }
-
   bubblingProtection(event: any) {
     event.stopPropagation();
   }

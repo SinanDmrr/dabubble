@@ -38,7 +38,7 @@
         <button class="blue-button" (click)="saveEdits()">Speichern</button>
       </div>
       } @else {
-      <span>{{ message.message }}</span>
+      <span [innerHTML]="formatMessage(message.message, message.taggedStrings)"></span>
       }
     </div>
     <div class="answers">

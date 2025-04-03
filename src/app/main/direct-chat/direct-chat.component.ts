@@ -93,7 +93,7 @@ export class DirectChatComponent implements OnInit {
     }
   }
 
-  async addMessage(newMessage: string) {
+  async addMessage(event: { message: string; taggedStrings: string[]} ) {
     if (!this.currentUser || !this.clickedDirectChatUser) {
       console.error("Current user or clicked user is not defined!");
       return;
@@ -101,7 +101,7 @@ export class DirectChatComponent implements OnInit {
 
     const newMessageToAdd: IMessage = {
       writer: this.currentUser!.name,
-      message: newMessage,
+      message: event.message,
       time: this.styleTime(),
       emojis: [],
     };

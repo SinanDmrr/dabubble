@@ -45,7 +45,20 @@ export class SingleMessageComponent {
   ngOnInit() {
     this.textareaMessage = this.message.message;
     this.checkIfAlreadyReacted();
-    console.log(this.isInThread);
+  }
+
+  formatMessage(message: string, taggedStrings?: string[]): string {
+    if (!message){
+      return '';
+    }
+    let regex;
+    if(taggedStrings){
+      regex = new RegExp(`@(${taggedStrings?.join('|')})`, 'g');
+    } else {
+      regex = /@(\w+)/g;
+    }
+    
+    return message.replace(regex, '<b>@$1</b>');
   }
 
   checkIfAlreadyReacted() {

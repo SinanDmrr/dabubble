@@ -42,16 +42,17 @@ export class ThreadChatComponent {
     });
   }
 
-  addMessage(newMessage: string) {
+  addMessage(event: { message: string; taggedStrings: string[]} ) {
     if (!this.currentUser || !this.threadMessage) {
       return;
     }
 
     let newMessageToAdd: IMessage = {
       writer: this.currentUser.name,
-      message: newMessage,
+      message: event.message,
       time: this.styleTime(),
       emojis: [],
+      taggedStrings: event.taggedStrings
     };
 
     if (!this.threadMessage.answer) {

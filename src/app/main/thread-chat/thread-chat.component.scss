@@ -10,6 +10,8 @@ main {
   flex-direction: column;
 
   button {
+    display: flex;
+    justify-content: flex-end;
     width: 10%;
     border: none;
     background-color: white;

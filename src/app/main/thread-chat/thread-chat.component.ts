@@ -84,6 +84,6 @@ export class ThreadChatComponent {
   }
 
   @HostBinding('class.hidden') get isHidden() {
-    return !this.showThread; // Fügt "hidden" hinzu, wenn showThread false ist
+    return !this.showThread;
   }
 }

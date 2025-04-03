@@ -39,6 +39,7 @@ export class UserService {
   // set the clicked User of direct Message
   setClickedDirectChatUser(user: IUser) {
     this.clickedDirectChatUser.next(user);
+    console.log(user);
   }
 
   changeCurrentUserMail(mail: string) {

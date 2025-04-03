@@ -154,7 +154,7 @@ export class SingleMessageComponent {
     let today = new Date();
     let str = "";
     if(time.day < today.getDate() || time.month < today.getMonth() || time.getFullYear < today.getFullYear()){
-      str = "Letzte Antwort am " + time.day + "." + (time.month + 1) + "." + time.year + " um " + this.getTwoDigitNumber(time.hour) + ":" + this.getTwoDigitNumber(time.minute);
+      str = "Letzte Antwort am " +  this.getTwoDigitNumber(time.day) + "." + this.getTwoDigitNumber((time.month + 1)) + "." + time.year + " um " + this.getTwoDigitNumber(time.hour) + ":" + this.getTwoDigitNumber(time.minute);
     } else {
       str = "Letzte Antwort heute um " + this.getTwoDigitNumber(time.hour) + ":" + this.getTwoDigitNumber(time.minute);
     }

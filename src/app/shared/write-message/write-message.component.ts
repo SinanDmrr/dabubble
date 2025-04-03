@@ -1,7 +1,10 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ChannelsService } from '../../services/channels.service';
 import { IChannels } from '../../interfaces/ichannels';
+import { UserService } from '../../services/user.service';
+import { IUser } from '../../interfaces/iuser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-write-message',
@@ -28,17 +31,24 @@ export class WriteMessageComponent {
   message: string = "";
   textArea: any;
   @Output() messageSent = new EventEmitter<string>();
+  @Input() messageTo: string = "";
 
   currentChannel!: IChannels;
   channelsList: IChannels[] = [];
 
-  constructor(private channelService: ChannelsService){
+  userList: IUser [] = [];
+
+  constructor(private channelService: ChannelsService, private userService: UserService, private router: Router,){
     this.channelService.getCurrentChannel().subscribe((channel) => {
       this.currentChannel = channel;
     });
 
     this.channelService.getChannels().subscribe((channelList) => {
       this.channelsList = channelList;
+    })
+
+    this.userService.getUserList().subscribe((userList) => {
+      this.userList = userList;
     })
   }
 
@@ -81,9 +91,16 @@ export class WriteMessageComponent {
     } else {
       this.message = this.message + '@' + userToTag;
     }
+    this.userService.setClickedDirectChatUser(this.getUserFromName(userToTag)!);
+    this.router.navigate(["/direct"]);
     this.tagStringAt = "";
     this.startListeningAt = false;
     this.closeTagList();
+  }
+
+  getUserFromName(userName: string){
+    let userObj = this.userList.find(user => user.name == userName);
+    return userObj;
   }
 
   tagChannel(channelToTag: string) {
@@ -94,9 +111,16 @@ export class WriteMessageComponent {
     } else {
       this.message = this.message + '#' + channelToTag;
     }
+    this.channelService.setCurrentChannel(this.getChannelFromName(channelToTag)!);
+    this.router.navigate(["/main"]);
     this.tagStringHash = "";
     this.startListeningHash = false;
     this.closeTagList()
+  }
+
+  getChannelFromName(channelName: string){
+    let userObj = this.channelsList.find(channel => channel.name == channelName);
+    return userObj;
   }
 
   sendMessage() {

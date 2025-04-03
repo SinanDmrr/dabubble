@@ -1,4 +1,4 @@
-import { Component, HostBinding } from "@angular/core";
+import { Component } from "@angular/core";
 import { WriteMessageComponent } from "../../shared/write-message/write-message.component";
 import { ThreadService } from "../../services/thread.service";
 import { IMessage, IChannels } from "../../interfaces/ichannels";
@@ -43,7 +43,7 @@ export class ThreadChatComponent {
     });
   }
 
-  addMessage(event: { message: string; taggedStrings: string[]} ) {
+  addMessage(event: { message: string; taggedStrings: string[] }) {
     if (!this.currentUser || !this.threadMessage) {
       return;
     }
@@ -53,7 +53,7 @@ export class ThreadChatComponent {
       message: event.message,
       time: this.styleTime(),
       emojis: [],
-      taggedStrings: event.taggedStrings
+      taggedStrings: event.taggedStrings,
     };
 
     if (!this.threadMessage.answer) {
@@ -81,9 +81,5 @@ export class ThreadChatComponent {
 
   toggleMainVisibility() {
     this.isMainVisible = !this.isMainVisible;
-  }
-
-  @HostBinding('class.hidden') get isHidden() {
-    return !this.showThread;
   }
 }

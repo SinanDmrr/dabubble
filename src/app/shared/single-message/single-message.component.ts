@@ -6,11 +6,12 @@ import { ChannelsService } from "../../services/channels.service";
 import { CommonModule } from "@angular/common";
 import { ThreadService } from "../../services/thread.service";
 import { FormsModule } from "@angular/forms";
+import { ProfileComponent } from "../profile/profile.component";
 
 @Component({
   selector: "app-single-message",
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ProfileComponent],
   templateUrl: "./single-message.component.html",
   styleUrl: "./single-message.component.scss",
 })
@@ -28,6 +29,10 @@ export class SingleMessageComponent {
 
   @Input() isInThread?: boolean;
 
+  profileOpen: boolean = false;
+  profileToOpen!: IUser;
+  userList!: IUser [];
+
   constructor(
     private userService: UserService,
     private channelService: ChannelsService,
@@ -35,6 +40,10 @@ export class SingleMessageComponent {
   ) {
     this.userService.getCurrentUser().subscribe((user) => {
       this.currentUser = user!;
+    });
+
+    this.userService.getUserList().subscribe((userList) => {
+      this.userList = userList!;
     });
 
     this.channelService.getCurrentChannel().subscribe((channel) => {
@@ -45,6 +54,12 @@ export class SingleMessageComponent {
   ngOnInit() {
     this.textareaMessage = this.message.message;
     this.checkIfAlreadyReacted();
+    this.profileToOpen = this.getUserFromName(this.message.writer);
+  }
+
+  getUserFromName(userName: string) {
+    let userObj = this.userList.find(user => user.name == userName);
+    return userObj? userObj : this.currentUser;
   }
 
   formatMessage(message: string, taggedStrings?: string[]): string {
@@ -190,5 +205,13 @@ export class SingleMessageComponent {
 
   closeEditMessage() {
     this.messageEditable = false;
+  }
+
+  openProfile(){
+    this.profileOpen = true;
+  }
+
+  closeProfile(){
+    this.profileOpen = false;
   }
 }

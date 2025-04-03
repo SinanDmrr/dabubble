@@ -104,6 +104,7 @@ export class DirectChatComponent implements OnInit {
       message: event.message,
       time: this.styleTime(),
       emojis: [],
+      taggedStrings: event.taggedStrings,
     };
 
     if (this.conversation) {

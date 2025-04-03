@@ -127,6 +127,6 @@
     </div>
 
     <section class="message-container">
-        <app-write-message (messageSent)="addMessage($event)"></app-write-message>
+        <app-write-message [messageTo]="currentChannel.name" (messageSent)="addMessage($event)"></app-write-message>
     </section>
 </main>

@@ -19,7 +19,11 @@ main {
   flex-direction: column;
 
   app-single-message {
-    width: 100%;
+    transition: width 0.3s ease;
+
+    &.hidden {
+      width: 0;
+    }
   }
 
   .seperation {

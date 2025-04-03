@@ -1,10 +1,10 @@
 <div class="single-message-container" [class.fd-rr]="isOwnMessage()" [class.bg-blue]="messageEditable">
-  <img class="avatar" src="assets/avatars/avatar_1.png" alt="" />
+  <img class="avatar" (click)="openProfile()" src="assets/avatars/avatar_1.png" alt="" />
 
   <div class="message-wrapper" [class.ai-fe]="isOwnMessage()">
     <div class="message-header" [class.fd-rr]="isOwnMessage()">
       <div class="author">
-        <span class="name">{{ message.writer }}</span>
+        <span class="name" (click)="openProfile()">{{ message.writer }}</span>
         <span class="time">{{ getTwoDigitNumber(message.time.hour) }}:{{
           getTwoDigitNumber(message.time.minute)
           }}</span>
@@ -38,7 +38,7 @@
         <button class="blue-button" (click)="saveEdits()">Speichern</button>
       </div>
       } @else {
-      <span>{{ message.message }}</span>
+      <span [innerHTML]="formatMessage(message.message, message.taggedStrings)"></span>
       }
     </div>
     <div class="answers">
@@ -57,4 +57,8 @@
       } }
     </div>
   </div>
+
+  @if(profileOpen){
+    <app-profile [user] = "profileToOpen" (close)="closeProfile()"></app-profile>
+}
 </div>

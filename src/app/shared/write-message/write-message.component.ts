@@ -1,7 +1,11 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ChannelsService } from '../../services/channels.service';
 import { IChannels } from '../../interfaces/ichannels';
+import { UserService } from '../../services/user.service';
+import { IUser } from '../../interfaces/iuser';
+import { Router } from '@angular/router';
+import { user } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-write-message',
@@ -25,20 +29,29 @@ export class WriteMessageComponent {
   startListeningHash = false;
   startListeningAt = false;
 
+  taggedStrings: string[] = [];
+
   message: string = "";
   textArea: any;
-  @Output() messageSent = new EventEmitter<string>();
+  @Output() messageSent = new EventEmitter<{ message: string, taggedStrings: string[] }>();
+  @Input() messageTo: string = "";
 
   currentChannel!: IChannels;
   channelsList: IChannels[] = [];
 
-  constructor(private channelService: ChannelsService){
+  userList: IUser[] = [];
+
+  constructor(private channelService: ChannelsService, private userService: UserService, private router: Router,) {
     this.channelService.getCurrentChannel().subscribe((channel) => {
       this.currentChannel = channel;
     });
 
     this.channelService.getChannels().subscribe((channelList) => {
       this.channelsList = channelList;
+    })
+
+    this.userService.getUserList().subscribe((userList) => {
+      this.userList = userList;
     })
   }
 
@@ -74,16 +87,39 @@ export class WriteMessageComponent {
   }
 
   tagUser(userToTag: string) {
-    if (this.message[this.message.length - 1] == '@') {
-      this.message = this.message + userToTag;
-    } else if (this.tagStringAt) {
-      this.message = this.message.replace('@' + this.tagStringAt, '') + '@' + userToTag;
+    if (this.getLengthOfMessageBeforeAtSign(this.message) > 0) {
+      if (this.message[this.message.length - 1] == '@') {
+        this.message = this.message + userToTag;
+      } else if (this.tagStringAt) {
+        this.message = this.message.replace('@' + this.tagStringAt, '') + '@' + userToTag;
+      } else {
+        this.message = this.message + '@' + userToTag;
+      }
+      this.taggedStrings.push(userToTag);
     } else {
-      this.message = this.message + '@' + userToTag;
+      this.userService.setClickedDirectChatUser(this.getUserFromName(userToTag)!);
+      this.router.navigate(["/direct"]);
     }
+
     this.tagStringAt = "";
     this.startListeningAt = false;
     this.closeTagList();
+  }
+
+  getLengthOfMessageBeforeAtSign(message: string) {
+    let position = message.indexOf('@');
+    let cleanedText;
+    if (position == -1){
+      return -1; 
+    } else {
+      cleanedText = message.slice(0, position).replace(/\s/g, '');
+    }
+    return cleanedText.length;
+  }
+
+  getUserFromName(userName: string) {
+    let userObj = this.userList.find(user => user.name == userName);
+    return userObj;
   }
 
   tagChannel(channelToTag: string) {
@@ -94,14 +130,21 @@ export class WriteMessageComponent {
     } else {
       this.message = this.message + '#' + channelToTag;
     }
+    this.channelService.setCurrentChannel(this.getChannelFromName(channelToTag)!);
+    this.router.navigate(["/main"]);
     this.tagStringHash = "";
     this.startListeningHash = false;
     this.closeTagList()
   }
 
+  getChannelFromName(channelName: string) {
+    let userObj = this.channelsList.find(channel => channel.name == channelName);
+    return userObj;
+  }
+
   sendMessage() {
     if (this.message.trim()) {
-      this.messageSent.emit(this.message);
+      this.messageSent.emit({ message: this.message, taggedStrings: this.taggedStrings });
       this.message = '';
     }
   }

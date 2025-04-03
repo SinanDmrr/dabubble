@@ -61,21 +61,31 @@ export class DevSpaceComponent {
   // Alle Nachrichten die mit Current stattfinden
   filterCurrentDirectMessages() {
     this.directMessagesWithCurrentUser = this.allDirectMessages.filter(
-      (dm) => dm.receiver === this.currentUser.id,
+      (dm) =>
+        dm.receiver === this.currentUser.id ||
+        dm.sender === this.currentUser.id,
     );
     this.filterChatpartnerNamesOfCurrentUser();
   }
 
   // Alle Usernamen aus den Nachrichten die mit Current stattfinden
   filterChatpartnerNamesOfCurrentUser() {
-    this.userOfDirectMessages = this.allUsers.filter((user) =>
-      this.directMessagesWithCurrentUser.some((dm) => dm.sender === user.id),
+    if (!this.currentUser) {
+      this.userOfDirectMessages = [];
+      return;
+    }
+    this.userOfDirectMessages = this.allUsers.filter(
+      (user) =>
+        user.id !== this.currentUser.id &&
+        this.directMessagesWithCurrentUser.some((dm) => dm.sender === user.id),
     );
   }
 
   filterDirectMessagesBetweenCurrentAndSinglePerson(user: IUser) {
-    const filteredMessages = this.directMessagesWithCurrentUser.filter(
-      (dm) => dm.sender === user.id,
+    const filteredMessages = this.allDirectMessages.filter(
+      (dm) =>
+        (dm.sender === user.id && dm.receiver === this.currentUser.id) ||
+        (dm.sender === this.currentUser.id && dm.receiver === user.id),
     );
     this.directMessagesService.setDirectMessageBetweenTwo(filteredMessages);
   }

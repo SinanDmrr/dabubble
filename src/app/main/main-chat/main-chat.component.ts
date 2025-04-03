@@ -95,12 +95,13 @@ export class MainChatComponent {
     }, 0);
   }
 
-  addMessage(newMessage: string) {
+  addMessage(event: { message: string; taggedStrings: string[] }) {
     let newMessageToAdd: IMessage = {
       writer: this.currentUser.name,
-      message: newMessage,
+      message: event.message,
       time: this.styleTime(),
       emojis: [],
+      taggedStrings: event.taggedStrings
     };
     this.currentChannel.messages.push(newMessageToAdd);
     this.channelService.updateChannel(

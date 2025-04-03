@@ -1,6 +1,6 @@
 <section (click)="closeTagList(); closeEmojiList()">
     <div class="message-wrapper">
-        <textarea id="textArea" [(ngModel)]="message" type="text" rows="5" placeholder="Nachricht an #Entwicklerteam"
+        <textarea id="textArea" [(ngModel)]="message" type="text" rows="5" placeholder="Nachricht an {{messageTo}}"
             (keydown)="checkForAt($event); checkForHash($event); checkBackspace($event)"></textarea>
         <img class="send-btn" src="assets/icons/send.png" alt="" (click)="sendMessage()">
         <div class="emoji-btn" (click)="bubblingProtection($event); openEmojiList()">

@@ -12,6 +12,7 @@ export interface IMessage {
     fullDate: string;
   };
   emojis: IEmojis[];
+  taggedStrings?: string[]; 
 }
 
 export interface IEmojis {

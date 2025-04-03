@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { FirebaseService } from "./firebase.service";
 import { IDirectMessage } from "../interfaces/idirect-message";
 import { BehaviorSubject } from "rxjs";
+import { IMessage } from "../interfaces/idirect-message";
 
 @Injectable({
   providedIn: "root",
@@ -11,7 +12,11 @@ export class DirectsMessageService {
   private dMBetweenTwoSubject = new BehaviorSubject<IDirectMessage[]>([]);
   public dMBetweenTwo$ = this.dMBetweenTwoSubject.asObservable();
 
-  constructor(private firebaseService: FirebaseService) {}
+  constructor(private firebaseService: FirebaseService) {
+    this.firebaseService.directMessageList$.subscribe((messages) => {
+      this.dMBetweenTwoSubject.next(messages);
+    });
+  }
 
   getDirectMessages() {
     return this.firebaseService.directMessageList$;
@@ -23,6 +28,16 @@ export class DirectsMessageService {
 
   async addDirectMessages(item: IDirectMessage) {
     await this.firebaseService.addToDatabase(this.collectionName, item);
+  }
+
+  async addMessageToConversation(id: string, message: IMessage) {
+    await this.firebaseService.updateDocument(this.collectionName, id, {
+      messages: [
+        ...(this.dMBetweenTwoSubject.value.find((dm) => dm.id === id)
+          ?.messages || []),
+        message,
+      ],
+    });
   }
 
   async updateDirectMessages(id: string, item: IDirectMessage) {

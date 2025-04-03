@@ -6,11 +6,12 @@ import { ChannelsService } from "../../services/channels.service";
 import { CommonModule } from "@angular/common";
 import { ThreadService } from "../../services/thread.service";
 import { FormsModule } from "@angular/forms";
+import { ProfileComponent } from "../profile/profile.component";
 
 @Component({
   selector: "app-single-message",
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ProfileComponent],
   templateUrl: "./single-message.component.html",
   styleUrl: "./single-message.component.scss",
 })
@@ -28,6 +29,10 @@ export class SingleMessageComponent {
 
   @Input() isInThread?: boolean;
 
+  profileOpen: boolean = false;
+  profileToOpen!: IUser;
+  userList!: IUser [];
+
   constructor(
     private userService: UserService,
     private channelService: ChannelsService,
@@ -35,6 +40,10 @@ export class SingleMessageComponent {
   ) {
     this.userService.getCurrentUser().subscribe((user) => {
       this.currentUser = user!;
+    });
+
+    this.userService.getUserList().subscribe((userList) => {
+      this.userList = userList!;
     });
 
     this.channelService.getCurrentChannel().subscribe((channel) => {
@@ -45,7 +54,26 @@ export class SingleMessageComponent {
   ngOnInit() {
     this.textareaMessage = this.message.message;
     this.checkIfAlreadyReacted();
-    console.log(this.isInThread);
+    this.profileToOpen = this.getUserFromName(this.message.writer);
+  }
+
+  getUserFromName(userName: string) {
+    let userObj = this.userList.find(user => user.name == userName);
+    return userObj? userObj : this.currentUser;
+  }
+
+  formatMessage(message: string, taggedStrings?: string[]): string {
+    if (!message){
+      return '';
+    }
+    let regex;
+    if(taggedStrings){
+      regex = new RegExp(`@(${taggedStrings?.join('|')})`, 'g');
+    } else {
+      regex = /@(\w+)/g;
+    }
+    
+    return message.replace(regex, '<b>@$1</b>');
   }
 
   checkIfAlreadyReacted() {
@@ -154,7 +182,7 @@ export class SingleMessageComponent {
     let today = new Date();
     let str = "";
     if(time.day < today.getDate() || time.month < today.getMonth() || time.getFullYear < today.getFullYear()){
-      str = "Letzte Antwort am " + time.day + "." + time.month + 1 + "." + time.year + " um " + this.getTwoDigitNumber(time.hour) + ":" + this.getTwoDigitNumber(time.minute);
+      str = "Letzte Antwort am " +  this.getTwoDigitNumber(time.day) + "." + this.getTwoDigitNumber((time.month + 1)) + "." + time.year + " um " + this.getTwoDigitNumber(time.hour) + ":" + this.getTwoDigitNumber(time.minute);
     } else {
       str = "Letzte Antwort heute um " + this.getTwoDigitNumber(time.hour) + ":" + this.getTwoDigitNumber(time.minute);
     }
@@ -177,5 +205,13 @@ export class SingleMessageComponent {
 
   closeEditMessage() {
     this.messageEditable = false;
+  }
+
+  openProfile(){
+    this.profileOpen = true;
+  }
+
+  closeProfile(){
+    this.profileOpen = false;
   }
 }

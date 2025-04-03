@@ -1,39 +1,25 @@
-<div
-  class="single-message-container"
-  [class.fd-rr]="isOwnMessage()"
-  [class.bg-blue]="messageEditable"
->
+<div class="single-message-container" [class.fd-rr]="isOwnMessage()" [class.bg-blue]="messageEditable">
   <img class="avatar" src="assets/avatars/avatar_1.png" alt="" />
 
   <div class="message-wrapper" [class.ai-fe]="isOwnMessage()">
     <div class="message-header" [class.fd-rr]="isOwnMessage()">
       <div class="author">
         <span class="name">{{ message.writer }}</span>
-        <span class="time"
-          >{{ getTwoDigitNumber(message.time.hour) }}:{{
-            getTwoDigitNumber(message.time.minute)
-          }}</span
-        >
+        <span class="time">{{ getTwoDigitNumber(message.time.hour) }}:{{
+          getTwoDigitNumber(message.time.minute)
+          }}</span>
       </div>
       <div class="reaction" [class.own-reactions]="isOwnMessage()">
         @for (emoji of reactions; track $index) {
-        <span
-          (click)="handleReaction(emoji)"
-          [class.reacted]="checkIfReacted(emoji)"
-          >{{ emoji }}</span
-        >
+        <span (click)="handleReaction(emoji)" [class.reacted]="checkIfReacted(emoji)">{{ emoji }}</span>
         }
 
         @if(!isInThread || isInThread == undefined){
-          <div class="reaction-emoji">
-            <img
-              src="assets/icons/comment.png"
-              alt=""
-              (click)="answerToMessage()"
-            />
-          </div>
+        <div class="reaction-emoji">
+          <img src="assets/icons/comment.png" alt="" (click)="answerToMessage()" />
+        </div>
         }
-        
+
 
         @if (isOwnMessage()){
         <div class="reaction-emoji" (click)="editMessage()">
@@ -42,18 +28,9 @@
         }
       </div>
     </div>
-    <div
-      class="message"
-      [class.own-message]="isOwnMessage()"
-      [class.edit]="messageEditable"
-    >
+    <div class="message" [class.own-message]="isOwnMessage()" [class.edit]="messageEditable">
       @if(messageEditable){
-      <textarea
-        [(ngModel)]="textareaMessage"
-        class="edit-textarea"
-        name=""
-        id=""
-      ></textarea>
+      <textarea [(ngModel)]="textareaMessage" class="edit-textarea" name="" id=""></textarea>
       <div class="edit-btn-container">
         <button class="white-button" (click)="closeEditMessage()">
           Abbrechen
@@ -67,13 +44,8 @@
     <div class="answers">
       <div class="reactions-div">
         @for (emoji of getUniqueEmojiArr(message.emojis); track $index) {
-        <div
-          class="reaction-item"
-          [class.reacted]="checkIfReacted(emoji.unicode)"
-        >
-          <span (click)="handleReaction(emoji.unicode)"
-            >{{ emoji.unicode }} {{ getNumberOfSpecificEmoji(emoji) }}</span
-          >
+        <div class="reaction-item" [class.reacted]="checkIfReacted(emoji.unicode)">
+          <span (click)="handleReaction(emoji.unicode)">{{ emoji.unicode }} {{ getNumberOfSpecificEmoji(emoji) }}</span>
         </div>
         }
       </div>
@@ -81,19 +53,7 @@
       <button class="answer" (click)="answerToMessage()">
         {{ message.answer.length }} Antworten
       </button>
-      <span class="time"
-        >Letzte Antwort
-        {{
-          getTwoDigitNumber(
-            message.answer[message.answer.length - 1].time.hour
-          )
-        }}:{{
-          getTwoDigitNumber(
-            message.answer[message.answer.length - 1].time.minute
-          )
-        }}
-        Uhr</span
-      >
+      <span class="time">{{styleLastAnswer(message.answer[message.answer.length - 1].time)}}</span>
       } }
     </div>
   </div>

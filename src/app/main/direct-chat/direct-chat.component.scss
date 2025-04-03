@@ -43,7 +43,8 @@ header {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      #user-icon {
+      #user-icon-header {
+        border-radius: 50%;
         height: 3.5rem;
         aspect-ratio: 1/1;
       }
@@ -75,6 +76,30 @@ header {
 
     .welcomeTextHeader {
       display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      .user-icon {
+        height: 4.5rem;
+        border-radius: 50%;
+      }
+    }
+
+    .seperation {
+      width: 100%;
+      text-align: center;
+      @include standard-flex();
+
+      span {
+        border: 1px solid #adb0d9;
+        padding: 0.25rem 1rem;
+        border-radius: 2rem;
+      }
+
+      .line {
+        flex: 1;
+        height: 1px;
+        background-color: #adb0d9;
+      }
     }
 
     p {

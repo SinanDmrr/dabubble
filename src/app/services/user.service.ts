@@ -19,6 +19,7 @@ export class UserService {
   private clickedDirectChatUser = new BehaviorSubject<IUser | undefined>(
     undefined,
   );
+
   clickedDirectChatUser$ = this.clickedDirectChatUser.asObservable();
 
   constructor(private firebaseService: FirebaseService) {}

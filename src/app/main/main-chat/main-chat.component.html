@@ -112,7 +112,7 @@
             </div>
             
         }    
-        @for (message of iMessages; track $index) {
+        @for (message of getFilteredMessages(iMessages); track $index) {
             @if(newDay($index)){
                 <div class="seperation">
                     <div class="line"></div>

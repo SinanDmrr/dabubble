@@ -144,11 +144,21 @@ export class SingleMessageComponent {
   }
 
   pushToFirestore() {
-    //hier muss der Channel komplett geupdatet werden (this.channelService.update()) um die Reaktionen auf die Messages zu pushen
     this.channelService.updateChannel(
       this.currentChannel.id!,
       this.currentChannel
     );
+  }
+
+  styleLastAnswer(time: any): string{
+    let today = new Date();
+    let str = "";
+    if(time.day < today.getDate() || time.month < today.getMonth() || time.getFullYear < today.getFullYear()){
+      str = "Letzte Antwort am " + time.day + "." + time.month + 1 + "." + time.year + " um " + this.getTwoDigitNumber(time.hour) + ":" + this.getTwoDigitNumber(time.minute);
+    } else {
+      str = "Letzte Antwort heute um " + this.getTwoDigitNumber(time.hour) + ":" + this.getTwoDigitNumber(time.minute);
+    }
+    return str
   }
 
   getTwoDigitNumber(number: number) {

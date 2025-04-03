@@ -1,18 +1,24 @@
-import { Injectable } from '@angular/core';
-import { FirebaseService } from './firebase.service';
-import { IDirectMessage } from '../interfaces/idirect-message';
+import { Injectable } from "@angular/core";
+import { FirebaseService } from "./firebase.service";
+import { IDirectMessage } from "../interfaces/idirect-message";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class DirectsMessageService {
-
   private collectionName = "directMessages";
+  private dMBetweenTwoSubject = new BehaviorSubject<IDirectMessage[]>([]);
+  public dMBetweenTwo$ = this.dMBetweenTwoSubject.asObservable();
 
-  constructor(private firebaseService: FirebaseService) { }
+  constructor(private firebaseService: FirebaseService) {}
 
   getDirectMessages() {
     return this.firebaseService.directMessageList$;
+  }
+
+  setDirectMessageBetweenTwo(messages: IDirectMessage[]) {
+    this.dMBetweenTwoSubject.next(messages);
   }
 
   async addDirectMessages(item: IDirectMessage) {

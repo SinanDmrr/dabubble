@@ -28,7 +28,8 @@ export class DevSpaceComponent {
   channels: IChannels[] = [];
   allUsers: IUser[] = [];
   allDirectMessages: IDirectMessage[] = [];
-  currentDirectMessages: IDirectMessage[] = [];
+  directMessagesWithCurrentUser: IDirectMessage[] = [];
+  directMessagesBetweenCurrentAndSinglePerson: IDirectMessage[] = [];
   userOfDirectMessages: IUser[] = [];
 
   constructor(
@@ -57,18 +58,26 @@ export class DevSpaceComponent {
     });
   }
 
+  // Alle Nachrichten die mit Current stattfinden
   filterCurrentDirectMessages() {
-    this.currentDirectMessages = this.allDirectMessages.filter(
+    this.directMessagesWithCurrentUser = this.allDirectMessages.filter(
       (dm) => dm.receiver === this.currentUser.id,
     );
-    this.filterUserDirectMessages();
+    this.filterChatpartnerNamesOfCurrentUser();
   }
 
-  filterUserDirectMessages() {
-    const senderIds = this.currentDirectMessages.map((dm) => dm.sender);
-    this.userOfDirectMessages = this.allUsers.filter(
-      (user) => user.id !== undefined && senderIds.includes(user.id),
+  // Alle Usernamen aus den Nachrichten die mit Current stattfinden
+  filterChatpartnerNamesOfCurrentUser() {
+    this.userOfDirectMessages = this.allUsers.filter((user) =>
+      this.directMessagesWithCurrentUser.some((dm) => dm.sender === user.id),
     );
+  }
+
+  filterDirectMessagesBetweenCurrentAndSinglePerson(user: IUser) {
+    const filteredMessages = this.directMessagesWithCurrentUser.filter(
+      (dm) => dm.sender === user.id,
+    );
+    this.directMessagesService.setDirectMessageBetweenTwo(filteredMessages);
   }
 
   changeChannelToDisplay(channel: IChannels) {
@@ -78,8 +87,10 @@ export class DevSpaceComponent {
   }
 
   changeDirectMessageToDisplay(user: IUser) {
+    this.filterCurrentDirectMessages();
     this.activeLiId = user.id;
     this.userService.setClickedDirectChatUser(user);
+    this.filterDirectMessagesBetweenCurrentAndSinglePerson(user);
     this.router.navigate(["/direct"]);
   }
 

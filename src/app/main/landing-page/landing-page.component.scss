@@ -36,7 +36,7 @@ main {
       position: fixed;
       bottom: 2rem;
       left: 0;
-      z-index: 10;
+      z-index: 9999;
       border: 1px solidblack;
 
       .sidebar-icon {

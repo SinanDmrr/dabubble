@@ -8,6 +8,24 @@ main {
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
+
+  button {
+    width: 10%;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+  }
+
+  > app-thread-chat {
+    width: 20%;
+    height: 100%;
+    transition: width 0.3s ease;
+    overflow: hidden;
+
+    &.hidden {
+      width: 0;
+    }
+  }
 }
 
 .chat-container {
@@ -19,6 +37,7 @@ main {
   flex-direction: column;
 
   app-single-message {
+    max-width: 100%;
     transition: width 0.3s ease;
 
     &.hidden {

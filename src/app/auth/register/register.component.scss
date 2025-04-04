@@ -1,0 +1,150 @@
+@use "../../styles/mixins.scss" as *;
+
+$primary-font-color: rgb(83, 90, 241);
+$primary-bg-color: #eceefe;
+$btn-color: #444df2;
+$btn-color-hover: #666df8;
+$input-alert: rgb(237, 30, 121);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito";
+}
+
+.register {
+    @include standard-flex(flex-start);
+    flex-direction: column;
+    padding: 2rem 4rem;
+    position: relative;
+
+    .back-arrow {
+        position: absolute;
+        top: 5rem;
+        left: 4rem;
+        padding: 0.25rem;
+        
+        &:hover {
+            cursor: pointer;
+            background-color: $primary-bg-color;
+            border-radius: 1rem;
+        }
+    }
+
+    h1 {
+        margin: 1.5rem 1rem;
+        font-size: 3rem;
+        color: $primary-font-color;
+    }
+
+    p {
+        font-size: 1.2rem;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    form {
+        width: 100%;
+        height: 29rem;
+        position: relative;
+
+        div {
+            position: relative;
+
+            .reg-icon {
+                position: absolute;
+                top: 2.3rem;
+                left: 3rem;
+            }
+
+            .error {
+                position: absolute;
+                top: 5.3rem;
+                left: 3rem;
+                font-size: 1rem;
+                color: $input-alert;
+            }
+        }
+
+        button {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    }
+
+    .text-input {
+        box-sizing: border-box;
+        width: calc(100% - 2.8rem);
+        // width: 100%;
+    }
+
+    .check-legal-notice {
+        @include standard-flex(flex-start, center);
+        gap: 1rem;
+        margin: 1.2rem;
+
+        input[type="checkbox"] {
+            // display: none;
+            position: absolute;
+            width: 1.2rem;
+            height: 1.2rem;
+            z-index: 2;
+            opacity: 0;
+            cursor: pointer;
+          }
+          
+          // Custom Checkbox
+          .custom-checkbox {
+            display: inline-block;
+            width: 1.2rem;
+            height: 1.2rem;
+            border: 2px solid $btn-color-hover;
+            border-radius: 4px;
+            background-color: white;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+          
+            &:hover {
+              border-color: $btn-color;
+              background-color: $primary-bg-color;
+            }
+          }
+          
+          // Checked-State – wichtig: außerhalb verschachteln!
+          input[type="checkbox"]:checked ~ .custom-checkbox {
+            background-color: white;
+            border-color: $btn-color;
+          
+            &::before {
+              content: "✔";
+              font-size: 0.9rem;
+              color: $btn-color;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              &:hover ~ .custom-checkbox {
+                    border-color: $btn-color;
+                    background-color: $primary-bg-color;
+              }
+            }
+          }
+
+        p {
+            margin: 0;
+
+            a {
+                color: $btn-color;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: $primary-bg-color;
+                    border-radius: 1rem;
+                }
+            }
+        }
+    }
+}

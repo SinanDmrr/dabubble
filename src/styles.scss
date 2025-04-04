@@ -89,6 +89,13 @@
 
 /* #endregion */
 
+
+$primary-font-color: rgb(83, 90, 241);
+$primary-bg-color: #eceefe;
+$btn-color: #444df2;
+$btn-color-hover: #666df8;
+$input-alert: rgb(237, 30, 121);
+
 @mixin standard-button {
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
@@ -117,6 +124,38 @@ body {
   }
 }
 
+.btn {
+  padding: 0.8rem 1.5rem!important;
+  font-size: 1.1rem;
+  color: $primary-font-color;
+  font-weight: 700;
+  border-radius: 2rem;
+  border: solid 1px $btn-color;
+  background-color: white;
+  transition: background-color 0.25s;
+
+  &:hover {
+      cursor: pointer;
+      background-color: $primary-font-color;
+      color: white;
+  }
+}
+
+.btn-disabled {
+  padding: 0.8rem 1.5rem!important;
+  font-size: 1.1rem;
+  color: $primary-font-color;
+  font-weight: 700;
+  border-radius: 2rem;
+  border: solid 1px $btn-color;
+  background-color: white;
+  transition: background-color 0.25s;
+
+  &:hover {
+      cursor: not-allowed;
+  }
+}
+
 .blue-button {
   @include standard-button();
   background-color: #444DF2;
@@ -126,4 +165,29 @@ body {
   &:hover {
     background-color: #7e84f8;
   }
+}
+
+.text-input {
+    // height: 3.5rem;
+    padding: 1rem 1rem 1rem 4rem!important;
+    border-radius: 2rem;
+    width: 100%;
+    border: 1px solid rgba(128, 128, 128, 0);
+    background-color: rgb(236, 238, 254);
+    outline: none;
+    margin: 1.2rem!important;
+    font-size: 1.2rem;
+
+    &:hover {
+        border: 1px solid rgb(128, 128, 128);
+    }
+
+    &:focus {
+        border: 1px solid rgb(83, 90, 241);
+    }
+
+    &::placeholder {
+        padding-top: 2px;
+        font-size: 1.2rem;
+    }
 }

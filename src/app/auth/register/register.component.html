@@ -1,34 +1,41 @@
-<img src="assets/icons/arrow_back.png" alt="back-arrow">
-<h1>Konto erstellen</h1>
-<p>Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto</p>
-<form class="register-form" (ngSubmit)="register(registerForm)" #registerForm="ngForm">
-    <div>
-        <img src="" alt="">
-        <input #fullname="ngModel" [(ngModel)]="registerData.fullname" name="fullname" type="text" id="register-fullname" placeholder="Name und Nachname" required>
-        @if (!fullname.valid && fullname.touched) {
-            <p>*Feld darf nicht leer sein - bitte Namen angeben.</p>
-        }
-    </div>
-    <div>
-        <img src="" alt="">
-        <input #email="ngModel" [(ngModel)]="registerData.email" name="email" type="text" id="register-email" placeholder="beispielname@email.com" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
-        @if (!email.valid && email.touched) {
-            <p>*Diese E-Mail ist leider ungültig</p>
-        }
-    </div>
-    <div>
-        <img src="" alt="">
-        <input #password="ngModel" [(ngModel)]="registerData.password" name="password" type="password" id="register-password" placeholder="Passwort" required>
-        @if (!password.valid && password.touched) {
-            <p>*Feld darf nicht leer sein - bitte Passwort wählen.</p>
-        }
-    </div>
-    <div class="check-legal-notice">
-        <input type="checkbox" [(ngModel)]="isChecked" name="checkbox" id="legal-checkbox">
-        <p>Ich stimme der <a (click)="navigateToLegalNotice()">Datenschutzerklärung </a>zu.</p>
-    </div>
-    @if (fullname.valid && email.valid && password.valid && this.isChecked) {
-        <button type="submit" (click)="navigateToAvatar()">Weiter</button>
-    } @else {<button type="submit" (click)="navigateToAvatar()" disabled>Weiter</button>}
-</form>
+<section class="register">
+    <img src="assets/icons/arrow_back.png" alt="back-arrow" class="back-arrow" (click)="goToLogin()">
+    <h1>Konto erstellen</h1>
+    <p>Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto</p>
+    <form class="register-form" (ngSubmit)="register(registerForm)" #registerForm="ngForm">
+        <div>
+            <img [src]="imagePaths['person']" alt="" class="reg-icon">
+            <input class="text-input" #fullname="ngModel" [(ngModel)]="registerData.fullname" name="fullname"
+                type="text" id="register-fullname" placeholder="Name und Nachname" (focus)="changeIcon('person')" (blur)="changeIcon('person')" required>
+            @if (!fullname.valid && fullname.touched) {
+            <p class="error">*Feld darf nicht leer sein - bitte Namen angeben.</p>
+            }
+        </div>
+        <div>
+            <img [src]="imagePaths['mail']" alt="" class="reg-icon">
+            <input class="text-input" #email="ngModel" [(ngModel)]="registerData.email" name="email" type="text"
+                id="register-email" placeholder="beispielname@email.com" (focus)="changeIcon('mail')" (blur)="changeIcon('mail')" required
+                pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
+            @if (!email.valid && email.touched) {
+            <p class="error">*Diese E-Mail ist leider ungültig</p>
+            }
+        </div>
+        <div>
+            <img [src]="imagePaths['lock']" alt="" class="reg-icon">
+            <input class="text-input" #password="ngModel" [(ngModel)]="registerData.password" name="password"
+                type="password" id="register-password" placeholder="Passwort" (focus)="changeIcon('lock')" (blur)="changeIcon('lock')" required>
+            @if (!password.valid && password.touched) {
+            <p class="error">*Feld darf nicht leer sein - bitte Passwort wählen.</p>
+            }
+        </div>
+        <div class="check-legal-notice">
+            <input type="checkbox" [(ngModel)]="isChecked" name="checkbox" id="legal-checkbox">
+            <span class="custom-checkbox"></span>
+            <p>Ich stimme der<a (click)="navigateToLegalNotice()"> Datenschutzerklärung </a>zu.</p>
+        </div>
+        @if (fullname.valid && email.valid && password.valid && this.isChecked) {
+        <button class="btn" type="submit" (click)="navigateToAvatar()">Weiter</button>
+        } @else {<button class="btn-disabled" type="submit" (click)="navigateToAvatar()" disabled>Weiter</button>}
+    </form>
 
+</section>

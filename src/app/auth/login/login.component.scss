@@ -1,6 +1,6 @@
 @use "../../styles/mixins.scss" as *;
 
-$primary-font-color: #535af1;
+$primary-font-color: rgb(83, 90, 241);
 $primary-bg-color: #eceefe;
 $btn-color: #444df2;
 $btn-color-hover: #666df8;
@@ -17,8 +17,6 @@ main {
     @include standard-flex(flex-start);
     flex-direction: column;
     padding: 2rem 4rem;
-    // height: 48rem;
-    // width: 38rem;
 
     h1 {
         margin: 1.5rem 1rem;
@@ -44,10 +42,6 @@ main {
         img {
             position: absolute;
             left: 3rem;
-            height: 1rem;
-        }
-
-        .lock-icon {
             height: 1.5rem;
         }
 
@@ -57,31 +51,6 @@ main {
             left: 2rem;
             font-size: 1rem;
             color: $input-alert
-        }
-    }
-
-    .text-input {
-        height: 3.5rem;
-        padding: 1rem 1rem 1rem 4rem;
-        border-radius: 2rem;
-        width: 100%;
-        border: 1px solid rgba(128, 128, 128, 0);
-        background-color: rgb(236, 238, 254);
-        outline: none;
-        margin: 1.2rem;
-        font-size: 1.2rem;
-
-        &:hover {
-            border: 1px solid rgb(128, 128, 128);
-        }
-
-        &:focus {
-            border: 1px solid $primary-font-color;
-        }
-
-        &::placeholder {
-            padding-top: 2px;
-            font-size: 1.2rem;
         }
     }
 

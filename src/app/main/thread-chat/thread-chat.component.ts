@@ -82,5 +82,8 @@ export class ThreadChatComponent {
     };
   }
 
-
+  closeThread() {
+    this.threadService.hideThreadComponent();
+  }
+  
 }

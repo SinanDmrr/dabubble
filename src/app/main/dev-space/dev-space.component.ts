@@ -58,7 +58,6 @@ export class DevSpaceComponent {
     });
   }
 
-  // Alle Nachrichten die mit Current stattfinden
   filterCurrentDirectMessages() {
     this.directMessagesWithCurrentUser = this.allDirectMessages.filter(
       (dm) =>
@@ -68,7 +67,6 @@ export class DevSpaceComponent {
     this.filterChatpartnerNamesOfCurrentUser();
   }
 
-  // Alle Usernamen aus den Nachrichten die mit Current stattfinden
   filterChatpartnerNamesOfCurrentUser() {
     if (!this.currentUser) {
       this.userOfDirectMessages = [];
@@ -77,7 +75,11 @@ export class DevSpaceComponent {
     this.userOfDirectMessages = this.allUsers.filter(
       (user) =>
         user.id !== this.currentUser.id &&
-        this.directMessagesWithCurrentUser.some((dm) => dm.sender === user.id),
+        this.directMessagesWithCurrentUser.some(
+          (dm) =>
+            (dm.sender === user.id && dm.receiver === this.currentUser.id) ||
+            (dm.sender === this.currentUser.id && dm.receiver === user.id),
+        ),
     );
   }
 

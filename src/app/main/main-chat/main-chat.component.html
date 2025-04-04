@@ -104,10 +104,10 @@
     }
 
     <div class="chat-container" id="chatcontainer">
-        @if(iMessages.length>0){
+        @if(getFilteredMessages(iMessages).length>0){
             <div class="seperation">
                 <div class="line"></div>
-                <span>{{getDate(iMessages[0])}}</span>
+                <span>{{getDate(getFilteredMessages(iMessages)[0])}}</span>
                 <div class="line"></div>
             </div>
             

@@ -22,7 +22,7 @@
       @if (isChannelsExpanded) {
         <div class="section-content">
           <ul>
-            @for (channel of channels; track channel.id) {
+            @for (channel of filteredChannels; track channel.id) {
               <li
                 (click)="changeChannelToDisplay(channel)"
                 class="channel"

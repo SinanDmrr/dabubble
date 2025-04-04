@@ -1,8 +1,8 @@
-<main [class.main-hidden]="!isMainVisible" (click)="toggleMainVisibility()">
-  <button (click)="toggleMainVisibility()">x</button>
+<main [class.main-hidden]="!isMainVisible" >
+  <button>x</button>
   @if(showThread && threadMessage){
   <section class="chat-container">
-    <app-single-message [message]="threadMessage"></app-single-message>
+    <app-single-message [message]="threadMessage" [class.hidden]="!isMainVisible"></app-single-message>
     <div class="line"></div>
     @if(threadMessage.answer){ @for (answer of threadMessage.answer; track
     $index) {

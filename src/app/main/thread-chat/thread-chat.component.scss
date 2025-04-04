@@ -27,6 +27,10 @@ main {
     &.hidden {
       width: 0;
     }
+
+    &.main-hidden {
+      width: 0;
+    }
   }
 }
 
@@ -42,9 +46,13 @@ main {
     max-width: 100%;
     transition: width 0.3s ease;
 
-    &.hidden {
-      width: 0;
-    }
+    // &.hidden {
+    //   width: 0;
+    // }
+
+    // &.main-hidden {
+    //   width: 0;
+    // }
   }
 
   .seperation {

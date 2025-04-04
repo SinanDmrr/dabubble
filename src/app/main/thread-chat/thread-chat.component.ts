@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, HostBinding } from "@angular/core";
 import { WriteMessageComponent } from "../../shared/write-message/write-message.component";
 import { ThreadService } from "../../services/thread.service";
 import { IMessage, IChannels } from "../../interfaces/ichannels";
@@ -21,6 +21,9 @@ export class ThreadChatComponent {
   currentChannel!: IChannels;
   isMainVisible = false;
 
+  @HostBinding('class.hidden') get isHidden() {
+    return !this.showThread;
+  }
   constructor(
     private threadService: ThreadService,
     private userService: UserService,
@@ -79,7 +82,5 @@ export class ThreadChatComponent {
     };
   }
 
-  toggleMainVisibility() {
-    this.isMainVisible = !this.isMainVisible;
-  }
+
 }

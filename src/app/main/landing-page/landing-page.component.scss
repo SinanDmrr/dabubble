@@ -76,6 +76,12 @@ main {
       @include standard-flex();
       width: 20%;
       height: $contentHeight;
+      transition: width 0.3s ease;
+      overflow: hidden; 
+
+      &.hidden {
+        width: 0;
+      }
     }
   }
 }

@@ -10,6 +10,7 @@ import { IDirectMessage } from "../../interfaces/idirect-message";
 import { user } from "@angular/fire/auth";
 import { CommonModule } from "@angular/common";
 import { Router } from "@angular/router";
+import { ActiveService } from "../../services/active.service";
 
 @Component({
   selector: "app-dev-space",
@@ -37,6 +38,7 @@ export class DevSpaceComponent {
     private userService: UserService,
     private directMessagesService: DirectsMessageService,
     private router: Router,
+    private activeService: ActiveService
   ) {}
 
   ngOnInit() {
@@ -55,6 +57,10 @@ export class DevSpaceComponent {
     this.directMessagesService.getDirectMessages().subscribe((dM) => {
       this.allDirectMessages = dM;
       this.filterCurrentDirectMessages();
+    });
+
+    this.activeService.getActiveLi().subscribe((activeLiId) => {
+      this.activeLiId = activeLiId;
     });
   }
 
@@ -94,13 +100,13 @@ export class DevSpaceComponent {
 
   changeChannelToDisplay(channel: IChannels) {
     this.channelsService.setCurrentChannel(channel);
-    this.activeLiId = channel.id;
+    this.activeService.setActiveLi(channel.id)
     this.router.navigate(["/main"]);
   }
 
   changeDirectMessageToDisplay(user: IUser) {
     this.filterCurrentDirectMessages();
-    this.activeLiId = user.id;
+    this.activeService.setActiveLi(user.id)
     this.userService.setClickedDirectChatUser(user);
     this.filterDirectMessagesBetweenCurrentAndSinglePerson(user);
     this.router.navigate(["/direct"]);

@@ -105,6 +105,12 @@
 .reactions-div {
   @include standard-flex(center, center);
   gap: 0.5rem;
+  position: relative;
+  &:hover{
+    .reaction-info{
+      display: flex;
+    }
+  }
 }
 
 .reaction-item {
@@ -112,6 +118,23 @@
   border-radius: 20px;
   padding: 0.1rem 0.25rem;
   background-color: white;
+}
+
+.reaction-info{
+  padding: 0.5rem;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: #444DF2;
+  color: white;
+  font-size: smaller;
+  border-radius: 1rem 1rem 1rem 0;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  max-width: 7rem;
+  min-width: 5.5rem;
 }
 
 .name {

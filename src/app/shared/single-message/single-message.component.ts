@@ -157,6 +157,31 @@ export class SingleMessageComponent {
     return count;
   }
 
+  getReactionUsernamesOfSpecificEmoji(emoji: IEmojis): string{
+    let usernames: string[] = [];
+    this.message.emojis.forEach((emojiElement) => {
+      if (emojiElement.unicode == emoji.unicode) {
+        usernames.push(emojiElement.username)
+      }
+    });
+    return this.formatUsernameList(usernames);
+  }
+
+  formatUsernameList(arr: string[]): string {
+    if (arr.length === 0){
+      return '';
+    } else if (arr.length === 1){
+      return arr[0];
+    } else if (arr.length === 2) {
+      return arr.join(' und ');
+    }
+  
+    let allExceptLastTwo = arr.slice(0, -2).join(', ');
+    let secondLast = arr[arr.length - 2];
+    let last = arr[arr.length - 1];
+    return `${allExceptLastTwo}, ${secondLast} und ${last}`;
+  }
+
   getUniqueEmojiArr(emojiArr: IEmojis[]) {
     let uniqueEmojis = emojiArr.filter(
       (obj, index, array) =>

@@ -47,6 +47,16 @@
         <div class="reaction-item" [class.reacted]="checkIfReacted(emoji.unicode)">
           <span (click)="handleReaction(emoji.unicode)">{{ emoji.unicode }} {{ getNumberOfSpecificEmoji(emoji) }}</span>
         </div>
+
+        <div class="reaction-info">
+          <span>{{ emoji.unicode }}</span>
+          <span><b>{{ getReactionUsernamesOfSpecificEmoji(emoji) }}</b></span>
+          @if (getNumberOfSpecificEmoji(emoji) > 1) {
+            <span>haben reagiert</span>
+          } @else {
+            <span>hat reagiert</span>
+          }
+        </div>
         }
       </div>
       @if (message.answer) { @if (message.answer.length>0) {
@@ -59,6 +69,6 @@
   </div>
 
   @if(profileOpen){
-    <app-profile [user] = "profileToOpen" (close)="closeProfile()"></app-profile>
-}
+  <app-profile [user]="profileToOpen" (close)="closeProfile()"></app-profile>
+  }
 </div>

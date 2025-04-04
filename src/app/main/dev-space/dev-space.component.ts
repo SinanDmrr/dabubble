@@ -32,6 +32,7 @@ export class DevSpaceComponent {
   directMessagesWithCurrentUser: IDirectMessage[] = [];
   directMessagesBetweenCurrentAndSinglePerson: IDirectMessage[] = [];
   userOfDirectMessages: IUser[] = [];
+  filteredChannels: IChannels[] = [];
 
   constructor(
     private channelsService: ChannelsService,
@@ -48,6 +49,7 @@ export class DevSpaceComponent {
 
     this.userService.getCurrentUser().subscribe((user) => {
       this.currentUser = user!;
+      this.filterChannels();
     });
 
     this.userService.getUserList().subscribe((users) => {
@@ -62,6 +64,19 @@ export class DevSpaceComponent {
     this.activeService.getActiveLi().subscribe((activeLiId) => {
       this.activeLiId = activeLiId;
     });
+  }
+
+  filterChannels() {
+    if (!this.currentUser || !this.channels) {
+      this.filteredChannels = [];
+      return;
+    }
+
+    this.filteredChannels = this.channels.filter(
+      (channel) =>
+        channel.creator === this.currentUser.name ||
+        (channel.users && channel.users.includes(this.currentUser.name)),
+    );
   }
 
   filterCurrentDirectMessages() {

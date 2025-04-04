@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ChannelsService } from '../../services/channels.service';
 import { IChannels } from '../../interfaces/ichannels';
@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { IUser } from '../../interfaces/iuser';
 import { Router } from '@angular/router';
 import { user } from '@angular/fire/auth';
+import { ActiveService } from '../../services/active.service';
 
 @Component({
   selector: 'app-write-message',
@@ -32,16 +33,17 @@ export class WriteMessageComponent {
   taggedStrings: string[] = [];
 
   message: string = "";
-  textArea: any;
   @Output() messageSent = new EventEmitter<{ message: string, taggedStrings: string[] }>();
   @Input() messageTo: string = "";
+
+  @ViewChild('textArea') textarea!: ElementRef<HTMLTextAreaElement>;
 
   currentChannel!: IChannels;
   channelsList: IChannels[] = [];
 
   userList: IUser[] = [];
 
-  constructor(private channelService: ChannelsService, private userService: UserService, private router: Router,) {
+  constructor(private channelService: ChannelsService, private userService: UserService, private router: Router, private activeService: ActiveService) {
     this.channelService.getCurrentChannel().subscribe((channel) => {
       this.currentChannel = channel;
     });
@@ -55,8 +57,8 @@ export class WriteMessageComponent {
     })
   }
 
-  ngOnInit() {
-    this.textArea = document.getElementById("textArea");
+  ngAfterViewInit() {
+    this.textarea.nativeElement.focus();
   }
 
   openTagList(listToOpen: string) {
@@ -82,7 +84,7 @@ export class WriteMessageComponent {
 
   addEmoji(emoji: string) {
     this.message += emoji + ' ';
-    this.textArea?.focus();
+    this.textarea.nativeElement.focus();
     this.closeEmojiList();
   }
 
@@ -99,6 +101,7 @@ export class WriteMessageComponent {
     } else {
       this.userService.setClickedDirectChatUser(this.getUserFromName(userToTag)!);
       this.router.navigate(["/direct"]);
+      this.activeService.setActiveLi(this.getUserFromName(userToTag)?.id)
     }
 
     this.tagStringAt = "";
@@ -132,6 +135,7 @@ export class WriteMessageComponent {
     }
     this.channelService.setCurrentChannel(this.getChannelFromName(channelToTag)!);
     this.router.navigate(["/main"]);
+    this.activeService.setActiveLi(this.getChannelFromName(channelToTag)?.id);
     this.tagStringHash = "";
     this.startListeningHash = false;
     this.closeTagList()

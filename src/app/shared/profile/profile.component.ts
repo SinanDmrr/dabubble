@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { IUser } from '../../interfaces/iuser';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
+import { ActiveService } from '../../services/active.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,18 +12,22 @@ import { IUser } from '../../interfaces/iuser';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  /*   user: IUser = {
-      email: "test@test.de",
-      name: "Sofia Müller",
-      picture: "assets/avatars/avatar_1.png",
-      onlineStatus: true,
-    } */
-
   @Input() user!: IUser;
   @Output() close = new EventEmitter<void>();
 
+  constructor(private userService: UserService, private router: Router, private activeService: ActiveService) {
+
+  }
+
   closeProfile() {
     this.close.emit();
+  }
+
+  goToDirectMessage() {
+    this.userService.setClickedDirectChatUser(this.user);
+    this.router.navigate(["/direct"]);
+    this.activeService.setActiveLi(this.user.id);
+    this.closeProfile()
   }
 
   bubblingProtection(event: any) {

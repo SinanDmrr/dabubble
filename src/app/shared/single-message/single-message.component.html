@@ -1,5 +1,5 @@
 <div class="single-message-container" [class.fd-rr]="isOwnMessage()" [class.bg-blue]="messageEditable">
-  <img class="avatar" (click)="openProfile()" src="assets/avatars/avatar_1.png" alt="" />
+  <img class="avatar" (click)="openProfile()" src="{{getUserFromName(message.writer).picture}}" alt="" />
 
   <div class="message-wrapper" [class.ai-fe]="isOwnMessage()">
     <div class="message-header" [class.fd-rr]="isOwnMessage()">

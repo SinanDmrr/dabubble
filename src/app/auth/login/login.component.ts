@@ -34,6 +34,10 @@ export class LoginComponent {
     // this.authService.registerUserWithEmailAndPassword("Sascha", "sascha@keinelust.de", "keinelust", "assets/avatars/avatar_1.png")
   }
 
+  goToChangePassword() {
+    this.router.navigateByUrl('/(login-router:password)');
+  }
+
   login(ngForm: NgForm) {
     this.submitAttempted = true;
 

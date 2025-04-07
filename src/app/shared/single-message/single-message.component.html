@@ -59,12 +59,15 @@
         </div>
         }
       </div>
-      @if (message.answer) { @if (message.answer.length>0) {
-      <button class="answer" (click)="answerToMessage()">
-        {{ message.answer.length }} Antworten
-      </button>
-      <span class="time">{{styleLastAnswer(message.answer[message.answer.length - 1].time)}}</span>
-      } }
+      @if(!isInThread){
+        @if (message.answer) { @if (message.answer.length>0) {
+          <button class="answer" (click)="answerToMessage()">
+            {{ message.answer.length }} Antworten
+          </button>
+          <span class="time">{{styleLastAnswer(message.answer[message.answer.length - 1].time)}}</span>
+          } }
+      }
+      
     </div>
   </div>
 

@@ -1,12 +1,19 @@
 <main>
   <div class="header-section">
-    <h2>Thread</h2>
-    <span class="channel-name">#{{ currentChannel.name }}</span>
-    <button (click)="closeThread()">X</button>
+    <div class="thread-name">
+      <h2>Thread</h2>
+      <span class="channel-name">#{{ currentChannel.name }}</span>
+    </div>
+    <div>
+      <button (click)="closeThread()">X</button>
+    </div>
   </div>
   @if (showThread && threadMessage) {
   <section class="chat-container">
-    <app-single-message [message]="threadMessage"></app-single-message>
+    <app-single-message
+      [message]="threadMessage"
+      [isInThread]="true"
+    ></app-single-message>
     <div class="line"></div>
     @if (threadMessage.answer) { @for (answer of threadMessage.answer; track
     $index) {

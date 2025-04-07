@@ -85,9 +85,13 @@ main {
         opacity: 1;
     }
 
-    100% {
+    99% {
         background-image: linear-gradient(rgb(121, 126, 243), rgb(49, 58, 230));
         opacity: 0;
+    }
+
+    100% {
+        display: none;
     }
 }
 

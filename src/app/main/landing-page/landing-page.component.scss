@@ -74,7 +74,7 @@ main {
 
     > app-thread-chat {
       @include standard-flex();
-      width: 20%;
+      width: 30%;
       height: $contentHeight;
       transition: width 0.3s ease;
       overflow: hidden; 

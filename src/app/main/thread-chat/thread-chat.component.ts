@@ -17,6 +17,7 @@ import { ChannelsService } from "../../services/channels.service";
 export class ThreadChatComponent {
   showThread: boolean = false;
   threadMessage: IMessage | null = null;
+  channels: IChannels[] = [];
   currentUser: IUser | null = null;
   currentChannel!: IChannels;
   isMainVisible = false;
@@ -85,5 +86,15 @@ export class ThreadChatComponent {
   closeThread() {
     this.threadService.hideThreadComponent();
   }
+
+  onChannelCreated(channelData: {
+    name: string;
+    description?: string;
+    members?: string[];
+  }) {
+    if (!this.currentUser) {
+      console.error("Current user is not loaded yet!");
+      return;
+    }}
   
 }

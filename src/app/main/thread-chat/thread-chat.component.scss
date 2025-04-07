@@ -15,16 +15,24 @@ main {
   button {
     display: flex;
     justify-content: flex-end;
-    width: 10%;
+    padding: 6px 10px;
     border: none;
+    border-radius: 20px;
     background-color: white;
     cursor: pointer;
+
+    &:hover {
+      background-color: $primary-bg-color;
+    }
   }
 }
 
-.thread-name{
+.thread-name {
   display: flex;
   align-items: center;
+  gap: 0.5rem;
+  padding-left: 20px;
+  padding: 0.5rem 1rem;
 }
 
 .channel-name {

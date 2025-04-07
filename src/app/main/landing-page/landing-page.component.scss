@@ -19,6 +19,8 @@ main {
     @include standard-flex(space-between);
     flex: 1;
     overflow-y: hidden;
+    padding-left: 1rem;
+    padding-right: 1rem;
 
     > app-dev-space {
       @include standard-flex();
@@ -26,7 +28,7 @@ main {
       height: $contentHeight;
       transition: width 0.3s ease;
       overflow: hidden;
-
+      padding-right: 1rem;
       &.hidden {
         width: 0;
       }

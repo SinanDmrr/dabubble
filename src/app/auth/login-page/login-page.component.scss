@@ -3,8 +3,7 @@
 main {
     max-width: 1920px;
     width: 100%;
-    min-height: 100vh;
-    height: fit-content;
+    height: 100vh;
     @include standard-flex(space-between);
     flex-direction: column;
     background-color: #ECEEFE;
@@ -23,7 +22,7 @@ main {
             min-width: calc(fit-content - 20%);
             min-width: fit-content;
             min-height: fit-content;
-            animation: intro-animation-logo 4s ease-in-out forwards;
+            animation: intro-animation-logo 2s ease-in-out forwards;
 
 
             .dab-logo {
@@ -39,7 +38,7 @@ main {
                     position: relative;
                     font-size: 4rem;
                     font-weight: 700;
-                    animation: intro-animation-paragraph 4s ease-in-out forwards;
+                    animation: intro-animation-paragraph 2s ease-in-out forwards;
                 }
             }
         }
@@ -57,11 +56,12 @@ main {
         min-width: 100%;
         min-height: 100vh;
 
-        animation: intro-animation-bg 4s ease-in-out forwards;
+        animation: intro-animation-bg 2s ease-in-out forwards;
     }
 
     .routing-content {
-        height: 48rem;
+        // height: 48rem;
+        height: fit-content;
         width: 38rem;
         border-radius: 2rem;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
@@ -73,6 +73,7 @@ main {
         gap: 2rem;
         margin-bottom: 2rem;
     }
+
 }
 
 @keyframes intro-animation-bg {

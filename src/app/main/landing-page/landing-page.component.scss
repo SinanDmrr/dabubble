@@ -80,9 +80,11 @@ main {
       height: $contentHeight;
       transition: width 0.3s ease;
       overflow: hidden; 
+      padding-left: 1rem;
 
       &.hidden {
         width: 0;
+        padding-left: 0;
       }
     }
   }

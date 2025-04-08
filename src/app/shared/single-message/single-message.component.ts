@@ -168,11 +168,11 @@ export class SingleMessageComponent {
   }
 
   formatUsernameList(arr: string[]): string {
-    if (arr.length === 0){
+    if (arr.length == 0){
       return '';
-    } else if (arr.length === 1){
+    } else if (arr.length == 1){
       return arr[0];
-    } else if (arr.length === 2) {
+    } else if (arr.length == 2) {
       return arr.join(' und ');
     }
   

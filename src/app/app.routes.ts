@@ -7,6 +7,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { SelectAvatarComponent } from './auth/select-avatar/select-avatar.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { EditChannelComponent } from './main/edit-channel/edit-channel.component';
 
 export const routes: Routes = [
     { path: "", redirectTo: "login", pathMatch: "full" },
@@ -18,4 +19,5 @@ export const routes: Routes = [
     { path: "imprint", outlet: "login-router", component: ImprintComponent },
     { path: "main", component: MainChatComponent },
     { path: "direct", component: DirectChatComponent },
+    { path: 'edit-channel', component: EditChannelComponent }
 ];

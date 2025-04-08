@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { UserService } from "../../services/user.service";
 import { IUser } from "../../interfaces/iuser";
 import { Subscription } from "rxjs";
@@ -28,6 +28,8 @@ export class DirectChatComponent implements OnInit {
   private subscriptionCurrentUser: Subscription | undefined;
   private subscriptionClickedUser: Subscription | undefined;
   private subscriptionDirectMessages: Subscription | undefined;
+
+  @ViewChild("chatContainer") chatContainer!: ElementRef<HTMLDivElement>;
 
   constructor(
     private userService: UserService,
@@ -93,7 +95,7 @@ export class DirectChatComponent implements OnInit {
     }
   }
 
-  async addMessage(event: { message: string; taggedStrings: string[]} ) {
+  async addMessage(event: { message: string; taggedStrings: string[] }) {
     if (!this.currentUser || !this.clickedDirectChatUser) {
       console.error("Current user or clicked user is not defined!");
       return;
@@ -137,9 +139,8 @@ export class DirectChatComponent implements OnInit {
       }
 
       setTimeout(() => {
-        const chatContainer = document.getElementById("chatcontainer");
-        if (chatContainer) {
-          chatContainer.scrollTop = 0;
+        if (this.chatContainer?.nativeElement) {
+          this.chatContainer.nativeElement.scrollTop = 0;
         }
       }, 0);
     }

@@ -9,7 +9,7 @@ main {
 
     .logo-container {
         @include standard-flex(flex-start);
-        width: 20%;
+        width: 21%;
         gap: 1rem;
         >img {
             margin-left: 2rem;
@@ -47,7 +47,7 @@ main {
     .profile-container {
         @include standard-flex(end);
         gap: 1rem;
-        width: 20%;
+        width: 31%;
         cursor: pointer;
 
         >span {

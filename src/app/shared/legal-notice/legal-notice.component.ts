@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-legal-notice',
@@ -9,4 +10,9 @@ import { Component } from '@angular/core';
 })
 export class LegalNoticeComponent {
 
+  constructor(private router: Router) {}
+  
+    backToLogin() {
+      this.router.navigate([{ outlets: { 'login-router': ['login'] } }]);
+    }
 }

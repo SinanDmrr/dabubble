@@ -1,0 +1,26 @@
+main {
+    padding: 2rem 4rem;
+    max-height: 60vh;
+
+    overflow: auto;
+
+    >img {
+        cursor: pointer;
+    }
+
+    >section {
+
+        >h1 {
+            color: #444DF2;
+        }
+    
+        >h2 {
+            color: #444DF2;
+        }
+
+        @media (min-width: 1921px) {
+            max-width: 1920px;
+            margin: auto;
+        }
+    }
+}

@@ -1,0 +1,24 @@
+main {
+    padding: 2rem 4rem;
+    max-height: 60vh;
+    height: 50vh;
+
+    @media (min-width: 1921px) {
+        max-width: 1920px;
+        margin: auto;
+    }
+
+    >img {
+        padding-top: 1rem;
+        cursor: pointer;
+    }
+
+    >h1 {
+        
+        color: #444DF2;
+    }
+
+    >h2 {
+        color: #444DF2;
+    }
+}

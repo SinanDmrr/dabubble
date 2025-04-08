@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, EmailAuthProvider, getAuth, GoogleAuthProvider, onAuthStateChanged, reauthenticateWithCredential, signInAnonymously, signInWithEmailAndPassword, signInWithPopup, signOut, updatePassword, updateProfile } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, EmailAuthProvider, getAuth, GoogleAuthProvider, onAuthStateChanged, reauthenticateWithCredential, sendPasswordResetEmail, signInAnonymously, signInWithEmailAndPassword, signInWithPopup, signOut, updatePassword, updateProfile } from '@angular/fire/auth';
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from './user.service';
 import { IUser } from '../interfaces/iuser';
@@ -134,6 +134,16 @@ export class AuthService {
       console.log('Password updated successfully');
     } catch (error) {
       console.error('Error updating password:', error);
+      throw error;
+    }
+  }
+
+  async sendPasswordReset(email: string): Promise<void> {
+    try {
+      await sendPasswordResetEmail(this.auth, email);
+      console.log('Reset-Mail wurde gesendet.');
+    } catch (error) {
+      console.error('Fehler beim Senden der Reset-Mail:', error);
       throw error;
     }
   }

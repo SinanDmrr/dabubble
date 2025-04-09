@@ -11,6 +11,7 @@ import { Router, RouterLink } from '@angular/router';
 export class AuthService {
 
   private authSubject = new BehaviorSubject<boolean>(false);
+  
   auth$ = this.authSubject.asObservable();
 
   provider = new GoogleAuthProvider();

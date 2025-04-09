@@ -1,18 +1,21 @@
 @use "../../styles/mixins.scss" as *;
 
+$btn-font-hover: #444df2;
+$btn-font: #666df8;
+
 main {
     max-width: 1920px;
     width: 100%;
     height: 100vh;
-    @include standard-flex(space-between);
+    @include standard-flex(flex-start);
     flex-direction: column;
     background-color: #ECEEFE;
 
     .login-head {
         display: flex;
-        @include standard-flex(flex-end, center);
+        @include standard-flex(flex-end, flex-end);
         width: 100%;
-        height: 12rem;
+        height: 8rem;
 
         .animation-content {
             z-index: 3;
@@ -47,6 +50,24 @@ main {
             @include standard-flex();
             flex-direction: column;
             margin-right: 4rem;
+
+            span {
+                margin: 1rem;
+            }
+
+            a {
+                color: $btn-font;
+                padding: 0.5rem;
+                border: solid 1px rgba(0, 0, 0, 0);
+                border-radius: 2rem;
+                text-decoration: none;
+                transition: border 0.25s ease-in-out, color 0.25s ease-in-out;
+
+                &:hover {
+                    border: solid 1px $btn-font-hover;
+                    color: $btn-font-hover;
+                }
+            }
         }
     }
 
@@ -71,7 +92,21 @@ main {
     .info-content {
         @include standard-flex();
         gap: 2rem;
-        margin-bottom: 2rem;
+        margin: 2.5rem 0;
+
+        a {
+            color: $btn-font;
+            padding: 0.5rem;
+            border: solid 1px rgba(0, 0, 0, 0);
+            border-radius: 2rem;
+            text-decoration: none;
+            transition: border 0.25s ease-in-out, color 0.25s ease-in-out;
+
+            &:hover {
+                border: solid 1px $btn-font-hover;
+                color: $btn-font-hover;
+            }
+        }
     }
 
 }

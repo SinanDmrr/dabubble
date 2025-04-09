@@ -19,7 +19,7 @@ main {
     padding: 2rem 4rem;
 
     h1 {
-        margin: 1.5rem 1rem;
+        margin: 1rem;
         font-size: 3rem;
         color: $primary-font-color;
     }
@@ -27,7 +27,7 @@ main {
     p {
         font-size: 1.2rem;
         text-align: center;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
     }
 
     form {
@@ -56,7 +56,7 @@ main {
 
     .forgot-password {
         @include standard-flex();
-        padding: 1rem 0 2rem 0;
+        padding: 1rem 0;
 
         a {
             color: $btn-color;

@@ -1,11 +1,40 @@
-<main class="main-container">
+<main class="main-container" (click)="closeTagList()">
   <header>
     <h2>Neue Nachricht</h2>
     <div class="search-container">
       <input
-      type="text"
-      placeholder="An: #channel, oder @jemand oder E-Mail Adresse" 
+        #searchInput
+        [(ngModel)]="searchText"
+        type="text"
+        placeholder="An: #channel, oder @jemand oder E-Mail Adresse"
+        (keydown)="checkForAt($event); checkForHash($event); checkBackspace($event)"
       />
+      
+      @if(showUserList && getFilteredUserList().length > 0){
+      <div class="tag-container">
+        <div class="tag-wrapper">
+          @for (user of getFilteredUserList(); track $index) {
+          <div class="tag-item" (click)="tagUser(user)">
+            <img src="assets/avatars/avatar_1.png" alt="">
+            <span>{{user}}</span>
+          </div>
+          }
+        </div>
+      </div>
+      }
+
+      @if(showChannelList && getFilteredChannelList().length > 0){
+      <div class="tag-container">
+        <div class="tag-wrapper">
+          @for (channel of getFilteredChannelList(); track $index) {
+          <div class="tag-item" (click)="tagChannel(channel.name)">
+            <span>#</span>
+            <span>{{channel.name}}</span>
+          </div>
+          }
+        </div>
+      </div>
+      }
     </div>
   </header>
   <div class="content-spacer"></div>

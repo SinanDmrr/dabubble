@@ -1,4 +1,4 @@
-import { Component, HostBinding } from "@angular/core";
+import { Component, ElementRef, HostBinding, ViewChild } from "@angular/core";
 import { WriteMessageComponent } from "../../shared/write-message/write-message.component";
 import { ThreadService } from "../../services/thread.service";
 import { IMessage, IChannels } from "../../interfaces/ichannels";
@@ -22,6 +22,8 @@ export class ThreadChatComponent {
   currentChannel!: IChannels;
   isMainVisible = false;
 
+   @ViewChild('chatcontainer') chatContainer!: ElementRef<HTMLDivElement>;
+
   @HostBinding('class.hidden') get isHidden() {
     return !this.showThread;
   }
@@ -36,6 +38,7 @@ export class ThreadChatComponent {
 
     this.threadService.getThreadMessage().subscribe((message) => {
       this.threadMessage = message;
+      this.scrollToBottom()
     });
 
     this.userService.getCurrentUser().subscribe((user) => {
@@ -68,6 +71,14 @@ export class ThreadChatComponent {
       this.currentChannel.id!,
       this.currentChannel
     );
+  }
+
+  scrollToBottom() {
+    setTimeout(() => {
+      if (this.chatContainer.nativeElement) {
+        this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+      }
+    }, 0);
   }
 
   styleTime() {

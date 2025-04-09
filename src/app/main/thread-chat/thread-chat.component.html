@@ -9,7 +9,7 @@
     </div>
   </div>
   @if (showThread && threadMessage) {
-  <section class="chat-container">
+  <section class="chat-container" #chatcontainer>
     <app-single-message
       [message]="threadMessage"
       [isInThread]="true"

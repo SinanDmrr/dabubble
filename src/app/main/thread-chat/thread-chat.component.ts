@@ -34,11 +34,13 @@ export class ThreadChatComponent {
   ) {
     this.threadService.getShowThreadStatus().subscribe((status) => {
       this.showThread = status;
+      if(this.showThread){
+        this.scrollToBottom()
+      }
     });
 
     this.threadService.getThreadMessage().subscribe((message) => {
       this.threadMessage = message;
-      this.scrollToBottom()
     });
 
     this.userService.getCurrentUser().subscribe((user) => {

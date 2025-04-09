@@ -47,7 +47,8 @@ export class MainChatComponent {
 
   filterWord: string = "";
 
-  @ViewChild('chatcontainer') chatContainer!: ElementRef;
+  @ViewChild('chatcontainer') chatContainer!: ElementRef<HTMLDivElement>;
+  
 
   constructor(
     private channelService: ChannelsService,
@@ -58,6 +59,7 @@ export class MainChatComponent {
       this.currentChannel = channel;
       this.iMessages = channel.messages;
       this.channelMembers = channel.users;
+      this.scrollToBottom()
     });
 
     this.userService.getUserList().subscribe((userList) => {
@@ -73,12 +75,7 @@ export class MainChatComponent {
 
     this.filterService.getfilterSubject().subscribe((filterWord) => {
       this.filterWord = filterWord;
-      console.log(this.filterWord)
     });
-  }
-
-  ngAfterViewInit() {
-    this.scrollToBottom();
   }
 
   getUserImage(user: string): string {
@@ -88,9 +85,8 @@ export class MainChatComponent {
 
   scrollToBottom() {
     setTimeout(() => {
-      if (this.chatContainer) {
-        this.chatContainer.nativeElement.scrollTop =
-          this.chatContainer.nativeElement.scrollHeight;
+      if (this.chatContainer.nativeElement) {
+        this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
       }
     }, 0);
   }

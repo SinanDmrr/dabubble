@@ -103,7 +103,7 @@
     <app-edit-channel (close)="closeEdit()" [channel]="currentChannel"></app-edit-channel>
     }
 
-    <div class="chat-container" id="chatcontainer">
+    <div class="chat-container" id="chatcontainer" #chatcontainer>
         @if(getFilteredMessages(iMessages).length>0){
             <div class="seperation">
                 <div class="line"></div>

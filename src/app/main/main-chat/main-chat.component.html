@@ -29,7 +29,7 @@
                         @for (member of currentChannel.users; track $index) {
                         <div class="member-item" (click)="openProfile(member)">
                             <img src="{{getUserImage(member)}}" alt="">
-                            <span>{{member}}</span>
+                            <span>{{getUsernameFromMail(member)}}</span>
                         </div>
                         }
                         <div class="add-member" (click)="goToAddMember()">
@@ -60,7 +60,7 @@
                         @for (member of membersAdded; track $index) {
                         <div class="added-member-container">
                             <img class="avatar" src="assets/avatars/avatar_1.png" alt="">
-                            <span>{{member}}</span>
+                            <span>{{getUsernameFromMail(member)}}</span>
                             <img class="close-button-small" src="assets/icons/close.png" alt=""
                                 (click)="deleteFromMembersAdded(member)">
                         </div>
@@ -72,7 +72,7 @@
 
                                 @if (getFilteredMembers().length > 0) {
                                 @for (member of getFilteredMembers(); track $index) {
-                                <div class="suggestion-member-item" (click)="addToMembersAdded(member.name)">
+                                <div class="suggestion-member-item" (click)="addToMembersAdded(member.email)">
                                     <img src="assets/avatars/avatar_1.png" alt="">
                                     <span>{{member.name}}</span>
                                 </div>

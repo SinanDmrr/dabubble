@@ -78,8 +78,8 @@ export class MainChatComponent {
     });
   }
 
-  getUserImage(user: string): string {
-    let foundUser = this.userList.find(userElem => userElem.name == user);
+  getUserImage(email: string): string {
+    let foundUser = this.userList.find(userElem => userElem.email == email);
     return foundUser ? foundUser.picture : "";
   }
 
@@ -153,13 +153,25 @@ export class MainChatComponent {
   }
 
   openProfile(member: string) {
-    this.profileToOpen = this.getUserFromName(member);
+    this.profileToOpen = this.getUserFromMail(member);
     this.closeMembers();
     this.profileOpen = true;
   }
 
   getUserFromName(name: string): IUser {
     return this.userList.find((user) => user.name === name) || this.userList[0];
+  }
+
+  getUserFromMail(email: string): IUser {
+    return this.userList.find((user) => user.email === email) || this.userList[0];
+  }
+
+  getUsernameFromMail(email: string): string {
+    return this.userList.find((user) => user.email == email)!.name || this.userList[0].name;
+  }
+
+  getMailFromUsername(name: string): string {
+    return this.userList.find((user) => user.name == name)!.email || this.userList[0].email;
   }
 
   closeProfile() {
@@ -179,11 +191,11 @@ export class MainChatComponent {
     this.closeAddMember();
   }
 
-  addToMembersAdded(newMember?: string) {
+  addToMembersAdded(newMember?: string) { //hier kommt die Mail des Member rein
     if (newMember) {
       this.membersAdded.push(newMember);
     } else {
-      this.membersAdded.push(this.memberToAdd);
+      this.membersAdded.push(this.getMailFromUsername(this.memberToAdd));
     }
 
     this.memberToAdd = '';
@@ -204,7 +216,7 @@ export class MainChatComponent {
     ); old version of filter method */ 
 
     let filteredUsers = this.userList.filter(user =>
-      ![...this.channelMembers, ...this.membersAdded].some(member => member == user.name) && user.name.toLowerCase().includes(this.memberToAdd.toLowerCase())
+      ![...this.channelMembers, ...this.membersAdded].some(member => member == user.email) && user.email.toLowerCase().includes(this.memberToAdd.toLowerCase())
     );
     return filteredUsers;
   }

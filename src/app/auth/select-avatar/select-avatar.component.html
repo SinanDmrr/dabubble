@@ -11,8 +11,13 @@
     <span>Aus der liste wählen</span>
     <div class="picture-list">
         @for (picture of availablePictures; track $index) {
-            <img (click)="changeAvatarPicture($index)" src="{{picture}}" alt="">
+        <img (click)="changeAvatarPicture($index)" src="{{picture}}" alt="">
         }
     </div>
     <button (click)="finishRegister()" class="blue-button">Weiter</button>
+    <div class="success-popup" [ngClass]="{'show-popup' : successPopup}">
+        <span>Register Erfolgreich</span>
+        <span>Weiterleitung zum Login</span>
+    </div>
+
 </main>

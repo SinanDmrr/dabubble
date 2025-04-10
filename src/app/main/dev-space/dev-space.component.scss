@@ -15,8 +15,6 @@ ul {
   li {
     margin-left: 1rem;
     list-style-type: none;
-
-    display: inline-block;
     transition: all 0.2s ease;
     border-radius: 2rem;
     padding: 0.2rem 0.5rem;
@@ -32,6 +30,32 @@ ul {
     }
   }
 
+  li.channel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .delete-icon {
+      display: none;
+      font-size: 0.9rem;
+      color: #ff0000;
+      cursor: pointer;
+      margin-right: 0.5rem;
+      transition: all 0.2s ease;
+
+      &:hover {
+        font-weight: 700;
+        transform: scale(1.2);
+      }
+    }
+
+    &:hover {
+      .delete-icon {
+        display: block;
+      }
+    }
+  }
+
   .active-li {
     cursor: pointer;
     color: $primary-font-color;
@@ -40,6 +64,10 @@ ul {
     padding: 0.2rem;
     background-color: $primary-bg-color;
     transform: scale(1.05);
+
+    .delete-icon {
+      display: none;
+    }
   }
 
   .add-channel {

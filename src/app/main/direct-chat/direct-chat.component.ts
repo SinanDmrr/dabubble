@@ -7,7 +7,6 @@ import { ProfileComponent } from "../../shared/profile/profile.component";
 import { SingleMessageComponent } from "../../shared/single-message/single-message.component";
 import { IDirectMessage } from "../../interfaces/idirect-message";
 import { IMessage } from "../../interfaces/idirect-message";
-import { IEmojis } from "../../interfaces/idirect-message";
 import { DirectsMessageService } from "../../services/directs-message.service";
 
 @Component({

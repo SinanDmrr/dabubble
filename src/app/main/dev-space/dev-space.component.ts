@@ -7,7 +7,6 @@ import { UserService } from "../../services/user.service";
 import { IUser } from "../../interfaces/iuser";
 import { DirectsMessageService } from "../../services/directs-message.service";
 import { IDirectMessage } from "../../interfaces/idirect-message";
-import { user } from "@angular/fire/auth";
 import { CommonModule } from "@angular/common";
 import { Router } from "@angular/router";
 import { ActiveService } from "../../services/active.service";
@@ -45,6 +44,7 @@ export class DevSpaceComponent {
   ngOnInit() {
     this.channelsService.getChannels().subscribe((channels) => {
       this.channels = channels;
+      this.filterChannels();
     });
 
     this.userService.getCurrentUser().subscribe((user) => {
@@ -167,10 +167,30 @@ export class DevSpaceComponent {
     this.channelsService
       .addChannel(newChannel)
       .then(() => {
+        this.channels = [...this.channels, newChannel];
+        this.filterChannels();
         this.closeAddChannel();
       })
       .catch((error) => {
         console.error("Error adding channel to Firebase:", error);
       });
+  }
+
+  deleteChannel(channel: IChannels, event: Event) {
+    event.stopPropagation(); // Verhindert, dass changeChannelToDisplay ausgelöst wird
+    if (
+      channel.id &&
+      confirm(`Möchtest du den Channel #${channel.name} wirklich löschen?`)
+    ) {
+      this.channelsService
+        .deleteChannel(channel.id)
+        .then(() => {
+          this.channels = this.channels.filter((c) => c.id !== channel.id); // Entferne lokal
+          this.filterChannels(); // Aktualisiere die gefilterte Liste
+        })
+        .catch((error) => {
+          console.error("Error deleting channel from Firebase:", error);
+        });
+    }
   }
 }

@@ -4,26 +4,26 @@ import {
   Output,
   ViewChild,
   ElementRef,
-} from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { IUser } from '../../../interfaces/iuser';
-import { Subscription } from 'rxjs';
-import { UserService } from '../../../services/user.service';
+} from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { IUser } from "../../../interfaces/iuser";
+import { Subscription } from "rxjs";
+import { UserService } from "../../../services/user.service";
 
 @Component({
-  selector: 'app-add-channel',
+  selector: "app-add-channel",
   standalone: true,
   imports: [FormsModule],
-  templateUrl: './add-channel.component.html',
-  styleUrl: './add-channel.component.scss',
+  templateUrl: "./add-channel.component.html",
+  styleUrl: "./add-channel.component.scss",
 })
 export class AddChannelComponent {
   addChannelFirstWindow: boolean = true;
   addAllMembersSelection: boolean = true;
   showError: boolean = false;
 
-  channelName: string = '';
-  description: string = '';
+  channelName: string = "";
+  description: string = "";
 
   selectedMembers: string[] = [];
   users: IUser[] = [];
@@ -31,9 +31,9 @@ export class AddChannelComponent {
   showUserList: boolean = false;
   private userSubscription!: Subscription;
 
-  @ViewChild('userList', { static: false })
+  @ViewChild("userList", { static: false })
   userListRef!: ElementRef<HTMLUListElement>;
-  @ViewChild('searchInput', { static: false })
+  @ViewChild("searchInput", { static: false })
   searchInputRef!: ElementRef<HTMLInputElement>;
 
   constructor(private userService: UserService) {}
@@ -74,12 +74,12 @@ export class AddChannelComponent {
   }
 
   selectUser(user: IUser) {
-    if (!this.selectedMembers.includes(user.name)) {
-      this.selectedMembers.push(user.name);
+    if (!this.selectedMembers.includes(user.email)) {
+      this.selectedMembers.push(user.email);
     }
     this.showUserList = false;
     if (this.searchInputRef?.nativeElement) {
-      this.searchInputRef.nativeElement.value = '';
+      this.searchInputRef.nativeElement.value = "";
     }
     this.filteredUsers = this.users;
   }
@@ -107,7 +107,7 @@ export class AddChannelComponent {
     setTimeout(() => {
       this.showUserList = false;
       if (this.searchInputRef?.nativeElement) {
-        this.searchInputRef.nativeElement.value = '';
+        this.searchInputRef.nativeElement.value = "";
       }
     }, 200);
   }

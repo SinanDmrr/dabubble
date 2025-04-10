@@ -7,7 +7,8 @@
         ><div class="edit-icon"></div>
       </a>
     </div>
-    <div id="channels-section">
+
+    <!-- <div id="channels-section">
       <div class="section-header">
         <div id="section-header-left" (click)="toggleChannels()">
           <div
@@ -29,6 +30,57 @@
                 [ngClass]="{ 'active-li': activeLiId === channel.id }"
               >
                 # {{ channel.name }}
+                @if (currentUser.email === channel.creator) {
+                  <span
+                    class="delete-icon"
+                    (click)="deleteChannel(channel, $event)"
+                    >X</span
+                  >
+                }
+              </li>
+            }
+            <li class="add-channel" (click)="openAddChannel()">
+              <img
+                src="../../../assets/icons/add_circle.png"
+                alt="Add Channel"
+                class="add-channel-icon"
+              />
+              <span>Channel hinzufügen</span>
+            </li>
+          </ul>
+        </div>
+      }
+    </div> -->
+
+    <div id="channels-section">
+      <div class="section-header">
+        <div id="section-header-left" (click)="toggleChannels()">
+          <div
+            class="drop-down-icon"
+            [class.rotated]="!isChannelsExpanded"
+          ></div>
+          <div class="channels-icon"></div>
+          <h3>Channels</h3>
+        </div>
+        <div class="add-icon" (click)="openAddChannel()"></div>
+      </div>
+      @if (isChannelsExpanded) {
+        <div class="section-content">
+          <ul>
+            @for (channel of filteredChannels; track channel.id) {
+              <li
+                (click)="changeChannelToDisplay(channel)"
+                class="channel"
+                [ngClass]="{ 'active-li': activeLiId === channel.id }"
+              >
+                <span># {{ channel.name }}</span>
+                @if (currentUser.email === channel.creator) {
+                  <span
+                    class="delete-icon"
+                    (click)="deleteChannel(channel, $event)"
+                    >X</span
+                  >
+                }
               </li>
             }
             <li class="add-channel" (click)="openAddChannel()">

@@ -2,7 +2,7 @@
     <img src="assets/icons/arrow_back.png" alt="back-arrow" class="back-arrow" (click)="goToLogin()">
     <h1>Konto erstellen</h1>
     <p>Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto</p>
-    <form class="register-form" (ngSubmit)="register(registerForm)" #registerForm="ngForm">
+    <form class="register-form" (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm">
         <div>
             <img [src]="imagePaths['person']" alt="" class="reg-icon">
             <input class="text-input" #fullname="ngModel" [(ngModel)]="registerData.fullname" name="fullname"
@@ -23,9 +23,9 @@
         <div>
             <img [src]="imagePaths['lock']" alt="" class="reg-icon">
             <input class="text-input" #password="ngModel" [(ngModel)]="registerData.password" name="password"
-                type="password" id="register-password" placeholder="Passwort" (focus)="changeIcon('lock')" (blur)="changeIcon('lock')" required>
+                type="password" id="register-password" placeholder="Passwort" (focus)="changeIcon('lock')" (blur)="changeIcon('lock')" minlength="6" required>
             @if (!password.valid && password.touched) {
-            <p class="error">*Feld darf nicht leer sein - bitte Passwort wählen.</p>
+            <p class="error">*Passwort aus mindestend 6 Zeichen erforderlich.</p>
             }
         </div>
         <div class="check-legal-notice">
@@ -34,8 +34,8 @@
             <p>Ich stimme der<a (click)="navigateToLegalNotice()"> Datenschutzerklärung </a>zu.</p>
         </div>
         @if (fullname.valid && email.valid && password.valid && this.isChecked) {
-        <button class="btn" type="submit" (click)="navigateToAvatar()">Weiter</button>
-        } @else {<button class="btn-disabled" type="submit" (click)="navigateToAvatar()" disabled>Weiter</button>}
+        <button class="btn" type="submit">Weiter</button>
+        } @else {<button class="btn-disabled" type="submit" disabled>Weiter</button>}
     </form>
 
 </section>

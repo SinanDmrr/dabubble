@@ -67,9 +67,9 @@ export class UserService {
   }
 
   setUserToRegister(name: string, email: string, password: string) {
-    this.userToRegister.name = name;
-    this.userToRegister.email = email;
-    this.userToRegister.password = password;
+    // this.userToRegister.name = name;
+    // this.userToRegister.email = email;
+    // this.userToRegister.password = password;
     this.userToRegister = { name, email, password };
   }
 

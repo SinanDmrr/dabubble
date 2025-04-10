@@ -29,9 +29,9 @@ export class RegisterComponent {
 
   constructor(private router: Router, private userService: UserService) { }
 
-  navigateToAvatar() {
-    this.router.navigateByUrl('/(login-router:avatar)');
-  }
+  // navigateToAvatar() {
+  //   this.router.navigateByUrl('/(login-router:avatar)');
+  // }
 
   navigateToLegalNotice() {
     this.router.navigateByUrl('/(login-router:legal)');
@@ -42,7 +42,7 @@ export class RegisterComponent {
     // this.authService.registerUserWithEmailAndPassword("Sascha", "sascha@keinelust.de", "keinelust", "assets/avatars/avatar_1.png")
   }
 
-  register(form: NgForm) {
+  onSubmit(form: NgForm) {
     if (!form.valid) {
       alert("Bitte alle Felder ausfüllen!");
       return;

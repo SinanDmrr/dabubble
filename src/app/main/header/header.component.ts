@@ -24,7 +24,6 @@ export class HeaderComponent {
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(user => {
         this.currentUser = user;
-        console.log(this.currentUser);
     });
   }
 

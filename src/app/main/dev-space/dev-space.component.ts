@@ -39,7 +39,7 @@ export class DevSpaceComponent {
     private userService: UserService,
     private directMessagesService: DirectsMessageService,
     private router: Router,
-    private activeService: ActiveService
+    private activeService: ActiveService,
   ) {}
 
   ngOnInit() {
@@ -74,8 +74,8 @@ export class DevSpaceComponent {
 
     this.filteredChannels = this.channels.filter(
       (channel) =>
-        channel.creator === this.currentUser.name ||
-        (channel.users && channel.users.includes(this.currentUser.name)),
+        channel.creator === this.currentUser.email ||
+        (channel.users && channel.users.includes(this.currentUser.email)),
     );
   }
 
@@ -115,13 +115,13 @@ export class DevSpaceComponent {
 
   changeChannelToDisplay(channel: IChannels) {
     this.channelsService.setCurrentChannel(channel);
-    this.activeService.setActiveLi(channel.id)
+    this.activeService.setActiveLi(channel.id);
     this.router.navigate(["/main"]);
   }
 
   changeDirectMessageToDisplay(user: IUser) {
     this.filterCurrentDirectMessages();
-    this.activeService.setActiveLi(user.id)
+    this.activeService.setActiveLi(user.id);
     this.userService.setClickedDirectChatUser(user);
     this.filterDirectMessagesBetweenCurrentAndSinglePerson(user);
     this.router.navigate(["/direct"]);
@@ -154,15 +154,16 @@ export class DevSpaceComponent {
     }
 
     const usersToAdd =
-      channelData.members || this.allUsers.map((user) => user.name);
+      channelData.members || this.allUsers.map((user) => user.email);
 
     const newChannel: IChannels = {
-      creator: this.currentUser.name,
+      creator: this.currentUser.email,
       name: channelData.name,
       description: channelData.description || "",
       messages: [],
       users: usersToAdd,
     };
+
     this.channelsService
       .addChannel(newChannel)
       .then(() => {

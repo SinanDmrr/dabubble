@@ -25,9 +25,26 @@
         <div class="reaction-emoji" (click)="editMessage()">
           <img src="assets/icons/more_vert.png" alt="" />
         </div>
+        <div class="reaction-emoji" (click)="openDeleteDialog()">
+          <img class="bin" src="assets/icons/bin.png" alt="" />
+        </div>
         }
       </div>
     </div>
+
+    @if(deleteMsg){
+      <div class="bg-dark" (click)="closeDeleteDialog()">
+        <div class="delete-dialog">
+          <span>Willst du die Nachricht wirklich löschen?</span>
+          <div>
+            <button class="blue-button" (click)="deleteMessage()">Löschen</button>
+            <button class="white-button" (click)="closeDeleteDialog()">Abbrechen</button>
+          </div>
+          
+        </div>
+      </div>
+    }
+
     <div class="message" [class.own-message]="isOwnMessage()" [class.edit]="messageEditable">
       @if(messageEditable){
       <textarea [(ngModel)]="textareaMessage" class="edit-textarea" name="" id=""></textarea>

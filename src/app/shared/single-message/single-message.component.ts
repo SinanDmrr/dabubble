@@ -33,6 +33,8 @@ export class SingleMessageComponent {
   profileToOpen!: IUser;
   userList!: IUser [];
 
+  deleteMsg: boolean = false;
+
   constructor(
     private userService: UserService,
     private channelService: ChannelsService,
@@ -220,6 +222,26 @@ export class SingleMessageComponent {
 
   editMessage() {
     this.messageEditable = true;
+  }
+
+  openDeleteDialog(){
+    this.deleteMsg = true;
+  }
+
+  closeDeleteDialog(){
+    this.deleteMsg = false;
+  }
+
+  deleteMessage(){
+    if(this.isInThread){
+      this.currentChannel.messages.forEach(messageElem => {
+        messageElem.answer = messageElem.answer?.filter(answer => answer !== this.message);
+      });
+    } else {
+      this.currentChannel.messages = this.currentChannel.messages.filter(messageElem => messageElem !== this.message);
+    }
+    this.channelService.updateChannel(this.currentChannel.id!, this.currentChannel);
+    this.channelService.setCurrentChannel(this.currentChannel);
   }
 
   saveEdits() {

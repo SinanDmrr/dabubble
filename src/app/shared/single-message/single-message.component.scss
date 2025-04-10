@@ -13,6 +13,7 @@
   overflow-x: hidden;
   position: relative;
   overflow: visible;
+
   &:hover {
     background-color: #f0f1fe;
     cursor: pointer;
@@ -42,6 +43,33 @@
     .reaction {
       display: none;
     }
+  }
+}
+
+.bg-dark {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.375);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 21;
+}
+
+.delete-dialog {
+  background-color: white;
+  position: fixed;
+  @include standard-flex(center, center);
+  flex-direction: column;
+  top: 40%;
+  left: 40%;
+  width: 20%;
+  border-radius: 0 20px 20px 20px;
+  padding: 2rem;
+  gap: 1rem;
+  div{
+    @include standard-flex(center, center);
+    gap: 1rem;
   }
 }
 
@@ -109,6 +137,7 @@
   @include standard-flex(center, center);
   gap: 0.5rem;
   position: relative;
+
   &:hover {
     .reaction-info {
       display: flex;
@@ -195,6 +224,7 @@
   top: -1.5rem;
   right: 0;
   z-index: 20;
+
   span {
     padding: 0.5rem;
     border-radius: 50%;
@@ -215,6 +245,11 @@
   &:hover {
     background-color: #eceefe;
   }
+}
+
+.bin {
+  width: 20px;
+  height: 20px;
 }
 
 .reacted {

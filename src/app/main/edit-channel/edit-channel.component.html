@@ -7,7 +7,7 @@
         [(ngModel)]="searchText"
         type="text"
         placeholder="An: #channel, oder @jemand oder E-Mail Adresse"
-        (keydown)="checkForAt($event); checkForHash($event); checkBackspace($event)"
+        (keyup)="checkForAt($event); checkForHash($event); checkBackspace($event); checkForMail($event)"
       />
       
       @if(showUserList && getFilteredUserList().length > 0){
@@ -22,6 +22,19 @@
         </div>
       </div>
       }
+
+      @if(showMailList && getFilteredMailList().length > 0){
+        <div class="tag-container">
+          <div class="tag-wrapper">
+            @for (user of getFilteredMailList(); track $index) {
+            <div class="tag-item" (click)="tagUser(getUsernameFromMail(user))">
+              <img src="assets/avatars/avatar_1.png" alt="">
+              <span>{{user}}</span>
+            </div>
+            }
+          </div>
+        </div>
+        }
 
       @if(showChannelList && getFilteredChannelList().length > 0){
       <div class="tag-container">

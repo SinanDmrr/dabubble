@@ -21,6 +21,7 @@ export class EditChannelComponent {
   searchText: string = "";
   showUserList = false;
   showChannelList = false;
+  showMailList = false;
 
   tagStringHash: string = "";
   tagStringAt: string = "";
@@ -35,9 +36,9 @@ export class EditChannelComponent {
   userList: IUser[] = [];
 
   constructor(
-    private channelService: ChannelsService, 
-    private userService: UserService, 
-    private router: Router, 
+    private channelService: ChannelsService,
+    private userService: UserService,
+    private router: Router,
     private activeService: ActiveService
   ) {
     this.channelService.getCurrentChannel().subscribe((channel) => {
@@ -70,6 +71,18 @@ export class EditChannelComponent {
     this.checkIfListeningAt(event);
   }
 
+  checkForMail(event: KeyboardEvent) {
+    if (this.searchText === "") {
+      this.showMailList = false;
+      this.showChannelList = false;
+      this.showUserList = false;
+    } else if (this.searchText !== "@" && this.searchText !== "#" && event.key !== "@" && event.key !== "#") {
+      this.showMailList = true;
+    } else {
+      this.showMailList = false;
+    }
+  }
+
   checkForHash(event: KeyboardEvent) {
     if (event.key === '#') {
       this.tagStringHash = "";
@@ -83,6 +96,7 @@ export class EditChannelComponent {
   }
 
   checkBackspace(event: KeyboardEvent) {
+
     if (event.key == 'Backspace') {
       if (this.searchText[this.searchText.length - 1] == '@') {
         this.stopListening();
@@ -90,6 +104,8 @@ export class EditChannelComponent {
         this.stopListening();
       }
     }
+
+
   }
 
   stopListening() {
@@ -168,8 +184,8 @@ export class EditChannelComponent {
   getLengthOfMessageBeforeAtSign(message: string) {
     let position = message.indexOf('@');
     let cleanedText;
-    if (position == -1){
-      return -1; 
+    if (position == -1) {
+      return -1;
     } else {
       cleanedText = message.slice(0, position).replace(/\s/g, '');
     }
@@ -181,24 +197,29 @@ export class EditChannelComponent {
     return userObj;
   }
 
+  getUsernameFromMail(email: string): string {
+    return this.userList.find((user) => user.email == email)!.name || this.userList[0].name;
+  }
+
   getChannelFromName(channelName: string) {
     let userObj = this.channelsList.find(channel => channel.name == channelName);
     return userObj;
   }
 
   filterUserList(filterString: string) {
-    if (this.currentChannel && this.currentChannel.users) {
-      return this.currentChannel.users.filter(user => 
-        user.toLowerCase().includes(filterString.toLowerCase())
-      );
-    }
     return this.userList
       .map(user => user.name)
       .filter(name => name.toLowerCase().includes(filterString.toLowerCase()));
   }
 
+  filterUserListEmail(filterString: string) {
+    return this.userList
+      .map(user => user.email)
+      .filter(email => email.toLowerCase().includes(filterString.toLowerCase()));
+  }
+
   filterChannelList(filterString: string) {
-    return this.channelsList.filter(channel => 
+    return this.channelsList.filter(channel =>
       channel.name.toLowerCase().includes(filterString.toLowerCase())
     );
   }
@@ -209,5 +230,9 @@ export class EditChannelComponent {
 
   getFilteredChannelList(): IChannels[] {
     return this.filterChannelList(this.tagStringHash);
+  }
+
+  getFilteredMailList(): string[] {
+    return this.filterUserListEmail(this.searchText)
   }
 }

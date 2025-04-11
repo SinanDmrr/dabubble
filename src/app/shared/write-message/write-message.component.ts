@@ -228,8 +228,12 @@ export class WriteMessageComponent {
     }
   }
 
+  getUsernameFromMail(email: string): string {
+    return this.userList.find((user) => user.email == email)!.name || this.userList[0].name;
+  }
+
   filterUserList(filterString: string) {
-    let filteredUserList = this.currentChannel.users.filter(user => user.toLowerCase().includes(filterString.toLowerCase()));
+    let filteredUserList = this.currentChannel.users.filter(user => this.getUsernameFromMail(user).toLowerCase().includes(filterString.toLowerCase()));
     return filteredUserList;
   }
 

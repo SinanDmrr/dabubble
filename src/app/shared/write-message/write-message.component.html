@@ -17,7 +17,7 @@
             @for (user of getFilteredUserList(); track $index) {
             <div class="tag-item" (click)="tagUser(user)">
                 <img src="assets/avatars/avatar_1.png" alt="">
-                <span>{{user}}</span>
+                <span>{{getUsernameFromMail(user)}}</span>
             </div>
             }
         </div>

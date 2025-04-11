@@ -22,6 +22,8 @@ export class DevSpaceComponent {
   isChannelsExpanded = true;
   isMessagesExpanded = true;
   showAddChannelPopup = false;
+  showDeleteDialog = false;
+  channelToDelete: IChannels | null = null;
   activeLiId: string | undefined;
 
   currentUser!: IUser;
@@ -167,8 +169,6 @@ export class DevSpaceComponent {
     this.channelsService
       .addChannel(newChannel)
       .then(() => {
-        this.channels = [...this.channels, newChannel];
-        this.filterChannels();
         this.closeAddChannel();
       })
       .catch((error) => {
@@ -177,7 +177,7 @@ export class DevSpaceComponent {
   }
 
   deleteChannel(channel: IChannels, event: Event) {
-    event.stopPropagation(); // Verhindert, dass changeChannelToDisplay ausgelöst wird
+    event.stopPropagation();
     if (
       channel.id &&
       confirm(`Möchtest du den Channel #${channel.name} wirklich löschen?`)
@@ -185,11 +185,89 @@ export class DevSpaceComponent {
       this.channelsService
         .deleteChannel(channel.id)
         .then(() => {
-          this.channels = this.channels.filter((c) => c.id !== channel.id); // Entferne lokal
-          this.filterChannels(); // Aktualisiere die gefilterte Liste
+          this.channels = this.channels.filter((c) => c.id !== channel.id);
+          this.filterChannels();
+
+          this.channelsService
+            .getCurrentChannel()
+            .subscribe((currentChannel) => {
+              if (currentChannel && currentChannel.id === channel.id) {
+                if (this.filteredChannels.length > 0) {
+                  const newChannel = this.filteredChannels[0];
+                  this.channelsService.setCurrentChannel(newChannel);
+                  this.activeService.setActiveLi(newChannel.id);
+                  this.router.navigate(["/main"]);
+                } else {
+                  this.channelsService.setCurrentChannel({
+                    creator: "",
+                    description: "",
+                    messages: [],
+                    name: "",
+                    users: [],
+                  });
+                  this.activeService.setActiveLi(undefined);
+                  this.router.navigate(["/main"]);
+                }
+              }
+            });
         })
         .catch((error) => {
           console.error("Error deleting channel from Firebase:", error);
+        });
+    }
+  }
+  openDeleteDialog(channel: IChannels, event: Event) {
+    event.stopPropagation();
+    this.channelToDelete = channel;
+    this.showDeleteDialog = true;
+  }
+
+  closeDeleteDialog() {
+    this.showDeleteDialog = false;
+    this.channelToDelete = null;
+  }
+
+  confirmDelete() {
+    if (this.channelToDelete && this.channelToDelete.id) {
+      this.channelsService
+        .deleteChannel(this.channelToDelete.id)
+        .then(() => {
+          this.channels = this.channels.filter(
+            (c) => c.id !== this.channelToDelete!.id,
+          );
+          this.filterChannels();
+
+          this.channelsService
+            .getCurrentChannel()
+            .subscribe((currentChannel) => {
+              if (
+                currentChannel &&
+                currentChannel.id === this.channelToDelete!.id
+              ) {
+                if (this.filteredChannels.length > 0) {
+                  const newChannel = this.filteredChannels[0];
+                  this.channelsService.setCurrentChannel(newChannel);
+                  this.activeService.setActiveLi(newChannel.id);
+                  this.router.navigate(["/main"]);
+                } else {
+                  this.channelsService.setCurrentChannel({
+                    creator: "",
+                    description: "",
+                    messages: [],
+                    name: "",
+                    users: [],
+                  });
+                  this.activeService.setActiveLi(undefined);
+                  this.router.navigate(["/main"]);
+                }
+              }
+            });
+
+          this.closeDeleteDialog();
+        })
+        .catch((error) => {
+          console.error("Error deleting channel from Firebase:", error);
+          this.closeDeleteDialog();
         });
     }
   }

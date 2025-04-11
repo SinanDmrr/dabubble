@@ -10,6 +10,11 @@
   </div>
   @if (showThread && threadMessage) {
   <section class="chat-container" #chatcontainer>
+    <div class="seperation">
+      <div class="line"></div>
+      <span>{{getDate(threadMessage)}}</span>
+      <div class="line"></div>
+  </div>
     <app-single-message
       [message]="threadMessage"
       [isInThread]="true"

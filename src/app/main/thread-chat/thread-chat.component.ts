@@ -22,9 +22,9 @@ export class ThreadChatComponent {
   currentChannel!: IChannels;
   isMainVisible = false;
 
-   @ViewChild('chatcontainer') chatContainer!: ElementRef<HTMLDivElement>;
+  @ViewChild("chatcontainer") chatContainer!: ElementRef<HTMLDivElement>;
 
-  @HostBinding('class.hidden') get isHidden() {
+  @HostBinding("class.hidden") get isHidden() {
     return !this.showThread;
   }
   constructor(
@@ -34,8 +34,8 @@ export class ThreadChatComponent {
   ) {
     this.threadService.getShowThreadStatus().subscribe((status) => {
       this.showThread = status;
-      if(this.showThread){
-        this.scrollToBottom()
+      if (this.showThread) {
+        this.scrollToBottom();
       }
     });
 
@@ -78,7 +78,8 @@ export class ThreadChatComponent {
   scrollToBottom() {
     setTimeout(() => {
       if (this.chatContainer.nativeElement) {
-        this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+        this.chatContainer.nativeElement.scrollTop =
+          this.chatContainer.nativeElement.scrollHeight;
       }
     }, 0);
   }
@@ -108,6 +109,42 @@ export class ThreadChatComponent {
     if (!this.currentUser) {
       console.error("Current user is not loaded yet!");
       return;
-    }}
-  
+    }
+  }
+
+  getDate(message: IMessage) {
+    let date = "";
+    let today = new Date();
+    if (message.time.fullDate == today.toDateString()) {
+      date = "Heute";
+    } else {
+      date =
+        message.time.dayName +
+        ", " +
+        message.time.day +
+        ". " +
+        this.getMonthName(message.time.month) +
+        " " +
+        message.time.year;
+    }
+    return date;
+  }
+
+  getMonthName(month: number) {
+    let months = [
+      "Januar",
+      "Februar",
+      "März",
+      "April",
+      "Mai",
+      "Juni",
+      "Juli",
+      "August",
+      "September",
+      "Oktober",
+      "November",
+      "Dezember",
+    ];
+    return months[month];
+  }
 }

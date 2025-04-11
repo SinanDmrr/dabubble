@@ -218,10 +218,11 @@
   border: 1px solid #adb0d9;
   background-color: white;
   @include standard-flex(flex-start, center);
-  padding: 0.5rem 1rem;
+  padding: 0.2rem 1rem;
   display: none;
   position: absolute;
   top: -1.5rem;
+  margin-top: 20px;
   right: 0;
   z-index: 20;
 

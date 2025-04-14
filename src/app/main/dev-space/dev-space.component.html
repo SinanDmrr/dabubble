@@ -1,101 +1,87 @@
 <main>
-  <div id="padding-container">
-    <div id="header-section">
-      <img src="./assets/images/Devspace_Logo.png" alt="" />
-      <h2>Devspace</h2>
-      <a routerLink="/edit-channel" routerLinkActive="active"
-        ><div class="edit-icon"></div>
-      </a>
-    </div>
-
-    <div id="channels-section">
-      <div class="section-header">
-        <div id="section-header-left" (click)="toggleChannels()">
-          <div
-            class="drop-down-icon"
-            [class.rotated]="!isChannelsExpanded"
-          ></div>
-          <div class="channels-icon"></div>
-          <h3>Channels</h3>
-        </div>
-        <div class="add-icon" (click)="openAddChannel()"></div>
+  <div class="scroll-container">
+    <div id="padding-container">
+      <div id="header-section">
+        <img src="./assets/images/Devspace_Logo.png" alt="" />
+        <h2>Devspace</h2>
+        <a routerLink="/edit-channel" routerLinkActive="active"
+          ><div class="edit-icon"></div>
+          <p>Nachricht erstellen</p>
+        </a>
       </div>
-      @if (isChannelsExpanded) {
-        <div class="section-content">
-          <ul>
-            @for (channel of filteredChannels; track channel.id) {
-              <li
-                (click)="changeChannelToDisplay(channel)"
-                class="channel"
-                [ngClass]="{ 'active-li': activeLiId === channel.id }"
-              >
-                <span># {{ channel.name }}</span>
-                @if (currentUser.email === channel.creator) {
-                  <span
-                    class="delete-icon"
-                    (click)="openDeleteDialog(channel, $event)"
-                    >X</span
-                  >
-                }
-              </li>
-            }
-            <li class="add-channel" (click)="openAddChannel()">
-              <img
-                src="../../../assets/icons/add_circle.png"
-                alt="Add Channel"
-                class="add-channel-icon"
-              />
-              <span>Channel hinzufügen</span>
-            </li>
-          </ul>
-        </div>
-      }
-    </div>
 
-    <div id="directmessages-section">
-      <div class="section-header">
-        <div id="section-header-left" (click)="toggleMessages()">
-          <div
-            class="drop-down-icon"
-            [class.rotated]="!isMessagesExpanded"
-          ></div>
-          <div class="person-icon"></div>
-          <h3>Direktnachrichten</h3>
+      <div id="channels-section">
+        <div class="section-header">
+          <div id="section-header-left" (click)="toggleChannels()">
+            <div
+              class="drop-down-icon"
+              [class.rotated]="!isChannelsExpanded"
+            ></div>
+            <div class="channels-icon"></div>
+            <h3>Channels</h3>
+          </div>
+          <div id="add-icon" (click)="openAddChannel()"></div>
         </div>
-      </div>
-      @if (isMessagesExpanded) {
-        <div class="section-content">
-          <ul>
-            <li
-              class="messages"
-              (click)="changeDirectMessageToDisplay(currentUser)"
-              [ngClass]="{ 'active-li': activeLiId === currentUser.id }"
-            >
-              <div id="img-container">
-                <img src="{{ currentUser.picture }}" id="user-icon" />
+        <div id="add-icon-small" (click)="openAddChannel()">
+          <img src="/assets/icons/add_icon.png" alt="" />
+          <p>Channel hinzufügen</p>
+        </div>
+        @if (isChannelsExpanded) {
+          <div class="section-content">
+            <ul>
+              @for (channel of filteredChannels; track channel.id) {
+                <li
+                  (click)="changeChannelToDisplay(channel)"
+                  class="channel"
+                  [ngClass]="{ 'active-li': activeLiId === channel.id }"
+                >
+                  <span># {{ channel.name }}</span>
+                  @if (currentUser.email === channel.creator) {
+                    <span
+                      class="delete-icon"
+                      (click)="openDeleteDialog(channel, $event)"
+                      >X</span
+                    >
+                  }
+                </li>
+              }
+              <li class="add-channel" (click)="openAddChannel()">
                 <img
-                  [src]="
-                    currentUser.onlineStatus
-                      ? '/assets/icons/online.png'
-                      : '/assets/icons/offline.png'
-                  "
-                  id="online-status"
+                  src="../../../assets/icons/add_circle.png"
+                  alt="Add Channel"
+                  class="add-channel-icon"
                 />
-              </div>
+                <span>Channel hinzufügen</span>
+              </li>
+            </ul>
+          </div>
+        }
+      </div>
 
-              {{ currentUser.name }} (Du)
-            </li>
-            @for (user of userOfDirectMessages; track $index) {
+      <div id="directmessages-section">
+        <div class="section-header">
+          <div id="section-header-left" (click)="toggleMessages()">
+            <div
+              class="drop-down-icon"
+              [class.rotated]="!isMessagesExpanded"
+            ></div>
+            <div class="person-icon"></div>
+            <h3>Chats</h3>
+          </div>
+        </div>
+        @if (isMessagesExpanded) {
+          <div class="section-content">
+            <ul>
               <li
                 class="messages"
-                (click)="changeDirectMessageToDisplay(user)"
-                [ngClass]="{ 'active-li': activeLiId === user.id }"
+                (click)="changeDirectMessageToDisplay(currentUser)"
+                [ngClass]="{ 'active-li': activeLiId === currentUser.id }"
               >
                 <div id="img-container">
-                  <img src="{{ user.picture }}" id="user-icon" />
+                  <img src="{{ currentUser.picture }}" id="user-icon" />
                   <img
                     [src]="
-                      user.onlineStatus
+                      currentUser.onlineStatus
                         ? '/assets/icons/online.png'
                         : '/assets/icons/offline.png'
                     "
@@ -103,36 +89,59 @@
                   />
                 </div>
 
-                {{ user.name }}
+                {{ currentUser.name }} (Du)
               </li>
-            }
-          </ul>
-        </div>
-      }
-    </div>
-  </div>
+              @for (user of userOfDirectMessages; track $index) {
+                <li
+                  class="messages"
+                  (click)="changeDirectMessageToDisplay(user)"
+                  [ngClass]="{ 'active-li': activeLiId === user.id }"
+                >
+                  <div id="img-container">
+                    <img src="{{ user.picture }}" id="user-icon" />
+                    <img
+                      [src]="
+                        user.onlineStatus
+                          ? '/assets/icons/online.png'
+                          : '/assets/icons/offline.png'
+                      "
+                      id="online-status"
+                    />
+                  </div>
 
-  @if (showAddChannelPopup) {
-    <app-add-channel
-      (close)="closeAddChannel()"
-      (channelCreated)="onChannelCreated($event)"
-    ></app-add-channel>
-  }
-
-  @if (showDeleteDialog) {
-    <div class="bg-dark" (click)="closeDeleteDialog()">
-      <div class="delete-dialog" (click)="$event.stopPropagation()">
-        <span
-          >Möchtest du den Channel #{{ channelToDelete?.name }} wirklich
-          löschen?</span
-        >
-        <div>
-          <button class="blue-button" (click)="confirmDelete()">Löschen</button>
-          <button class="white-button" (click)="closeDeleteDialog()">
-            Abbrechen
-          </button>
-        </div>
+                  {{ user.name }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
       </div>
     </div>
-  }
+
+    @if (showAddChannelPopup) {
+      <app-add-channel
+        (close)="closeAddChannel()"
+        (channelCreated)="onChannelCreated($event)"
+      ></app-add-channel>
+    }
+
+    @if (showDeleteDialog) {
+      <div class="bg-dark" (click)="closeDeleteDialog()">
+        <div class="delete-dialog" (click)="$event.stopPropagation()">
+          <span
+            >Möchtest du den Channel #{{ channelToDelete?.name }} wirklich
+            löschen?</span
+          >
+          <div>
+            <button class="blue-button" (click)="confirmDelete()">
+              Löschen
+            </button>
+            <button class="white-button" (click)="closeDeleteDialog()">
+              Abbrechen
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
 </main>

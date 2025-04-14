@@ -38,7 +38,7 @@ main {
       position: fixed;
       bottom: 2rem;
       left: 0;
-      z-index: 9999;
+      z-index: 1;
       border: 1px solidblack;
 
       .sidebar-icon {
@@ -79,7 +79,7 @@ main {
       width: 30%;
       height: $contentHeight;
       transition: width 0.3s ease;
-      overflow: hidden; 
+      overflow: hidden;
       padding-left: 1rem;
 
       &.hidden {

@@ -28,7 +28,7 @@
                 <button class="login" type="submit" [disabled]="loginForm.invalid">Anmelden</button>
                 <button (click)="guestLogin()">Gäste-Login</button>
             </div>
-            @if (submitAttempted && !submitError) {
+            @if (submitAttempted && submitError || submitAttempted && (loginFailed$)) {
                 <p>*Falsches Passwort oder E-Mail.. Bitte erneut versuchen.</p>
             }
         </div>

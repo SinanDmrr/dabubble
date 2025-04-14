@@ -16,6 +16,7 @@ export class LoginComponent {
   error: string = '';
   submitError: boolean = true;
   submitAttempted: boolean = false;
+  loginFailed$ = this.authService.getLoginFailed(); 
 
   loginData = {
     email: "",

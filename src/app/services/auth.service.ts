@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, EmailAuthProvider, getAuth, GoogleAuthProvider, onAuthStateChanged, reauthenticateWithCredential, sendPasswordResetEmail, signInAnonymously, signInWithEmailAndPassword, signInWithPopup, signOut, updatePassword, updateProfile } from '@angular/fire/auth';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { UserService } from './user.service';
 import { IUser } from '../interfaces/iuser';
 import { Router, RouterLink } from '@angular/router';
@@ -11,6 +11,10 @@ import { Router, RouterLink } from '@angular/router';
 export class AuthService {
 
   private authSubject = new BehaviorSubject<boolean>(false);
+  private loginFailed = new BehaviorSubject<boolean>(false);
+  getLoginFailed(): Observable<boolean> {
+    return this.loginFailed.asObservable();
+  }
   
   auth$ = this.authSubject.asObservable();
 
@@ -54,9 +58,11 @@ export class AuthService {
         this.authSubject.next(true);
         this.userService.changeCurrentUserMail(userCredential.user.email as string);
         this.router.navigate(['/main']);
+        this.loginFailed.next(false);
       }
     } catch (error) {
       console.error('login Error', error);
+        this.loginFailed.next(true);
     }
   }
 

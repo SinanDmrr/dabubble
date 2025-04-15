@@ -22,6 +22,12 @@ main {
     padding-left: 1rem;
     padding-right: 1rem;
 
+    @media (max-width: 800px) {
+      .routing-content {
+        display: none;
+      }
+    }
+
     > app-dev-space {
       @include standard-flex();
       width: 20%;

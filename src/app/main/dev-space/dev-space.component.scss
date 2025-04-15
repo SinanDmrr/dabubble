@@ -228,9 +228,23 @@ main {
       align-items: center;
       gap: 0.5rem;
 
-      @media (max-width: 950px) {
+      @media (max-width: 900px) {
+        justify-content: center;
         img {
-          display: none;
+          height: 2rem;
+          width: 2rem;
+        }
+      }
+
+      @media (max-width: 800px) {
+        justify-content: center;
+        margin-top: 1rem;
+
+        a {
+          visibility: hidden;
+          width: 0;
+          height: 0;
+          overflow: hidden;
         }
       }
 

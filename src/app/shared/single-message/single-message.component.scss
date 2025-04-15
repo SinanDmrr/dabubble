@@ -30,6 +30,11 @@
       display: flex;
     }
   }
+
+  @media(max-width: 800px){
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+  }
 }
 
 .bg-blue {
@@ -123,6 +128,10 @@
 
 .time {
   font-size: smaller;
+
+  @media(max-width: 800px){
+    display: none;
+  }
 }
 
 .answer {
@@ -130,6 +139,10 @@
 
   &:hover {
     font-weight: bold;
+  }
+
+  @media(max-width: 800px){
+    font-size: smaller;
   }
 }
 

@@ -19,6 +19,9 @@ ul {
     border-radius: 2rem;
     padding: 0.2rem 0.5rem;
 
+    @media (max-width: 800px) {
+      padding: 0;
+    }
     &:hover {
       cursor: pointer;
       color: $primary-font-color;
@@ -170,13 +173,28 @@ main {
   border-radius: 16px;
   background-color: white;
   box-sizing: border-box;
-  // min-width: 150px;
 
   .scroll-container {
     height: 100%;
     width: 95%;
     overflow-y: auto;
     overflow-x: hidden;
+
+    @media (max-width: 800px) {
+      position: relative;
+    }
+
+    #edit-smartphone-img {
+      position: absolute;
+      bottom: 1rem;
+      right: -0.5rem;
+      height: 4rem;
+      width: 4rem;
+      display: none;
+      @media (max-width: 800px) {
+        display: block;
+      }
+    }
 
     &::-webkit-scrollbar {
       width: 8px;
@@ -195,6 +213,14 @@ main {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+
+    @media (max-width: 950px) {
+      position: relative;
+    }
+    @media (max-width: 800px) {
+      padding: 0;
+    }
+
     #header-section {
       width: 100%;
       display: flex;
@@ -202,15 +228,26 @@ main {
       align-items: center;
       gap: 0.5rem;
 
-      @media (max-width: 950px) {
+      @media (max-width: 900px) {
+        justify-content: center;
         img {
-          display: none;
+          height: 2rem;
+          width: 2rem;
         }
       }
 
-      @media (max-width: 750px) {
-        flex-direction: column;
+      @media (max-width: 800px) {
+        justify-content: center;
+        margin-top: 1rem;
+
+        a {
+          visibility: hidden;
+          width: 0;
+          height: 0;
+          overflow: hidden;
+        }
       }
+
       img {
         object-fit: contain;
         width: 3rem;
@@ -226,13 +263,6 @@ main {
         p {
           display: none;
         }
-        @media (max-width: 750px) {
-          p {
-            display: block;
-            font-weight: 700;
-            font-size: 0.9rem;
-          }
-        }
         .edit-icon {
           width: 1.2rem;
           height: 1.2rem;
@@ -241,6 +271,11 @@ main {
           background-repeat: no-repeat;
           transition: all 0.2s ease;
           position: relative;
+
+          @media (max-width: 800px) {
+            background-image: none;
+          }
+
           &:hover {
             background-image: url("/assets/icons/edit_icon_hover.png");
             &::before {
@@ -311,12 +346,13 @@ main {
         display: none;
         @media (max-width: 750px) {
           display: flex;
+          align-items: center;
           gap: 0.5rem;
           font-weight: 700;
           font-size: 0.9rem;
           img {
-            width: 1rem;
-            height: 1rem;
+            width: 0.8rem;
+            height: 0.8rem;
           }
         }
       }
@@ -397,24 +433,57 @@ main {
         }
       }
     }
+
     .section-content {
-      .messages {
-        display: flex;
-        align-items: center;
-        #img-container {
-          position: relative;
-          #user-icon {
-            border-radius: 50%;
-            height: 2.5rem;
-            aspect-ratio: 1/1;
-            margin-right: 0.5rem;
+      ul {
+        li.messages {
+          display: flex;
+          align-items: center;
+
+          #img-container {
+            position: relative;
+
+            #user-icon {
+              border-radius: 50%;
+              height: 2.5rem;
+              aspect-ratio: 1/1;
+              margin-right: 0.5rem;
+
+              @media (max-width: 800px) {
+                height: 2rem;
+              }
+            }
+
+            #online-status {
+              position: absolute;
+              right: 0.5rem;
+              bottom: 0;
+              height: 1rem;
+              aspect-ratio: 1/1;
+            }
           }
-          #online-status {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            height: 1rem;
-            aspect-ratio: 1/1;
+
+          &.active-li {
+            background-color: #d3d7ff;
+          }
+        }
+
+        .user-name {
+          display: inline-block;
+          white-space: normal;
+        }
+      }
+
+      @media (max-width: 800px) {
+        ul {
+          li.messages {
+            .user-name {
+              max-width: 10px;
+              overflow-wrap: normal;
+              white-space: normal;
+              display: inline-block;
+              line-height: 1.2;
+            }
           }
         }
       }

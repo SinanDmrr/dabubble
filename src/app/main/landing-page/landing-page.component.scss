@@ -23,12 +23,12 @@ main {
     padding-right: 1rem;
 
     @media (max-width: 800px) {
-      padding-left: 0;
-      padding-right: 0;
+      padding-left: 1rem;
+      padding-right: 1rem;
 
       > app-dev-space {
         width: 100% !important;
-        padding-left: 1rem !important;
+        //padding-left: 1rem !important;
         &.hidden {
           width: 0 !important;
           overflow: hidden !important;
@@ -68,6 +68,10 @@ main {
       &.hidden {
         width: 0;
         display: none;
+      }
+
+      @media (max-width: 800px) {
+        padding-right: 0;
       }
     }
 
@@ -112,7 +116,12 @@ main {
       flex: 1;
       &.padded {
         padding-left: 1rem;
-        padding-right: 1rem
+        padding-right: 1rem;
+
+        @media(max-width: 800px){
+          padding-right: 0;
+          padding-left: 0;
+        }
       }
     }
 
@@ -127,6 +136,14 @@ main {
       &.hidden {
         width: 0;
         padding-left: 0;
+      }
+
+      @media(max-width: 800px){
+        width: 100%;
+        padding-left: 0;
+        .routing-content{
+          display: none;
+        }
       }
     }
   }

@@ -28,7 +28,15 @@ input {
   outline: 1px solid #ADB0D9;
   padding-left: 1rem;
   font-size: 1rem;
+  @media(max-width: 520px) {
+    font-size: 0.8rem;
+    padding-left: 0.5rem;
+  }
+  @media(max-width: 420px) {
+    padding: 0.3rem 0.3rem;
+  }
 }
+
 
 :host {
   height: 100%;

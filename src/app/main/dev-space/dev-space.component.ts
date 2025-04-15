@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { AddChannelComponent } from "./add-channel/add-channel.component";
 import { IChannels } from "../../interfaces/ichannels";
@@ -25,6 +25,7 @@ export class DevSpaceComponent {
   showDeleteDialog = false;
   channelToDelete: IChannels | null = null;
   activeLiId: string | undefined;
+  isDevSpaceVisible = true; // Neuer Zustand, um Sichtbarkeit zu tracken
 
   currentUser!: IUser;
   channels: IChannels[] = [];
@@ -35,6 +36,9 @@ export class DevSpaceComponent {
   userOfDirectMessages: IUser[] = [];
   filteredChannels: IChannels[] = [];
 
+  // max-width < 800 px -> switch sidebar ausblenden router-outlet einblenden
+  @Output() viewSwitch = new EventEmitter<boolean>();
+
   constructor(
     private channelsService: ChannelsService,
     private userService: UserService,
@@ -42,6 +46,19 @@ export class DevSpaceComponent {
     private router: Router,
     private activeService: ActiveService,
   ) {}
+
+  emitViewSwitchIfMobile() {
+    if (window.innerWidth < 800) {
+      this.isDevSpaceVisible = false; // DevSpace wird ausgeblendet
+      this.viewSwitch.emit(false); // router-outlet wird sichtbar
+    }
+  }
+
+  // Toggle-Funktion, falls du die Sichtbarkeit manuell umschalten willst
+  toggleDevSpaceVisibility() {
+    this.isDevSpaceVisible = !this.isDevSpaceVisible;
+    this.viewSwitch.emit(this.isDevSpaceVisible);
+  }
 
   ngOnInit() {
     this.channelsService.getChannels().subscribe((channels) => {
@@ -119,6 +136,7 @@ export class DevSpaceComponent {
     this.channelsService.setCurrentChannel(channel);
     this.activeService.setActiveLi(channel.id);
     this.router.navigate(["/main"]);
+    this.emitViewSwitchIfMobile();
   }
 
   changeDirectMessageToDisplay(user: IUser) {
@@ -127,6 +145,7 @@ export class DevSpaceComponent {
     this.userService.setClickedDirectChatUser(user);
     this.filterDirectMessagesBetweenCurrentAndSinglePerson(user);
     this.router.navigate(["/direct"]);
+    this.emitViewSwitchIfMobile();
   }
 
   toggleChannels() {

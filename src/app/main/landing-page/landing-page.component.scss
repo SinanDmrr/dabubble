@@ -23,8 +23,38 @@ main {
     padding-right: 1rem;
 
     @media (max-width: 800px) {
+      padding-left: 0;
+      padding-right: 0;
+
+      > app-dev-space {
+        width: 100% !important; // Standard: DevSpace nimmt gesamten Platz
+        padding-left: 1rem !important;
+        &.hidden {
+          width: 0 !important; // Ausgeblendet
+          overflow: hidden !important;
+        }
+      }
+
       .routing-content {
-        display: none;
+        width: 0 !important; // Standard: router-outlet ausgeblendet
+        overflow: hidden;
+        display: none; // Sicherstellen, dass es nicht sichtbar ist
+        &.hidden {
+          display: none !important; // Redundant, aber für Klarheit
+          width: 0 !important;
+        }
+        &:not(.hidden) {
+          width: 100% !important; // Sichtbar: router-outlet nimmt gesamten Platz
+          display: flex !important; // Flex wiederherstellen
+        }
+      }
+
+      > app-thread-chat {
+        display: none; // Thread-Chat auf Mobilgeräten ausblenden
+      }
+
+      #sidebar {
+        display: none; // Sidebar-Icon auf Mobilgeräten ausblenden
       }
     }
 
@@ -37,6 +67,7 @@ main {
       padding-right: 1rem;
       &.hidden {
         width: 0;
+        display: none;
       }
     }
 

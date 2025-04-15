@@ -1,6 +1,9 @@
 <main>
   <div class="scroll-container">
-    <a routerLink="/edit-channel" routerLinkActive="active"
+    <a
+      routerLink="/edit-channel"
+      routerLinkActive="active"
+      (click)="emitViewSwitchIfMobile()"
       ><img
         id="edit-smartphone-img"
         src="/assets/icons/edit_smartphone.png"
@@ -115,8 +118,6 @@
                       id="online-status"
                     />
                   </div>
-
-                  <!-- {{ user.name }} -->
                   <span class="user-name">{{ user.name }}</span>
                 </li>
               }

@@ -8,8 +8,15 @@
         (click)="toggleMainVisibility()"
       ></div>
     </div>
-    <app-dev-space [class.hidden]="!isMainVisible"></app-dev-space>
-    <div class="routing-content" [class.padded]="!isMainVisible">
+    <app-dev-space
+      [class.hidden]="!isMainVisible"
+      (viewSwitch)="onViewSwitch($event)"
+    ></app-dev-space>
+    <div
+      class="routing-content"
+      [class.hidden]="!isRoutingContentVisible"
+      [class.padded]="!isMainVisible"
+    >
       <router-outlet></router-outlet>
     </div>
     <app-thread-chat></app-thread-chat>

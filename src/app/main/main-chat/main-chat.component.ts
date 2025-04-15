@@ -176,7 +176,6 @@ export class MainChatComponent {
 
   closeProfile() {
     this.profileOpen = false;
-    this.openMembers();
   }
 
   goToAddMember() {

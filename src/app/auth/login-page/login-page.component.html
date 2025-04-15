@@ -15,6 +15,10 @@
     <div class="routing-content">
         <router-outlet name="login-router"></router-outlet>
     </div>
+    <div class="create-profile-mobile">
+        <span>Neu bei DABubble?</span>
+        <a [routerLink]="[{ outlets: { 'login-router': ['register']}}]">Konto erstellen</a>
+    </div>
     <div class="info-content">
         <a [routerLink]="[{ outlets: { 'login-router': ['imprint']}}]">Impressum</a>
         <a [routerLink]="[{ outlets: { 'login-router': ['legal']}}]">Datenschutz</a>

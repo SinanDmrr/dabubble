@@ -35,9 +35,11 @@ main {
             min-height: fit-content;
             animation: intro-animation-logo 2s ease-in-out forwards;
 
-
             .dab-logo {
                 position: absolute;
+                @media (max-width: 1000px) {
+                    scale: 0.5;
+                }
             }
 
             .dab-name {
@@ -50,7 +52,15 @@ main {
                     font-size: 4rem;
                     font-weight: 700;
                     animation: intro-animation-paragraph 2s ease-in-out forwards;
+
+                    @media (max-width: 1000px) {
+                        animation: intro-animation-paragraph-mobile 2s ease-in-out forwards;
+                    }
                 }
+            }
+
+            @media (max-width: 500px) {
+                animation: intro-animation-logo-mobile 2s ease-in-out forwards;
             }
         }
 
@@ -75,6 +85,10 @@ main {
                     border: solid 1px $btn-font-hover;
                     color: $btn-font-hover;
                 }
+            }
+
+            @media (max-width: 500px) {
+                display: none;
             }
         }
     }
@@ -104,9 +118,31 @@ main {
             width: 24rem;
         }
     }
+        
+    .create-profile-mobile {
+        display: none;
+        flex-direction: column;
+        margin-bottom: 2.5rem;
+
+        span {
+            margin: 1rem;
+        }
+
+        a {
+            padding: 0.5rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            transition: border 0.25s ease-in-out, color 0.25s ease-in-out;
+            border: solid 1px $btn-font-hover;
+            color: $btn-font-hover;
+        }
+
+        @media (max-width: 500px) {
+            @include standard-flex();
+        }
+    }
 
     .info-content {
-        @include standard-flex();
         gap: 2rem;
         margin: 2.5rem 0;
 
@@ -122,6 +158,10 @@ main {
                 border: solid 1px $btn-font-hover;
                 color: $btn-font-hover;
             }
+        }
+
+        @media (max-width: 500px) {
+            display: none;
         }
     }
 
@@ -187,25 +227,71 @@ main {
     }
 }
 
-@keyframes intro-animation-content {
+@keyframes intro-animation-paragraph {
     0% {
-        top: 50%;
-        left: 50%;
+        left: -100%;
+        color: white;
+    }
+
+    40% {
+        left: -100%;
     }
 
     60% {
-        top: 50%;
-        left: 50%;
+        left: 0%;
+        color: white;
     }
 
     100% {
-        top: 50%;
-        left: 50%;
-        scale: 0.8;
+        left: 0%;
+        color: black;
     }
 }
 
-@keyframes intro-animation-paragraph {
+@keyframes intro-animation-logo-mobile {
+    0% {
+        scale: 0.6;
+        width: 12vw;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    20% {
+        scale: 0.6;
+        width: 12vw;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    40% {
+        width: 12vw;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        scale: 0.6;
+    }
+    
+    60% {
+        width: 12vw;
+        top: 50%;
+        left: 50%;
+        transform: translate(-130%, -50%);
+        scale: 0.6;
+    }
+    
+    100% {
+        scale: 0.6;
+        width: 12vw;
+        top: 2rem;
+        left: 50%;
+        transform: translate(-130%, -50%);
+        scale: 0.6;
+    }
+}
+
+@keyframes intro-animation-paragraph-mobile {
     0% {
         left: -100%;
         color: white;

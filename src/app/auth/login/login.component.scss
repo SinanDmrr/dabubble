@@ -29,6 +29,11 @@ main {
         margin: 1rem;
         font-size: 3rem;
         color: $primary-font-color;
+
+        @media (max-width: 400px) {
+            margin: 0;
+            margin-bottom: 1rem;
+        }
     }
 
     p {

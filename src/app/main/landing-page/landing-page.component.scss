@@ -27,34 +27,34 @@ main {
       padding-right: 0;
 
       > app-dev-space {
-        width: 100% !important; // Standard: DevSpace nimmt gesamten Platz
+        width: 100% !important;
         padding-left: 1rem !important;
         &.hidden {
-          width: 0 !important; // Ausgeblendet
+          width: 0 !important;
           overflow: hidden !important;
         }
       }
 
       .routing-content {
-        width: 0 !important; // Standard: router-outlet ausgeblendet
+        width: 0 !important;
         overflow: hidden;
-        display: none; // Sicherstellen, dass es nicht sichtbar ist
+        display: none;
         &.hidden {
-          display: none !important; // Redundant, aber für Klarheit
+          display: none !important;
           width: 0 !important;
         }
         &:not(.hidden) {
-          width: 100% !important; // Sichtbar: router-outlet nimmt gesamten Platz
-          display: flex !important; // Flex wiederherstellen
+          width: 100% !important;
+          display: flex !important;
         }
       }
 
       > app-thread-chat {
-        display: none; // Thread-Chat auf Mobilgeräten ausblenden
+        display: none;
       }
 
       #sidebar {
-        display: none; // Sidebar-Icon auf Mobilgeräten ausblenden
+        display: none;
       }
     }
 

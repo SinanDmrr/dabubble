@@ -12,6 +12,7 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
   li {
     margin-left: 1rem;
     list-style-type: none;
@@ -19,9 +20,6 @@ ul {
     border-radius: 2rem;
     padding: 0.2rem 0.5rem;
 
-    @media (max-width: 800px) {
-      padding: 0;
-    }
     &:hover {
       cursor: pointer;
       color: $primary-font-color;
@@ -99,6 +97,28 @@ ul {
       }
     }
   }
+
+  @media (max-width: 800px) {
+    font-size: 1.5rem;
+    width: 210px;
+    li.channel {
+      .delete-icon {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+      }
+
+      &:hover {
+        .delete-icon {
+          display: block;
+        }
+      }
+    }
+    .add-channel {
+      span {
+        font-size: 1.5rem;
+      }
+    }
+  }
 }
 
 .rotated {
@@ -173,6 +193,18 @@ main {
   border-radius: 16px;
   background-color: white;
   box-sizing: border-box;
+  position: relative;
+
+  #edit-btn-smartphone {
+    position: absolute;
+    display: none;
+    z-index: 1;
+    @media (max-width: 800px) {
+      display: block;
+      bottom: -1rem;
+      right: -0.5rem;
+    }
+  }
 
   .scroll-container {
     height: 100%;
@@ -182,18 +214,6 @@ main {
 
     @media (max-width: 800px) {
       position: relative;
-    }
-
-    #edit-smartphone-img {
-      position: absolute;
-      bottom: 1rem;
-      right: -0.5rem;
-      height: 4rem;
-      width: 4rem;
-      display: none;
-      @media (max-width: 800px) {
-        display: block;
-      }
     }
 
     &::-webkit-scrollbar {
@@ -219,76 +239,76 @@ main {
     }
     @media (max-width: 800px) {
       padding: 0;
-    }
-
-    #header-section {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      gap: 0.5rem;
-
-      @media (max-width: 900px) {
-        justify-content: center;
-        img {
-          height: 2rem;
-          width: 2rem;
-        }
-      }
-
+    }
+    #center-container {
       @media (max-width: 800px) {
-        justify-content: center;
-        margin-top: 1rem;
+        max-width: 500px;
+        min-width: 280px;
+      }
+      #header-section {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+
+        img {
+          object-fit: contain;
+          width: 2.5rem;
+          aspect-ratio: 1/1;
+        }
 
         a {
-          visibility: hidden;
-          width: 0;
-          height: 0;
-          overflow: hidden;
-        }
-      }
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-decoration: none;
+          color: black;
+          gap: 0.5rem;
+          p {
+            display: none;
+          }
+          .edit-icon {
+            width: 1.2rem;
+            height: 1.2rem;
+            background-image: url("/assets/icons/edit_icon.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            transition: all 0.2s ease;
 
-      img {
-        object-fit: contain;
-        width: 3rem;
-        aspect-ratio: 1/1;
-      }
-      a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        color: black;
-        gap: 0.5rem;
-        p {
-          display: none;
+            &:hover {
+              background-image: url("/assets/icons/edit_icon_hover.png");
+              &::before {
+                content: "";
+                position: absolute;
+                width: 2rem;
+                height: 2rem;
+                background-color: rgba(128, 128, 128, 0.2);
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+              }
+            }
+          }
         }
-        .edit-icon {
-          width: 1.2rem;
-          height: 1.2rem;
-          background-image: url("/assets/icons/edit_icon.png");
-          background-size: contain;
-          background-repeat: no-repeat;
-          transition: all 0.2s ease;
+        @media (max-width: 800px) {
+          justify-content: center;
+          margin-top: 1rem;
+          gap: 1rem;
           position: relative;
 
-          @media (max-width: 800px) {
-            background-image: none;
+          img {
+            width: 3rem;
           }
 
-          &:hover {
-            background-image: url("/assets/icons/edit_icon_hover.png");
-            &::before {
-              content: "";
-              position: absolute;
-              width: 2rem;
-              height: 2rem;
-              background-color: rgba(128, 128, 128, 0.2);
-              border-radius: 50%;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-            }
+          h2 {
+            font-size: 3rem;
+          }
+          a {
+            display: none;
           }
         }
       }
@@ -300,6 +320,7 @@ main {
         justify-content: space-between;
         align-items: center;
         gap: 0.5rem;
+
         #section-header-left {
           display: flex;
           align-items: center;
@@ -341,44 +362,48 @@ main {
             }
           }
         }
-      }
-      #add-icon-small {
-        display: none;
-        @media (max-width: 750px) {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          font-weight: 700;
-          font-size: 0.9rem;
-          img {
-            width: 0.8rem;
-            height: 0.8rem;
+
+        #add-icon {
+          width: 0.8rem;
+          height: 0.8rem;
+          background-image: url("/assets/icons/add_icon.png");
+          background-size: 100% 100%;
+          background-position: center;
+          background-repeat: no-repeat;
+          &:hover {
+            background-image: url("/assets/icons/add_icon_hover.png");
+            transform: scale(1.5);
+            &::before {
+              content: "";
+              position: absolute;
+              width: 1rem;
+              height: 1rem;
+              background-color: rgba(128, 128, 128, 0.2);
+              border-radius: 50%;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
           }
         }
-      }
-      #add-icon {
-        width: 0.8rem;
-        height: 0.8rem;
-        background-image: url("/assets/icons/add_icon.png");
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        @media (max-width: 750px) {
-          display: none;
-        }
-        &:hover {
-          background-image: url("/assets/icons/add_icon_hover.png");
-          transform: scale(1.5);
-          &::before {
-            content: "";
-            position: absolute;
-            width: 1rem;
-            height: 1rem;
-            background-color: rgba(128, 128, 128, 0.2);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        @media (max-width: 800px) {
+          margin-top: 1rem;
+          padding-right: 2rem;
+          #section-header-left {
+            gap: 0.5rem;
+            .channels-icon {
+              width: 2rem;
+              height: 2rem;
+            }
+            h3 {
+              font-size: 2rem;
+            }
+          }
+
+          #add-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            padding-right: 1rem;
           }
         }
       }
@@ -432,6 +457,11 @@ main {
           }
         }
       }
+
+      @media (max-width: 800px) {
+        font-size: 1.5rem;
+        margin-top: 1rem;
+      }
     }
 
     .section-content {
@@ -448,10 +478,6 @@ main {
               height: 2.5rem;
               aspect-ratio: 1/1;
               margin-right: 0.5rem;
-
-              @media (max-width: 800px) {
-                height: 2rem;
-              }
             }
 
             #online-status {
@@ -471,20 +497,6 @@ main {
         .user-name {
           display: inline-block;
           white-space: normal;
-        }
-      }
-
-      @media (max-width: 800px) {
-        ul {
-          li.messages {
-            .user-name {
-              max-width: 10px;
-              overflow-wrap: normal;
-              white-space: normal;
-              display: inline-block;
-              line-height: 1.2;
-            }
-          }
         }
       }
     }

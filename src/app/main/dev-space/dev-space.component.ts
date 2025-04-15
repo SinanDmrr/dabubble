@@ -25,7 +25,7 @@ export class DevSpaceComponent {
   showDeleteDialog = false;
   channelToDelete: IChannels | null = null;
   activeLiId: string | undefined;
-  isDevSpaceVisible = true; // Neuer Zustand, um Sichtbarkeit zu tracken
+  isDevSpaceVisible = true;
 
   currentUser!: IUser;
   channels: IChannels[] = [];
@@ -49,12 +49,11 @@ export class DevSpaceComponent {
 
   emitViewSwitchIfMobile() {
     if (window.innerWidth < 800) {
-      this.isDevSpaceVisible = false; // DevSpace wird ausgeblendet
-      this.viewSwitch.emit(false); // router-outlet wird sichtbar
+      this.isDevSpaceVisible = false;
+      this.viewSwitch.emit(false);
     }
   }
 
-  // Toggle-Funktion, falls du die Sichtbarkeit manuell umschalten willst
   toggleDevSpaceVisibility() {
     this.isDevSpaceVisible = !this.isDevSpaceVisible;
     this.viewSwitch.emit(this.isDevSpaceVisible);

@@ -1,12 +1,19 @@
 <main>
   <div class="scroll-container">
+    <a routerLink="/edit-channel" routerLinkActive="active"
+      ><img
+        id="edit-smartphone-img"
+        src="/assets/icons/edit_smartphone.png"
+        alt=""
+      />
+    </a>
+
     <div id="padding-container">
       <div id="header-section">
         <img src="./assets/images/Devspace_Logo.png" alt="" />
         <h2>Devspace</h2>
         <a routerLink="/edit-channel" routerLinkActive="active"
           ><div class="edit-icon"></div>
-          <p>Nachricht erstellen</p>
         </a>
       </div>
 
@@ -89,7 +96,7 @@
                   />
                 </div>
 
-                {{ currentUser.name }} (Du)
+                <span class="user-name">{{ currentUser.name }} (Du)</span>
               </li>
               @for (user of userOfDirectMessages; track $index) {
                 <li
@@ -109,7 +116,8 @@
                     />
                   </div>
 
-                  {{ user.name }}
+                  <!-- {{ user.name }} -->
+                  <span class="user-name">{{ user.name }}</span>
                 </li>
               }
             </ul>

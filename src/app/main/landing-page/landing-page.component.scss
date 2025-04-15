@@ -50,6 +50,10 @@ main {
         transition: all 0.2s ease;
         cursor: pointer;
 
+        @media (max-width: 800px) {
+          display: none;
+        }
+
         &:hover {
           background-image: url("/assets/images/menu_close_hover.png");
         }

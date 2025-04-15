@@ -7,13 +7,24 @@ main {
     height: 100%;
     @include standard-flex(space-between, end);
 
+
     .logo-container {
         @include standard-flex(flex-start);
         width: 21%;
         gap: 1rem;
+
+        @media (max-width: 900px) {
+            width: 30%;
+        }
+
         >img {
             margin-left: 2rem;
             width: 15%;
+
+            @media (max-width: 900px) {
+                margin-left: 1rem;
+                width: 4rem;
+            }
         }
         >span {
             font-size: 2rem;
@@ -25,6 +36,10 @@ main {
         position: relative;
         flex: 1;
         @include standard-flex();
+
+        @media (max-width: 650px) {
+            display: none;
+        }
 
         >input {
             width: 100%;
@@ -50,9 +65,17 @@ main {
         width: 31%;
         cursor: pointer;
 
+        @media (max-width: 900px) {
+            width: 15%;
+        }
+
         >span {
             font-size: 1.5rem;
             font-weight: bold;
+
+            @media (max-width: 900px) {
+                display: none;
+            }
         }
 
         .avatar {

@@ -2,7 +2,7 @@
     <h1>Anmeldung</h1>
     <p>Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
     <form class="login-form" (ngSubmit)="login(loginForm)" #loginForm="ngForm">
-        <div class="input-section"><img class="mail-icon" src="../../../assets/icons/mail.png" alt=""><input class="text-input" #email="ngModel" [(ngModel)]="loginData.email" name="email" id="mail-input-login" type="text" placeholder="beispielname@email.com" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
+        <div class="input-section"><img class="mail-icon" src="../../../assets/icons/mail.png" alt=""><input class="text-input" #email="ngModel" [(ngModel)]="loginData.email" name="email" id="mail-input-login" type="text" placeholder="beispiel@email.com" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
             @if (!email.valid && email.touched) {
                 <p>*Diese E-Mail ist leider ungültig</p>
             }

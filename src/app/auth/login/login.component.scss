@@ -13,10 +13,17 @@ $input-alert: rgb(237, 30, 121);
     font-family: "Nunito";
 }
 
+
+
 main {
     @include standard-flex(flex-start);
     flex-direction: column;
     padding: 2rem 4rem;
+
+    @media (max-width: 550px) {
+        padding: 2rem;
+    }
+
 
     h1 {
         margin: 1rem;
@@ -28,6 +35,11 @@ main {
         font-size: 1.2rem;
         text-align: center;
         margin-bottom: 1rem;
+
+        @media (max-width: 400px) {
+            font-size: 1.1rem;
+            margin-bottom: 0;
+        }
     }
 
     form {
@@ -43,6 +55,12 @@ main {
             position: absolute;
             left: 3rem;
             height: 1.5rem;
+        }
+
+        input {
+            @media (max-width: 400px) {
+                margin: 0.5rem !important;
+            }
         }
 
         p {

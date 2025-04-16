@@ -31,7 +31,7 @@
     }
   }
 
-  @media(max-width: 800px){
+  @media(max-width: 800px) {
     gap: 1rem;
     padding: 0.5rem 1rem;
   }
@@ -72,9 +72,19 @@
   border-radius: 0 20px 20px 20px;
   padding: 2rem;
   gap: 1rem;
-  div{
+
+  @media(max-width:800px) {
+    left: 30%;
+    width: 30%;
+  }
+
+  div {
     @include standard-flex(center, center);
     gap: 1rem;
+
+    @media(max-width:800px) {
+      flex-direction: column;
+    }
   }
 }
 
@@ -129,7 +139,7 @@
 .time {
   font-size: smaller;
 
-  @media(max-width: 800px){
+  @media(max-width: 800px) {
     display: none;
   }
 }
@@ -141,7 +151,7 @@
     font-weight: bold;
   }
 
-  @media(max-width: 800px){
+  @media(max-width: 800px) {
     font-size: smaller;
   }
 }

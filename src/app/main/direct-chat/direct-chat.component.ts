@@ -55,6 +55,9 @@ export class DirectChatComponent implements OnInit {
         this.directMessages = messages;
         this.updateConversation();
       });
+
+      console.log(this.conversation)
+      console.log(this.directMessages)
   }
 
   ngOnDestroy() {

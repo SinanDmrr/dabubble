@@ -7,6 +7,8 @@ import { CommonModule } from "@angular/common";
 import { ThreadService } from "../../services/thread.service";
 import { FormsModule } from "@angular/forms";
 import { ProfileComponent } from "../profile/profile.component";
+import { DirectsMessageService } from "../../services/directs-message.service";
+import { IDirectMessage } from "../../interfaces/idirect-message";
 
 @Component({
   selector: "app-single-message",
@@ -19,6 +21,8 @@ export class SingleMessageComponent {
   @Input() message!: IMessage;
   currentUser!: IUser;
   currentChannel!: IChannels;
+  currentDirectMessagesArr!: IDirectMessage[];
+  testArr!: IDirectMessage[];
 
   messageEditable: boolean = false;
   textareaMessage: string = "";
@@ -38,7 +42,8 @@ export class SingleMessageComponent {
   constructor(
     private userService: UserService,
     private channelService: ChannelsService,
-    private threadService: ThreadService
+    private threadService: ThreadService,
+    private direktMessageService: DirectsMessageService
   ) {
     this.userService.getCurrentUser().subscribe((user) => {
       this.currentUser = user!;
@@ -51,6 +56,10 @@ export class SingleMessageComponent {
     this.channelService.getCurrentChannel().subscribe((channel) => {
       this.currentChannel = channel;
     });
+
+    this.direktMessageService.dMBetweenTwo$.subscribe((dM) =>{
+      this.currentDirectMessagesArr = dM;
+    })
   }
 
   ngOnInit() {
@@ -239,9 +248,19 @@ export class SingleMessageComponent {
       });
     } else {
       this.currentChannel.messages = this.currentChannel.messages.filter(messageElem => messageElem !== this.message);
+      this.currentDirectMessagesArr[0].messages = this.currentDirectMessagesArr[0].messages.filter(messageElem => messageElem.message !== this.message.message && messageElem.time !== this.message.time);
     }
-    this.channelService.updateChannel(this.currentChannel.id!, this.currentChannel);
-    this.channelService.setCurrentChannel(this.currentChannel);
+    if(this.currentChannel.id!=undefined){
+      this.channelService.updateChannel(this.currentChannel.id!, this.currentChannel);
+      this.channelService.setCurrentChannel(this.currentChannel);
+    }
+
+    if(this.currentDirectMessagesArr[0].id!=undefined){
+      console.log(this.message.message)
+      console.log(this.currentDirectMessagesArr)
+      this.direktMessageService.updateDirectMessages(this.currentDirectMessagesArr[0].id!, this.currentDirectMessagesArr[0])
+    }
+    
   }
 
   saveEdits() {

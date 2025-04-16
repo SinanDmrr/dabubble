@@ -34,12 +34,23 @@ $input-alert: rgb(237, 30, 121);
             background-color: $primary-bg-color;
             border-radius: 1rem;
         }
+
+        @media (max-width: 550px) {
+            top: 3.5rem;
+            left: 2rem;
+        }
     }
 
     h1 {
-        margin: 1.5rem 0;
+        margin: 1.5rem;
         font-size: 3rem;
         color: $primary-font-color;
+
+        @media (max-width: 400px) {
+            overflow-wrap: break-word;
+            text-align: center;
+            line-height: 3rem;
+        }
     }
 
     p {
@@ -102,7 +113,7 @@ $input-alert: rgb(237, 30, 121);
           // Custom Checkbox
           .custom-checkbox {
             display: inline-block;
-            width: 1.2rem;
+            aspect-ratio: 1 / 1;
             height: 1.2rem;
             border: 2px solid $btn-color-hover;
             border-radius: 4px;
@@ -139,6 +150,7 @@ $input-alert: rgb(237, 30, 121);
 
         p {
             margin: 0;
+            text-align: start;
 
             a {
                 color: $btn-color;

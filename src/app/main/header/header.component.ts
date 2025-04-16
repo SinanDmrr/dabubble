@@ -16,15 +16,21 @@ import { FilterMessagesService } from '../../services/filter-messages.service';
 })
 export class HeaderComponent {
   currentUser?: IUser;
+  isDevSpaceVisible: boolean = false;
+  screenWidth = window.innerWidth;
   searchQuery = "";
-  isProfilePopupOpen : boolean = false;
+  isProfilePopupOpen: boolean = false;
 
-  constructor(private userService: UserService, private filterMessageService: FilterMessagesService) {}
+  constructor(private userService: UserService, private filterMessageService: FilterMessagesService, private channelService: ChannelsService) { }
 
   ngOnInit() {
+    this.screenWidth = window.innerWidth;
     this.userService.getCurrentUser().subscribe(user => {
-        this.currentUser = user;
+      this.currentUser = user;
     });
+    this.channelService.getIsDevSpaceVisible().subscribe(isDevSpaceVisible => {
+      this.isDevSpaceVisible = isDevSpaceVisible;
+    })
   }
 
   changeFilterWord() {
@@ -40,11 +46,20 @@ export class HeaderComponent {
     this.isProfilePopupOpen = false;
   }
 
+  backToDevSpace() {
+    this.channelService.setIsDevSpaceVisible(true);
+  }
+
   @HostListener('document:click', ['$event'])
   onClickOutside(event: Event) {
     const profileContainer = document.querySelector('.profile-container');
     if (profileContainer && !profileContainer.contains(event.target as Node)) {
       this.closeProfilePopup();
     }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: UIEvent) {
+    this.screenWidth = (event.target as Window).innerWidth;
   }
 }

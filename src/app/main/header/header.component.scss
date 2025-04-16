@@ -37,7 +37,7 @@ main {
         flex: 1;
         @include standard-flex();
 
-        @media (max-width: 650px) {
+        @media (max-width: 800px) {
             display: none;
         }
 

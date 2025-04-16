@@ -10,6 +10,9 @@ import { BehaviorSubject } from 'rxjs';
 export class ChannelsService {
   private collectionName = "channels";
 
+  private isDevSpaceVisible =  new BehaviorSubject<boolean>(true);
+  devSpaceVisibility$ = this.isDevSpaceVisible.asObservable();
+
   private currentChannelSubject = new BehaviorSubject<IChannels>({
       creator: "",
       description: "",
@@ -43,5 +46,13 @@ export class ChannelsService {
 
   async deleteChannel(id: string){
     await this.firebaseService.deleteDocument(this.collectionName, id);
+  }
+
+  setIsDevSpaceVisible(isVisible: boolean) {
+    this.isDevSpaceVisible.next(isVisible)
+  }
+
+  getIsDevSpaceVisible() {
+    return this.devSpaceVisibility$;
   }
 }

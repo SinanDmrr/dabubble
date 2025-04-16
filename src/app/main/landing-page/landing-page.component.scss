@@ -23,7 +23,37 @@ main {
     padding-right: 1rem;
 
     @media (max-width: 800px) {
+      padding-left: 1rem;
+      padding-right: 1rem;
+
+      > app-dev-space {
+        width: 100% !important;
+        //padding-left: 1rem !important;
+        &.hidden {
+          width: 0 !important;
+          overflow: hidden !important;
+        }
+      }
+
       .routing-content {
+        width: 0 !important;
+        overflow: hidden;
+        display: none;
+        &.hidden {
+          display: none !important;
+          width: 0 !important;
+        }
+        &:not(.hidden) {
+          width: 100% !important;
+          display: flex !important;
+        }
+      }
+
+      > app-thread-chat {
+        display: none;
+      }
+
+      #sidebar {
         display: none;
       }
     }
@@ -37,6 +67,11 @@ main {
       padding-right: 1rem;
       &.hidden {
         width: 0;
+        display: none;
+      }
+
+      @media (max-width: 800px) {
+        padding-right: 0;
       }
     }
 
@@ -81,6 +116,12 @@ main {
       flex: 1;
       &.padded {
         padding-left: 1rem;
+        padding-right: 1rem;
+
+        @media(max-width: 800px){
+          padding-right: 0;
+          padding-left: 0;
+        }
       }
     }
 
@@ -95,6 +136,14 @@ main {
       &.hidden {
         width: 0;
         padding-left: 0;
+      }
+
+      @media(max-width: 800px){
+        width: 100%;
+        padding-left: 0;
+        .routing-content{
+          display: none;
+        }
       }
     }
   }

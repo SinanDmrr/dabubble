@@ -61,7 +61,7 @@ main {
   word-wrap: break-word;
   overflow-wrap: break-word;
   max-width: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   @include standard-flex(flex-start, flex-start);
   flex-direction: column;

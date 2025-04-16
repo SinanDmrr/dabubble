@@ -1,114 +1,96 @@
 <main>
+  <a
+    routerLink="/edit-channel"
+    routerLinkActive="active"
+    id="edit-btn-smartphone"
+    ><img
+      src="../../../assets/icons/edit_smartphone.png"
+      alt=""
+      (click)="emitViewSwitchIfMobile()"
+    />
+  </a>
   <div class="scroll-container">
-    <a routerLink="/edit-channel" routerLinkActive="active"
-      ><img
-        id="edit-smartphone-img"
-        src="/assets/icons/edit_smartphone.png"
-        alt=""
-      />
-    </a>
-
     <div id="padding-container">
-      <div id="header-section">
-        <img src="./assets/images/Devspace_Logo.png" alt="" />
-        <h2>Devspace</h2>
-        <a routerLink="/edit-channel" routerLinkActive="active"
-          ><div class="edit-icon"></div>
-        </a>
-      </div>
+      <div id="center-container">
+        <div id="header-section">
+          <img src="./assets/images/Devspace_Logo.png" alt="" />
+          <h2>Devspace</h2>
+          <a
+            routerLink="/edit-channel"
+            routerLinkActive="active"
+            (click)="emitViewSwitchIfMobile()"
+            ><div class="edit-icon"></div>
+          </a>
+        </div>
 
-      <div id="channels-section">
-        <div class="section-header">
-          <div id="section-header-left" (click)="toggleChannels()">
-            <div
-              class="drop-down-icon"
-              [class.rotated]="!isChannelsExpanded"
-            ></div>
-            <div class="channels-icon"></div>
-            <h3>Channels</h3>
+        <div id="channels-section">
+          <div class="section-header">
+            <div id="section-header-left" (click)="toggleChannels()">
+              <div
+                class="drop-down-icon"
+                [class.rotated]="!isChannelsExpanded"
+              ></div>
+              <div class="channels-icon"></div>
+              <h3>Channels</h3>
+            </div>
+            <div id="add-icon" (click)="openAddChannel()"></div>
           </div>
-          <div id="add-icon" (click)="openAddChannel()"></div>
-        </div>
-        <div id="add-icon-small" (click)="openAddChannel()">
-          <img src="/assets/icons/add_icon.png" alt="" />
-          <p>Channel hinzufügen</p>
-        </div>
-        @if (isChannelsExpanded) {
-          <div class="section-content">
-            <ul>
-              @for (channel of filteredChannels; track channel.id) {
-                <li
-                  (click)="changeChannelToDisplay(channel)"
-                  class="channel"
-                  [ngClass]="{ 'active-li': activeLiId === channel.id }"
-                >
-                  <span># {{ channel.name }}</span>
-                  @if (currentUser.email === channel.creator) {
-                    <span
-                      class="delete-icon"
-                      (click)="openDeleteDialog(channel, $event)"
-                      >X</span
-                    >
-                  }
-                </li>
-              }
-              <li class="add-channel" (click)="openAddChannel()">
-                <img
-                  src="../../../assets/icons/add_circle.png"
-                  alt="Add Channel"
-                  class="add-channel-icon"
-                />
-                <span>Channel hinzufügen</span>
-              </li>
-            </ul>
-          </div>
-        }
-      </div>
-
-      <div id="directmessages-section">
-        <div class="section-header">
-          <div id="section-header-left" (click)="toggleMessages()">
-            <div
-              class="drop-down-icon"
-              [class.rotated]="!isMessagesExpanded"
-            ></div>
-            <div class="person-icon"></div>
-            <h3>Chats</h3>
-          </div>
-        </div>
-        @if (isMessagesExpanded) {
-          <div class="section-content">
-            <ul>
-              <li
-                class="messages"
-                (click)="changeDirectMessageToDisplay(currentUser)"
-                [ngClass]="{ 'active-li': activeLiId === currentUser.id }"
-              >
-                <div id="img-container">
-                  <img src="{{ currentUser.picture }}" id="user-icon" />
+          @if (isChannelsExpanded) {
+            <div class="section-content">
+              <ul>
+                @for (channel of filteredChannels; track channel.id) {
+                  <li
+                    (click)="changeChannelToDisplay(channel)"
+                    class="channel"
+                    [ngClass]="{ 'active-li': activeLiId === channel.id }"
+                  >
+                    <span># {{ channel.name }}</span>
+                    @if (currentUser.email === channel.creator) {
+                      <span
+                        class="delete-icon"
+                        (click)="openDeleteDialog(channel, $event)"
+                        >X</span
+                      >
+                    }
+                  </li>
+                }
+                <li class="add-channel" (click)="openAddChannel()">
                   <img
-                    [src]="
-                      currentUser.onlineStatus
-                        ? '/assets/icons/online.png'
-                        : '/assets/icons/offline.png'
-                    "
-                    id="online-status"
+                    src="../../../assets/icons/add_circle.png"
+                    alt="Add Channel"
+                    class="add-channel-icon"
                   />
-                </div>
+                  <span>Channel hinzufügen</span>
+                </li>
+              </ul>
+            </div>
+          }
+        </div>
 
-                <span class="user-name">{{ currentUser.name }} (Du)</span>
-              </li>
-              @for (user of userOfDirectMessages; track $index) {
+        <div id="directmessages-section">
+          <div class="section-header">
+            <div id="section-header-left" (click)="toggleMessages()">
+              <div
+                class="drop-down-icon"
+                [class.rotated]="!isMessagesExpanded"
+              ></div>
+              <div class="person-icon"></div>
+              <h3>Chats</h3>
+            </div>
+          </div>
+          @if (isMessagesExpanded) {
+            <div class="section-content">
+              <ul>
                 <li
                   class="messages"
-                  (click)="changeDirectMessageToDisplay(user)"
-                  [ngClass]="{ 'active-li': activeLiId === user.id }"
+                  (click)="changeDirectMessageToDisplay(currentUser)"
+                  [ngClass]="{ 'active-li': activeLiId === currentUser.id }"
                 >
                   <div id="img-container">
-                    <img src="{{ user.picture }}" id="user-icon" />
+                    <img src="{{ currentUser.picture }}" id="user-icon" />
                     <img
                       [src]="
-                        user.onlineStatus
+                        currentUser.onlineStatus
                           ? '/assets/icons/online.png'
                           : '/assets/icons/offline.png'
                       "
@@ -116,13 +98,32 @@
                     />
                   </div>
 
-                  <!-- {{ user.name }} -->
-                  <span class="user-name">{{ user.name }}</span>
+                  <span class="user-name">{{ currentUser.name }} (Du)</span>
                 </li>
-              }
-            </ul>
-          </div>
-        }
+                @for (user of userOfDirectMessages; track $index) {
+                  <li
+                    class="messages"
+                    (click)="changeDirectMessageToDisplay(user)"
+                    [ngClass]="{ 'active-li': activeLiId === user.id }"
+                  >
+                    <div id="img-container">
+                      <img src="{{ user.picture }}" id="user-icon" />
+                      <img
+                        [src]="
+                          user.onlineStatus
+                            ? '/assets/icons/online.png'
+                            : '/assets/icons/offline.png'
+                        "
+                        id="online-status"
+                      />
+                    </div>
+                    <span class="user-name">{{ user.name }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+        </div>
       </div>
     </div>
 

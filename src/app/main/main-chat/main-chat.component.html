@@ -100,7 +100,7 @@
     </header>
 
     @if(editOpen){
-    <app-edit-channel (close)="closeEdit()" [channel]="currentChannel"></app-edit-channel>
+    <app-edit-channel (close)="closeEdit()" [channel]="currentChannel" (openAProfile)="openProfile($event)" (addAMember)="openAddMember()"></app-edit-channel>
     }
 
     <div class="chat-container" id="chatcontainer" #chatcontainer>

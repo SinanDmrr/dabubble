@@ -4,43 +4,68 @@
             <h2># {{channel.name}}</h2>
             <img src="assets/icons/close.png" alt="" (click)="closeEdit()">
         </div>
-        <div class="name-container" [ngClass] = "{'border': !titleEdit}">
+        <div class="name-container" [ngClass]="{'border': !titleEdit}">
             <div>
                 <span class="title">Channel-Name</span>
                 @if(!titleEdit){
-                    <span class="edit-button" (click)="editTitle()">Bearbeiten</span>
+                <span class="edit-button" (click)="editTitle()">Bearbeiten</span>
                 } @else {
-                    <span class="edit-button" (click)="saveTitle()">Speichern</span>
+                <span class="edit-button" (click)="saveTitle()">Speichern</span>
                 }
-                
+
             </div>
             @if(!titleEdit){
-                <span># {{channel.name}}</span>
+            <span># {{channel.name}}</span>
             } @else {
-                <textarea [(ngModel)]="channelTitle" rows="1" class="edit-textarea" name="" id=""># {{channel.name}}</textarea>
+            <textarea [(ngModel)]="channelTitle" rows="1" class="edit-textarea" name=""
+                id=""># {{channel.name}}</textarea>
             }
-            
+
         </div>
-        <div class="description-container" [ngClass] = "{'border': !descriptionEdit}">
+        <div class="description-container" [ngClass]="{'border': !descriptionEdit}">
             <div>
                 <span class="title">Beschreibung</span>
                 @if(!descriptionEdit){
-                    <span class="edit-button" (click)="editDescription()">Bearbeiten</span>
+                <span class="edit-button" (click)="editDescription()">Bearbeiten</span>
                 } @else {
-                    <span class="edit-button" (click)="saveDescription()">Speichern</span>
+                <span class="edit-button" (click)="saveDescription()">Speichern</span>
                 }
             </div>
             @if(!descriptionEdit){
-                <span class="description">{{channel.description}}</span>
+            <span class="description">{{channel.description}}</span>
             } @else {
-                <textarea [(ngModel)] ="channelDescription" class="edit-textarea" name="" id="">{{channel.description}}</textarea>
+            <textarea [(ngModel)]="channelDescription" class="edit-textarea" name=""
+                id="">{{channel.description}}</textarea>
             }
-            
+
             <span class="title">Erstellt von</span>
             <h3>{{getUsernameFromMail(channel.creator)}}</h3>
         </div>
+
+        <div class="members-container border">
+            <div class="member-header">
+                <h2>Mitglieder</h2>
+            </div>
+            <div class="member-list">
+                @for (member of channel.users; track $index) {
+                <div class="member-item" (click)="openProfile(member)">
+                    <img src="{{getUserImage(member)}}" alt="">
+                    <span>{{getUsernameFromMail(member)}}</span>
+                </div>
+                }
+                <div class="add-member" (click)="addMember()">
+                    <div>
+                        <img src="assets/icons/person_add.png" alt="">
+                    </div>
+                    <span>Mitglieder hinzufügen</span>
+                </div>
+            </div>
+        </div>
+
         <div class="button-container">
             <button>Channel verlassen</button>
         </div>
+
+       
     </div>
 </div>

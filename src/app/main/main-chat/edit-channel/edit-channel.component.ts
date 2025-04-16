@@ -15,6 +15,8 @@ import { IUser } from '../../../interfaces/iuser';
 })
 export class EditChannelComponent {
   @Output() close = new EventEmitter<void>();
+  @Output() openAProfile = new EventEmitter<string>();
+  @Output() addAMember = new EventEmitter<void>();
 
   @Input() channel!: IChannels;
 
@@ -59,6 +61,21 @@ export class EditChannelComponent {
 
   getUsernameFromMail(email: string): string {
     return this.userList.find((user) => user.email == email)!.name || this.userList[0].name;
+  }
+
+  getUserImage(email: string): string {
+    let foundUser = this.userList.find(userElem => userElem.email == email);
+    return foundUser ? foundUser.picture : "";
+  }
+
+  openProfile(member: string) {
+    this.openAProfile.emit(member);
+    this.closeEdit();
+  }
+
+  addMember(){
+    this.addAMember.emit();
+    this.closeEdit();
   }
 
   bubblingProtection(event: any) {

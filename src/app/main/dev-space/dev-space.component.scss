@@ -237,21 +237,20 @@ main {
     @media (max-width: 950px) {
       position: relative;
     }
-    @media (max-width: 800px) {
+    @media (max-width: 500px) {
       padding: 0;
       justify-content: center;
       align-items: center;
     }
     #center-container {
       @media (max-width: 800px) {
-        max-width: 500px;
+        max-width: 400px;
         min-width: 280px;
       }
       #header-section {
         width: 100%;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        justify-content: start;
         gap: 0.5rem;
 
         img {
@@ -300,6 +299,10 @@ main {
           gap: 1rem;
           position: relative;
 
+          .header-section {
+            justify-content: start;
+          }
+
           img {
             width: 3rem;
           }
@@ -309,6 +312,11 @@ main {
           }
           a {
             display: none;
+          }
+        }
+        @media (max-width: 400px) {
+          .header-section {
+            justify-content: center;
           }
         }
       }

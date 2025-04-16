@@ -1,8 +1,9 @@
 @use "../../styles/mixins.scss" as *;
 
-section{
+section {
     position: relative;
 }
+
 .message-wrapper {
     padding-left: 2rem;
     padding-right: 2rem;
@@ -19,46 +20,51 @@ section{
         outline: 1px solid #ADB0D9;
     }
 
-    .send-btn{
+    .send-btn {
         position: absolute;
         cursor: pointer;
         bottom: 1rem;
         right: 3rem;
         padding: 0.5rem;
-        &:hover{
+
+        &:hover {
             content: url('../../../assets/icons/send_hover.png');
         }
     }
 
-    .emoji-btn, .tag-btn{
+    .emoji-btn,
+    .tag-btn {
         position: absolute;
         @include standard-flex();
         border-radius: 50%;
         padding: 0.5rem;
         cursor: pointer;
-        &:hover{
+
+        &:hover {
             background-color: #ECEEFE;
         }
     }
 
-    .emoji-btn{
+    .emoji-btn {
         bottom: 1rem;
         left: 3rem;
-        &:hover{
+
+        &:hover {
             content: url('../../../assets/icons/emoji_hover.png');
         }
     }
 
-    .tag-btn{
+    .tag-btn {
         bottom: 1rem;
         left: 6rem;
-        &:hover{
+
+        &:hover {
             content: url('../../../assets/icons/tag_icon_hover.png');
         }
     }
 }
 
-.tag-container{
+.tag-container {
     position: absolute;
     -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
@@ -73,28 +79,31 @@ section{
     padding: 0.5rem 1rem;
     @include standard-flex(flex-start, flex-start);
     flex-direction: column;
-    .tag-wrapper{
+
+    .tag-wrapper {
         height: 100%;
-        overflow-y: scroll; 
+        overflow-y: scroll;
     }
 
 }
 
-.tag-item{
+.tag-item {
     @include standard-flex(flex-start);
     gap: 1rem;
     border-radius: 10rem;
     padding: 0.5rem 1rem;
     cursor: pointer;
-    img{
+
+    img {
         border-radius: 50%;
     }
-    &:hover{
+
+    &:hover {
         background-color: #ECEEFE;
     }
 }
 
-.emoji-container{
+.emoji-container {
     position: absolute;
     -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
@@ -107,13 +116,24 @@ section{
     left: 3rem;
     max-height: 2rem;
     padding: 0.5rem 1rem;
-    @include standard-flex();
+    @include standard-flex(flex-start, flex-end);
     gap: 1rem;
+
+    @media(max-width: 1150px){
+        bottom: 10rem;
+    }
+
+    @media(max-width: 390px) {
+        max-width: 130px;
+        flex-wrap: wrap;
+        max-height: 5rem;
+    }
 }
 
-.emoji-item{
+.emoji-item {
     cursor: pointer;
-    &:hover{
+
+    &:hover {
         scale: 1.1;
     }
 }

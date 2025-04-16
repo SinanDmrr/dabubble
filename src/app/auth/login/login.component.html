@@ -23,10 +23,10 @@
             <div class="division-line"></div>
         </div>
         <div class="login-btns">
-            <button class="google-login" (click)="loginGoogle()"><img src="../../../assets/icons/Google.png" alt="">Anmelden mit Google</button>
+            <button class="google-login" type="button" (click)="loginGoogle()"><img src="../../../assets/icons/Google.png" alt="">Anmelden mit Google</button>
             <div class="default-logins">
                 <button class="login" type="submit" [disabled]="loginForm.invalid">Anmelden</button>
-                <button (click)="guestLogin()">Gäste-Login</button>
+                <button type="button" (click)="guestLogin()">Gäste-Login</button>
             </div>
             @if (submitAttempted && submitError || submitAttempted && (loginFailed$)) {
                 <p>*Falsches Passwort oder E-Mail.. Bitte erneut versuchen.</p>

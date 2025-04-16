@@ -40,6 +40,9 @@ main {
 
             .dab-logo {
                 position: absolute;
+                @media (max-width: 1150px) {
+                    scale: 0.7;
+                }
                 @media (max-width: 1000px) {
                     scale: 0.5;
                 }

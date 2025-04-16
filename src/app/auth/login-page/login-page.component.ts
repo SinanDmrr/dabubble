@@ -1,5 +1,6 @@
 import { Component, input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { ToggleVisibilityService } from '../../services/toggle-visibility.service';
 
 @Component({
   selector: 'app-login-page',
@@ -10,10 +11,18 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class LoginPageComponent {
   
+  isVisible: boolean = true;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private toggleVisibility: ToggleVisibilityService) {}
   ngOnInit() {
     this.router.navigate([{ outlets: { 'login-router': ['login'] } }]);
+    this.toggleVisibility.toggle$.subscribe(value => {
+      this.isVisible = value;
+    });
+  }
+
+  toggleContentVisibility(): void {
+    this.toggleVisibility.setToggle(!this.isVisible);
   }
 
 }

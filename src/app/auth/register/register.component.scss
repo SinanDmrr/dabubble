@@ -19,6 +19,10 @@ $input-alert: rgb(237, 30, 121);
     padding: 2rem 4rem;
     position: relative;
 
+    @media (max-width: 550px) {
+        padding: 1rem 1.2rem;
+    }
+
     .back-arrow {
         position: absolute;
         top: 5rem;
@@ -33,7 +37,7 @@ $input-alert: rgb(237, 30, 121);
     }
 
     h1 {
-        margin: 1.5rem 1rem;
+        margin: 1.5rem 0;
         font-size: 3rem;
         color: $primary-font-color;
     }

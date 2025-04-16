@@ -3,6 +3,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { IUser } from '../../interfaces/iuser';
+import { ToggleVisibilityService } from '../../services/toggle-visibility.service';
 
 @Component({
   selector: 'app-register',
@@ -26,12 +27,24 @@ export class RegisterComponent {
   }
 
   isChecked: boolean = false;
+  isVisible: boolean = false;
 
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService, private toggleVisibility: ToggleVisibilityService) { }
 
   // navigateToAvatar() {
   //   this.router.navigateByUrl('/(login-router:avatar)');
   // }
+  ngOnInit() {
+    this.toggleVisibility.toggle$.subscribe(value => {
+      this.isVisible = value;
+    });
+  }
+
+  toggleContentVisibility(): void {
+    this.toggleVisibility.setToggle(!this.isVisible);
+    console.log(this.isVisible);
+    
+  }
 
   navigateToLegalNotice() {
     this.router.navigateByUrl('/(login-router:legal)');
@@ -39,7 +52,7 @@ export class RegisterComponent {
 
   goToLogin() {
     this.router.navigate([{ outlets: { 'login-router': ['login'] } }]);
-    // this.authService.registerUserWithEmailAndPassword("Sascha", "sascha@keinelust.de", "keinelust", "assets/avatars/avatar_1.png")
+    this.toggleContentVisibility()
   }
 
   onSubmit(form: NgForm) {

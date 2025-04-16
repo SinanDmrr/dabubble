@@ -36,7 +36,6 @@ export class DevSpaceComponent {
   userOfDirectMessages: IUser[] = [];
   filteredChannels: IChannels[] = [];
 
-  // max-width < 800 px -> switch sidebar ausblenden router-outlet einblenden
   @Output() viewSwitch = new EventEmitter<boolean>();
 
   constructor(
@@ -49,8 +48,11 @@ export class DevSpaceComponent {
 
   emitViewSwitchIfMobile() {
     if (window.innerWidth < 800) {
-      this.isDevSpaceVisible = false;
-      this.viewSwitch.emit(false);
+      this.channelsService.setIsDevSpaceVisible(false);
+      this.channelsService.getIsDevSpaceVisible().subscribe((isVisible) => {
+        this.isDevSpaceVisible = isVisible;
+        this.viewSwitch.emit(isVisible);
+      });
     }
   }
 

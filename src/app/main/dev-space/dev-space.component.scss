@@ -236,16 +236,17 @@ main {
 
     @media (max-width: 950px) {
       position: relative;
+      padding: 0;
     }
     @media (max-width: 500px) {
-      padding: 0;
       justify-content: center;
       align-items: center;
     }
     #center-container {
       @media (max-width: 800px) {
-        max-width: 400px;
-        min-width: 280px;
+        width: 100%;
+        padding-left: 2rem;
+        padding-top: 1rem;
       }
       #header-section {
         width: 100%;
@@ -294,7 +295,6 @@ main {
           }
         }
         @media (max-width: 800px) {
-          justify-content: center;
           margin-top: 1rem;
           gap: 1rem;
           position: relative;
@@ -378,6 +378,7 @@ main {
           background-size: 100% 100%;
           background-position: center;
           background-repeat: no-repeat;
+          cursor: pointer;
           &:hover {
             background-image: url("/assets/icons/add_icon_hover.png");
             transform: scale(1.5);
@@ -396,7 +397,6 @@ main {
         }
         @media (max-width: 800px) {
           margin-top: 1rem;
-          padding-right: 2rem;
           #section-header-left {
             gap: 0.5rem;
             .channels-icon {

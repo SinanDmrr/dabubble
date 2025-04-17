@@ -48,6 +48,16 @@ export class DirectChatComponent implements OnInit {
       .subscribe((user) => {
         this.clickedDirectChatUser = user;
         this.updateConversation();
+        if (this.currentUser?.id && this.clickedDirectChatUser?.id) {
+          this.directMessageService.setDirectMessageBetweenTwo(
+            this.currentUser.id,
+            this.clickedDirectChatUser.id,
+          );
+        } else {
+          console.warn(
+            "Current user oder clicked user ID ist nicht definiert.",
+          );
+        }
       });
 
     this.subscriptionDirectMessages =
@@ -55,9 +65,6 @@ export class DirectChatComponent implements OnInit {
         this.directMessages = messages;
         this.updateConversation();
       });
-
-      console.log(this.conversation)
-      console.log(this.directMessages)
   }
 
   ngOnDestroy() {

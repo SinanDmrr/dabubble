@@ -35,7 +35,7 @@ export class SingleMessageComponent {
 
   profileOpen: boolean = false;
   profileToOpen!: IUser;
-  userList!: IUser [];
+  userList!: IUser[];
 
   deleteMsg: boolean = false;
 
@@ -43,7 +43,7 @@ export class SingleMessageComponent {
     private userService: UserService,
     private channelService: ChannelsService,
     private threadService: ThreadService,
-    private direktMessageService: DirectsMessageService
+    private direktMessageService: DirectsMessageService,
   ) {
     this.userService.getCurrentUser().subscribe((user) => {
       this.currentUser = user!;
@@ -57,9 +57,9 @@ export class SingleMessageComponent {
       this.currentChannel = channel;
     });
 
-    this.direktMessageService.dMBetweenTwo$.subscribe((dM) =>{
+    this.direktMessageService.dMBetweenTwo$.subscribe((dM) => {
       this.currentDirectMessagesArr = dM;
-    })
+    });
   }
 
   ngOnInit() {
@@ -69,22 +69,22 @@ export class SingleMessageComponent {
   }
 
   getUserFromName(userName: string) {
-    let userObj = this.userList.find(user => user.name == userName);
-    return userObj? userObj : this.currentUser;
+    let userObj = this.userList.find((user) => user.name == userName);
+    return userObj ? userObj : this.currentUser;
   }
 
   formatMessage(message: string, taggedStrings?: string[]): string {
-    if (!message){
-      return '';
+    if (!message) {
+      return "";
     }
     let regex;
-    if(taggedStrings){
-      regex = new RegExp(`@(${taggedStrings?.join('|')})`, 'g');
+    if (taggedStrings) {
+      regex = new RegExp(`@(${taggedStrings?.join("|")})`, "g");
     } else {
       regex = /@(\w+)/g;
     }
-    
-    return message.replace(regex, '<b>@$1</b>');
+
+    return message.replace(regex, "<b>@$1</b>");
   }
 
   checkIfAlreadyReacted() {
@@ -139,7 +139,7 @@ export class SingleMessageComponent {
     let index = this.message.emojis.findIndex(
       (emoji) =>
         emoji.unicode == emojiToDelete &&
-        emoji.username == this.currentUser.name
+        emoji.username == this.currentUser.name,
     );
     if (index !== -1) {
       this.message.emojis.splice(index, 1);
@@ -168,26 +168,26 @@ export class SingleMessageComponent {
     return count;
   }
 
-  getReactionUsernamesOfSpecificEmoji(emoji: IEmojis): string{
+  getReactionUsernamesOfSpecificEmoji(emoji: IEmojis): string {
     let usernames: string[] = [];
     this.message.emojis.forEach((emojiElement) => {
       if (emojiElement.unicode == emoji.unicode) {
-        usernames.push(emojiElement.username)
+        usernames.push(emojiElement.username);
       }
     });
     return this.formatUsernameList(usernames);
   }
 
   formatUsernameList(arr: string[]): string {
-    if (arr.length == 0){
-      return '';
-    } else if (arr.length == 1){
+    if (arr.length == 0) {
+      return "";
+    } else if (arr.length == 1) {
       return arr[0];
     } else if (arr.length == 2) {
-      return arr.join(' und ');
+      return arr.join(" und ");
     }
-  
-    let allExceptLastTwo = arr.slice(0, -2).join(', ');
+
+    let allExceptLastTwo = arr.slice(0, -2).join(", ");
     let secondLast = arr[arr.length - 2];
     let last = arr[arr.length - 1];
     return `${allExceptLastTwo}, ${secondLast} und ${last}`;
@@ -196,7 +196,7 @@ export class SingleMessageComponent {
   getUniqueEmojiArr(emojiArr: IEmojis[]) {
     let uniqueEmojis = emojiArr.filter(
       (obj, index, array) =>
-        array.findIndex((item) => item.unicode === obj.unicode) === index
+        array.findIndex((item) => item.unicode === obj.unicode) === index,
     );
 
     return uniqueEmojis;
@@ -210,19 +210,37 @@ export class SingleMessageComponent {
   pushToFirestore() {
     this.channelService.updateChannel(
       this.currentChannel.id!,
-      this.currentChannel
+      this.currentChannel,
     );
   }
 
-  styleLastAnswer(time: any): string{
+  styleLastAnswer(time: any): string {
     let today = new Date();
     let str = "";
-    if(time.day < today.getDate() || time.month < today.getMonth() || time.getFullYear < today.getFullYear()){
-      str = "Letzte Antwort am " +  this.getTwoDigitNumber(time.day) + "." + this.getTwoDigitNumber((time.month + 1)) + "." + time.year + " um " + this.getTwoDigitNumber(time.hour) + ":" + this.getTwoDigitNumber(time.minute);
+    if (
+      time.day < today.getDate() ||
+      time.month < today.getMonth() ||
+      time.getFullYear < today.getFullYear()
+    ) {
+      str =
+        "Letzte Antwort am " +
+        this.getTwoDigitNumber(time.day) +
+        "." +
+        this.getTwoDigitNumber(time.month + 1) +
+        "." +
+        time.year +
+        " um " +
+        this.getTwoDigitNumber(time.hour) +
+        ":" +
+        this.getTwoDigitNumber(time.minute);
     } else {
-      str = "Letzte Antwort heute um " + this.getTwoDigitNumber(time.hour) + ":" + this.getTwoDigitNumber(time.minute);
+      str =
+        "Letzte Antwort heute um " +
+        this.getTwoDigitNumber(time.hour) +
+        ":" +
+        this.getTwoDigitNumber(time.minute);
     }
-    return str
+    return str;
   }
 
   getTwoDigitNumber(number: number) {
@@ -233,34 +251,61 @@ export class SingleMessageComponent {
     this.messageEditable = true;
   }
 
-  openDeleteDialog(){
+  openDeleteDialog() {
     this.deleteMsg = true;
   }
 
-  closeDeleteDialog(){
+  closeDeleteDialog() {
     this.deleteMsg = false;
   }
 
-  deleteMessage(){
-    if(this.isInThread){
-      this.currentChannel.messages.forEach(messageElem => {
-        messageElem.answer = messageElem.answer?.filter(answer => answer !== this.message);
+  deleteMessage() {
+    if (this.isInThread) {
+      this.currentChannel.messages.forEach((messageElem) => {
+        messageElem.answer = messageElem.answer?.filter(
+          (answer) => answer !== this.message,
+        );
       });
     } else {
-      this.currentChannel.messages = this.currentChannel.messages.filter(messageElem => messageElem !== this.message);
-      this.currentDirectMessagesArr[0].messages = this.currentDirectMessagesArr[0].messages.filter(messageElem => messageElem.message !== this.message.message && messageElem.time !== this.message.time);
+      this.currentChannel.messages = this.currentChannel.messages.filter(
+        (messageElem) => messageElem !== this.message,
+      );
+      const directMessage = this.currentDirectMessagesArr.find((dm) =>
+        dm.messages.includes(this.message),
+      );
+
+      if (directMessage) {
+        directMessage.messages = directMessage.messages.filter(
+          (messageElem) => messageElem !== this.message,
+        );
+
+        if (directMessage.id) {
+          this.direktMessageService.updateDirectMessages(
+            directMessage.id,
+            directMessage,
+          );
+        }
+      } else {
+        console.error(
+          "Direktnachricht für diese Nachricht nicht gefunden:",
+          this.message,
+        );
+      }
     }
-    if(this.currentChannel.id!=undefined){
-      this.channelService.updateChannel(this.currentChannel.id!, this.currentChannel);
+    if (this.currentChannel.id != undefined) {
+      this.channelService.updateChannel(
+        this.currentChannel.id!,
+        this.currentChannel,
+      );
       this.channelService.setCurrentChannel(this.currentChannel);
     }
 
-    if(this.currentDirectMessagesArr[0].id!=undefined){
-      console.log(this.message.message)
-      console.log(this.currentDirectMessagesArr)
-      this.direktMessageService.updateDirectMessages(this.currentDirectMessagesArr[0].id!, this.currentDirectMessagesArr[0])
+    if (this.currentDirectMessagesArr[0].id != undefined) {
+      this.direktMessageService.updateDirectMessages(
+        this.currentDirectMessagesArr[0].id!,
+        this.currentDirectMessagesArr[0],
+      );
     }
-    
   }
 
   saveEdits() {
@@ -273,11 +318,11 @@ export class SingleMessageComponent {
     this.messageEditable = false;
   }
 
-  openProfile(){
+  openProfile() {
     this.profileOpen = true;
   }
 
-  closeProfile(){
+  closeProfile() {
     this.profileOpen = false;
   }
 }

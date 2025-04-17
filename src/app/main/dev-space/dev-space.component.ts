@@ -10,6 +10,7 @@ import { IDirectMessage } from "../../interfaces/idirect-message";
 import { CommonModule } from "@angular/common";
 import { Router } from "@angular/router";
 import { ActiveService } from "../../services/active.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-dev-space",
@@ -35,6 +36,12 @@ export class DevSpaceComponent {
   directMessagesBetweenCurrentAndSinglePerson: IDirectMessage[] = [];
   userOfDirectMessages: IUser[] = [];
   filteredChannels: IChannels[] = [];
+
+  private subscriptionChannels: Subscription | undefined;
+  private subscriptionCurrentUser: Subscription | undefined;
+  private subscriptionUserList: Subscription | undefined;
+  private subscriptionDirectMessages: Subscription | undefined;
+  private subscriptionActiveLi: Subscription | undefined;
 
   @Output() viewSwitch = new EventEmitter<boolean>();
 
@@ -86,6 +93,14 @@ export class DevSpaceComponent {
     });
   }
 
+  ngOnDestroy() {
+    this.subscriptionChannels?.unsubscribe();
+    this.subscriptionCurrentUser?.unsubscribe();
+    this.subscriptionUserList?.unsubscribe();
+    this.subscriptionDirectMessages?.unsubscribe();
+    this.subscriptionActiveLi?.unsubscribe();
+  }
+
   filterChannels() {
     if (!this.currentUser || !this.channels) {
       this.filteredChannels = [];
@@ -125,12 +140,14 @@ export class DevSpaceComponent {
   }
 
   filterDirectMessagesBetweenCurrentAndSinglePerson(user: IUser) {
-    const filteredMessages = this.allDirectMessages.filter(
-      (dm) =>
-        (dm.sender === user.id && dm.receiver === this.currentUser.id) ||
-        (dm.sender === this.currentUser.id && dm.receiver === user.id),
-    );
-    this.directMessagesService.setDirectMessageBetweenTwo(filteredMessages);
+    if (this.currentUser?.id && user?.id) {
+      this.directMessagesService.setDirectMessageBetweenTwo(
+        this.currentUser.id,
+        user.id,
+      );
+    } else {
+      console.warn("Current user ID oder user ID ist nicht definiert.");
+    }
   }
 
   changeChannelToDisplay(channel: IChannels) {

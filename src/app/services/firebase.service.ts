@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable } from "@angular/core";
 import {
   Firestore,
   onSnapshot,
@@ -11,14 +11,14 @@ import {
   query,
   where,
   getDocs,
-} from '@angular/fire/firestore';
-import { IChannels } from '../interfaces/ichannels';
-import { BehaviorSubject } from 'rxjs';
-import { IDirectMessage } from '../interfaces/idirect-message';
-import { IUser } from '../interfaces/iuser';
+} from "@angular/fire/firestore";
+import { IChannels } from "../interfaces/ichannels";
+import { BehaviorSubject } from "rxjs";
+import { IDirectMessage } from "../interfaces/idirect-message";
+import { IUser } from "../interfaces/iuser";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class FirebaseService {
   firestore: Firestore = inject(Firestore);
@@ -39,32 +39,32 @@ export class FirebaseService {
   }
 
   subContactList() {
-    onSnapshot(this.getColRef('channels'), (snapshot) => {
+    onSnapshot(this.getColRef("channels"), (snapshot) => {
       const channels: IChannels[] = [];
       snapshot.forEach((doc) => {
         channels.push(this.setChannelData(doc.data(), doc.id));
       });
-      this.channelListSubject.next(channels); // Daten an das Observable senden
+      this.channelListSubject.next(channels);
     });
   }
 
   subDirectMessageList() {
-    onSnapshot(this.getColRef('directMessages'), (snapshot) => {
+    onSnapshot(this.getColRef("directMessages"), (snapshot) => {
       const directMessages: IDirectMessage[] = [];
       snapshot.forEach((doc) => {
         directMessages.push(this.setDirectMessageData(doc.data(), doc.id));
       });
-      this.directMessageListSubject.next(directMessages); // Daten an das Observable senden
+      this.directMessageListSubject.next(directMessages);
     });
   }
 
   subUserList() {
-    onSnapshot(this.getColRef('users'), (snapshot) => {
+    onSnapshot(this.getColRef("users"), (snapshot) => {
       const users: IUser[] = [];
       snapshot.forEach((doc) => {
         users.push(this.setUserData(doc.data(), doc.id));
       });
-      this.UserListSubject.next(users); // Daten an das Observable senden
+      this.UserListSubject.next(users);
     });
   }
 
@@ -103,12 +103,12 @@ export class FirebaseService {
   }
 
   async addToDatabase(colId: string, item: IChannels | IDirectMessage | IUser) {
-    console.log('adding Data: ', item);
+    console.log("adding Data: ", item);
 
     try {
       await addDoc(this.getColRef(colId), item);
     } catch (error) {
-      console.error('Error adding document', error);
+      console.error("Error adding document", error);
     }
   }
 
@@ -120,7 +120,7 @@ export class FirebaseService {
     try {
       await updateDoc(this.getSingleDocRef(colId, docId), updatedData);
     } catch (error) {
-      console.error('Error updating document', error);
+      console.error("Error updating document", error);
     }
   }
 
@@ -132,15 +132,14 @@ export class FirebaseService {
     try {
       await deleteDoc(this.getSingleDocRef(colId, docId));
     } catch (error) {
-      console.error('Error deleting document', error);
+      console.error("Error deleting document", error);
     }
   }
 
-  // bitte nicht nachfragen was diese funktion tut, ich hab ka
   async checkIfUserExists(email: string): Promise<boolean> {
     const userQuery = query(
-      this.getColRef('users'),
-      where('email', '==', email),
+      this.getColRef("users"),
+      where("email", "==", email),
     );
     const querySnapshot = await getDocs(userQuery);
 

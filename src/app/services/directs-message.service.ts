@@ -3,6 +3,7 @@ import { FirebaseService } from "./firebase.service";
 import { IDirectMessage } from "../interfaces/idirect-message";
 import { BehaviorSubject } from "rxjs";
 import { IMessage } from "../interfaces/idirect-message";
+import { DocumentReference } from "@angular/fire/firestore";
 
 @Injectable({
   providedIn: "root",
@@ -22,22 +23,42 @@ export class DirectsMessageService {
     return this.firebaseService.directMessageList$;
   }
 
-  setDirectMessageBetweenTwo(messages: IDirectMessage[]) {
-    this.dMBetweenTwoSubject.next(messages);
+  // setDirectMessageBetweenTwo(messages: IDirectMessage[]) {
+  //   this.dMBetweenTwoSubject.next(messages);
+  // }
+  setDirectMessageBetweenTwo(senderId: string, receiverId: string) {
+    this.firebaseService.directMessageList$.subscribe((messages) => {
+      const filteredMessages = messages.filter(
+        (dm) =>
+          (dm.sender === senderId && dm.receiver === receiverId) ||
+          (dm.sender === receiverId && dm.receiver === senderId),
+      );
+      this.dMBetweenTwoSubject.next(filteredMessages);
+    });
   }
 
   async addDirectMessages(item: IDirectMessage) {
     await this.firebaseService.addToDatabase(this.collectionName, item);
   }
 
+  // async addMessageToConversation(id: string, message: IMessage) {
+  //   await this.firebaseService.updateDocument(this.collectionName, id, {
+  //     messages: [
+  //       ...(this.dMBetweenTwoSubject.value.find((dm) => dm.id === id)
+  //         ?.messages || []),
+  //       message,
+  //     ],
+  //   });
+  // }
   async addMessageToConversation(id: string, message: IMessage) {
-    await this.firebaseService.updateDocument(this.collectionName, id, {
-      messages: [
-        ...(this.dMBetweenTwoSubject.value.find((dm) => dm.id === id)
-          ?.messages || []),
-        message,
-      ],
-    });
+    const directMessage = this.dMBetweenTwoSubject.value.find(
+      (dm) => dm.id === id,
+    );
+    if (directMessage) {
+      await this.firebaseService.updateDocument(this.collectionName, id, {
+        messages: [...directMessage.messages, message],
+      });
+    }
   }
 
   async updateDirectMessages(id: string, item: IDirectMessage) {

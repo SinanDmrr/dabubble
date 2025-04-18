@@ -9,7 +9,16 @@ $btn-color-hover: #636af3;
   box-sizing: border-box;
   font-family: "Nunito";
 }
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
 
+.input-field.error {
+  border: 1px solid red;
+}
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -160,6 +169,7 @@ $btn-color-hover: #636af3;
           align-items: center;
           gap: 0.5rem;
           img {
+            border-radius: 50%;
             height: 2rem;
             aspect-ratio: 1/1;
           }

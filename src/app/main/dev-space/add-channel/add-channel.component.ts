@@ -9,6 +9,9 @@ import { FormsModule } from "@angular/forms";
 import { IUser } from "../../../interfaces/iuser";
 import { Subscription } from "rxjs";
 import { UserService } from "../../../services/user.service";
+import { ChannelsService } from "../../../services/channels.service";
+import { IChannels } from "../../../interfaces/ichannels";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   selector: "app-add-channel",
@@ -21,6 +24,7 @@ export class AddChannelComponent {
   addChannelFirstWindow: boolean = true;
   addAllMembersSelection: boolean = true;
   showError: boolean = false;
+  channelNameError: string = "";
 
   channelName: string = "";
   description: string = "";
@@ -36,7 +40,10 @@ export class AddChannelComponent {
   @ViewChild("searchInput", { static: false })
   searchInputRef!: ElementRef<HTMLInputElement>;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private channelsService: ChannelsService,
+  ) {}
 
   @Output() close = new EventEmitter<void>();
   @Output() channelCreated = new EventEmitter<{
@@ -89,13 +96,29 @@ export class AddChannelComponent {
     this.close.emit();
   }
 
-  switchPopupWindow() {
-    if (this.channelName) {
-      this.addChannelFirstWindow = false;
-      this.showError = false;
-    } else {
+  private async checkChannelNameExists(name: string): Promise<boolean> {
+    const channels = await firstValueFrom(this.channelsService.getChannels());
+    return channels.some(
+      (channel: IChannels) => channel.name.toLowerCase() === name.toLowerCase(),
+    );
+  }
+
+  async switchPopupWindow() {
+    if (!this.channelName) {
       this.showError = true;
+      this.channelNameError = "Channel-Name ist erforderlich.";
+      return;
     }
+
+    if (await this.checkChannelNameExists(this.channelName)) {
+      this.showError = true;
+      this.channelNameError = "Ein Channel mit diesem Namen existiert bereits.";
+      return;
+    }
+
+    this.addChannelFirstWindow = false;
+    this.showError = false;
+    this.channelNameError = "";
   }
 
   removeMember(member: string) {
@@ -112,7 +135,14 @@ export class AddChannelComponent {
     }, 200);
   }
 
-  createChannel() {
+  async createChannel() {
+    if (await this.checkChannelNameExists(this.channelName)) {
+      this.showError = true;
+      this.channelNameError = "Ein Channel mit diesem Namen existiert bereits.";
+      this.addChannelFirstWindow = true;
+      return;
+    }
+
     const channelData = {
       name: this.channelName,
       description: this.description || undefined,

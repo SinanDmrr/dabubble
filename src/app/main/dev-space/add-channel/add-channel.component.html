@@ -13,10 +13,13 @@
       <input
         class="input-field"
         type="text"
-        [class.error]="showError && !channelName"
+        [class.error]="showError"
         placeholder="# z.B. Kooperationsprojekte"
         [(ngModel)]="channelName"
       />
+      @if (showError && channelNameError) {
+        <p class="error-message">{{ channelNameError }}</p>
+      }
       <p class="input-p">Beschreibung <span>(optional)</span></p>
       <input
         class="input-field"

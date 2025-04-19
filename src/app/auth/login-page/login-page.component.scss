@@ -9,6 +9,12 @@ $btn-font: #666df8;
     }
 }
 
+.main-bg {
+    @include standard-flex();
+    width: 100vw;
+    background-color: #ECEEFE;
+}
+
 main {
     max-width: 1920px;
     width: 100%;
@@ -16,6 +22,7 @@ main {
     @include standard-flex(space-between);
     flex-direction: column;
     background-color: #ECEEFE;
+
     
     @media (max-width: 500px) {
         @include standard-flex(flex-start);
@@ -46,6 +53,9 @@ main {
                 @media (max-width: 1000px) {
                     scale: 0.5;
                 }
+                @media (min-width: 1921px) {
+                    scale: 1.5;
+                }
             }
 
             .dab-name {
@@ -62,11 +72,23 @@ main {
                     @media (max-width: 1000px) {
                         animation: intro-animation-paragraph-mobile 2s ease-in-out forwards;
                     }
+
+                    @media (min-width: 1921px) {
+                        animation: intro-animation-paragraph-widescreen 2s ease-in-out forwards;
+                    }
+                }
+
+                @media (min-width: 1921px) {
+                    left: 40%;
                 }
             }
 
             @media (max-width: 500px) {
                 animation: intro-animation-logo-mobile 2s ease-in-out forwards;
+            }
+
+            @media (min-width: 1921px) {
+                animation: intro-animation-logo-widescreen 2s ease-in-out forwards;
             }
         }
 
@@ -151,7 +173,7 @@ main {
 
     .info-content {
         gap: 2rem;
-        margin: 2.5rem 0;
+        margin: 1rem 0 2.5rem 0;
 
         a {
             color: $btn-font;
@@ -314,6 +336,71 @@ main {
     }
 
     100% {
+        left: 0%;
+        color: black;
+    }
+}
+
+@keyframes intro-animation-logo-widescreen {
+    0% {
+        width: 12vw;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    20% {
+        width: 12vw;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    40% {
+        width: 12vw;
+        top: 50%;
+        left: 50%;
+        transform: translate(-100%, -50%);
+        scale: 1;
+    }
+
+    60% {
+        width: 12vw;
+        top: 50%;
+        left: 50%;
+        transform: translate(-100%, -50%);
+        scale: 1;
+    }
+
+    100% {
+        width: 12vw;
+        top: 2rem;
+        left: 50%;
+        transform: translate(-1500px, -30%);
+        scale: 0.6;
+    }
+}
+
+@keyframes intro-animation-paragraph-widescreen {
+    0% {
+        margin: 1rem;
+        left: -100%;
+        color: white;
+    }
+
+    40% {
+        margin: 1rem;
+        left: -100%;
+    }
+
+    60% {
+        margin: 1rem;
+        left: 0%;
+        color: white;
+    }
+
+    100% {
+        margin: 1rem;
         left: 0%;
         color: black;
     }

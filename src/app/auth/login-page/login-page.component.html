@@ -1,28 +1,30 @@
-<main>
-    <div class="login-head">
-        <div class="animation-content">
-            <img src="../../../assets/images/Logo.png" alt="dab-logo" class="dab-logo">
-            <div class="dab-name">
-                <p>DABubble</p>
+<div class="main-bg">
+    <main>
+        <div class="login-head">
+            <div class="animation-content">
+                <img src="../../../assets/images/Logo.png" alt="dab-logo" class="dab-logo">
+                <div class="dab-name">
+                    <p>DABubble</p>
+                </div>
+            </div>
+            <div class="create-profile">
+                <span>Neu bei DABubble?</span>
+                <a [routerLink]="[{ outlets: { 'login-router': ['register']}}]">Konto erstellen</a>
             </div>
         </div>
-        <div class="create-profile">
-            <span>Neu bei DABubble?</span>
-            <a [routerLink]="[{ outlets: { 'login-router': ['register']}}]">Konto erstellen</a>
+        <div class="animation-bg"></div>
+        <div class="routing-content">
+            <router-outlet name="login-router"></router-outlet>
         </div>
-    </div>
-    <div class="animation-bg"></div>
-    <div class="routing-content">
-        <router-outlet name="login-router"></router-outlet>
-    </div>
-    @if(isVisible) {
-        <div class="create-profile-mobile" id="create-profile-mobile">
-            <span>Neu bei DABubble?</span>
-            <a [routerLink]="[{ outlets: { 'login-router': ['register']}}]" (click)="toggleContentVisibility()">Konto erstellen</a>
+        @if(isVisible) {
+            <div class="create-profile-mobile" id="create-profile-mobile">
+                <span>Neu bei DABubble?</span>
+                <a [routerLink]="[{ outlets: { 'login-router': ['register']}}]" (click)="toggleContentVisibility()">Konto erstellen</a>
+            </div>
+        }
+        <div class="info-content">
+            <a [routerLink]="[{ outlets: { 'login-router': ['imprint']}}]">Impressum</a>
+            <a [routerLink]="[{ outlets: { 'login-router': ['legal']}}]">Datenschutz</a>
         </div>
-    }
-    <div class="info-content">
-        <a [routerLink]="[{ outlets: { 'login-router': ['imprint']}}]">Impressum</a>
-        <a [routerLink]="[{ outlets: { 'login-router': ['legal']}}]">Datenschutz</a>
-    </div>
-</main>
+    </main>
+</div>

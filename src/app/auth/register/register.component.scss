@@ -39,6 +39,10 @@ $input-alert: rgb(237, 30, 121);
             top: 3.5rem;
             left: 2rem;
         }
+
+        @media (min-width: 1921px) {
+            height: 1.5rem;
+        }
     }
 
     h1 {
@@ -75,6 +79,10 @@ $input-alert: rgb(237, 30, 121);
                 position: absolute;
                 top: 2.3rem;
                 left: 3rem;
+
+                @media (min-width: 1921px) {
+                    height: 1.5rem;
+                }
             }
 
             .error {

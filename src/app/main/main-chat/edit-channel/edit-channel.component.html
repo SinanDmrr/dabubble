@@ -21,6 +21,10 @@
                 id=""># {{channel.name}}</textarea>
             }
 
+            @if(showErr){
+                <span class="errMsg">Ein Channel mit diesem Namen existiert bereits.</span>
+            }
+
         </div>
         <div class="description-container" [ngClass]="{'border': !descriptionEdit}">
             <div>

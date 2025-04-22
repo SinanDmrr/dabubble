@@ -26,6 +26,8 @@ export class EditChannelComponent {
   channelDescription = "";
   userList: IUser[] = [];
   currentUser!: IUser;
+  channelsList: IChannels[] = [];
+  showErr: boolean = false;
 
   constructor(private channelService: ChannelsService, private userService: UserService,){
     this.userService.getUserList().subscribe((userList) => {
@@ -39,6 +41,10 @@ export class EditChannelComponent {
       }
     });
 
+    this.channelService.getChannels().subscribe((channelList) => {
+      this.channelsList = channelList;
+    })
+
   }
 
   closeEdit() {
@@ -51,9 +57,15 @@ export class EditChannelComponent {
   }
 
   saveTitle() {
-    this.titleEdit = false;
-    this.channel.name = this.channelTitle;
-    this.channelService.updateChannel(this.channel.id!, this.channel);
+    if(this.channelsList.some((channel: IChannels) => channel.name.toLowerCase() == this.channelTitle.toLowerCase())){
+      this.showErr = true;
+      this.titleEdit = true;
+    } else {
+      this.channel.name = this.channelTitle;
+      this.channelService.updateChannel(this.channel.id!, this.channel);
+      this.titleEdit = false;
+    }
+    
   }
 
   editDescription() {

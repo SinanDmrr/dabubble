@@ -53,13 +53,13 @@
                     <div class="add-member-header">
                         <h2>Mitglieder hinzufügen</h2>
                         <img class="close-button" src="assets/icons/close.png" alt=""
-                            (click)="closeAddMember(); bubblingProtection($event)">
+                            (click)="closeAddMember(); bubblingProtection($event)"> 
                     </div>
                     <span class="channel-name"># {{currentChannel.name}}</span>
                     <div class="input-container">
                         @for (member of membersAdded; track $index) {
                         <div class="added-member-container">
-                            <img class="avatar" src="assets/avatars/avatar_1.png" alt="">
+                            <img class="avatar" src="{{getUserImage(member)}}" alt="">
                             <span>{{getUsernameFromMail(member)}}</span>
                             <img class="close-button-small" src="assets/icons/close.png" alt=""
                                 (click)="deleteFromMembersAdded(member)">
@@ -73,7 +73,7 @@
                                 @if (getFilteredMembers().length > 0) {
                                 @for (member of getFilteredMembers(); track $index) {
                                 <div class="suggestion-member-item" (click)="addToMembersAdded(member.email)">
-                                    <img src="assets/avatars/avatar_1.png" alt="">
+                                    <img src="{{member.picture}}" alt="">
                                     <span>{{member.name}}</span>
                                 </div>
                                 }

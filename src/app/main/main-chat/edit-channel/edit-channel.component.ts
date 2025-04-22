@@ -25,12 +25,20 @@ export class EditChannelComponent {
   channelTitle = "";
   channelDescription = "";
   userList: IUser[] = [];
+  currentUser!: IUser;
 
   constructor(private channelService: ChannelsService, private userService: UserService,){
     this.userService.getUserList().subscribe((userList) => {
       this.userList = userList;
       
     });
+
+    this.userService.getCurrentUser().subscribe((user) => {
+      if (user) {
+        this.currentUser = user;
+      }
+    });
+
   }
 
   closeEdit() {
@@ -75,6 +83,12 @@ export class EditChannelComponent {
 
   addMember(){
     this.addAMember.emit();
+    this.closeEdit();
+  }
+
+  leaveChannel(){
+    this.channel.users = this.channel.users.filter((user) => user!=this.currentUser.email);
+    this.channelService.updateChannel(this.channel.id!, this.channel);
     this.closeEdit();
   }
 

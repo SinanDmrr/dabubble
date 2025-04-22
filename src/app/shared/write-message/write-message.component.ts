@@ -43,6 +43,8 @@ export class WriteMessageComponent {
 
   userList: IUser[] = [];
 
+  currentUser!: IUser;
+
   constructor(private channelService: ChannelsService, private userService: UserService, private router: Router, private activeService: ActiveService) {
     this.channelService.getCurrentChannel().subscribe((channel) => {
       this.currentChannel = channel;
@@ -55,6 +57,12 @@ export class WriteMessageComponent {
     this.userService.getUserList().subscribe((userList) => {
       this.userList = userList;
     })
+
+    this.userService.getCurrentUser().subscribe((user) => {
+      if (user) {
+        this.currentUser = user;
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -238,7 +246,10 @@ export class WriteMessageComponent {
   }
 
   filterChannelList(filterString: string) {
-    let filteredChannelList = this.channelsList.filter(channel => channel.name.toLowerCase().includes(filterString.toLowerCase()));
+    let filteredChannelList = this.channelsList.filter(channel =>
+      channel.users.some(user => user == this.currentUser.email)
+    ); //now checking which channels the current user is member of
+    filteredChannelList = filteredChannelList.filter(channel => channel.name.toLowerCase().includes(filterString.toLowerCase()));
     return filteredChannelList;
   }
 

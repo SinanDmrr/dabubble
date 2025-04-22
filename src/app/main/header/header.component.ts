@@ -6,6 +6,7 @@ import { IUser } from '../../interfaces/iuser';
 import { FormsModule } from '@angular/forms';
 import { UserProfileComponent } from './profile/userprofile.component';
 import { FilterMessagesService } from '../../services/filter-messages.service';
+import { ThreadService } from '../../services/thread.service';
 
 @Component({
   selector: 'app-header',
@@ -20,8 +21,9 @@ export class HeaderComponent {
   screenWidth = window.innerWidth;
   searchQuery = "";
   isProfilePopupOpen: boolean = false;
+  showThread: boolean = false;
 
-  constructor(private userService: UserService, private filterMessageService: FilterMessagesService, private channelService: ChannelsService) { }
+  constructor(private userService: UserService, private filterMessageService: FilterMessagesService, private channelService: ChannelsService, private threadService: ThreadService) { }
 
   ngOnInit() {
     this.screenWidth = window.innerWidth;
@@ -31,6 +33,9 @@ export class HeaderComponent {
     this.channelService.getIsDevSpaceVisible().subscribe(isDevSpaceVisible => {
       this.isDevSpaceVisible = isDevSpaceVisible;
     })
+    this.threadService.getShowThreadStatus().subscribe((status) => {
+      this.showThread = status;
+    });
   }
 
   changeFilterWord() {
@@ -47,6 +52,9 @@ export class HeaderComponent {
   }
 
   backToDevSpace() {
+    if(this.showThread){
+      this.threadService.hideThreadComponent();
+    }
     this.channelService.setIsDevSpaceVisible(true);
   }
 

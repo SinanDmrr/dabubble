@@ -1,17 +1,17 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IChannels } from '../../../interfaces/ichannels';
-import { ChannelsService } from '../../../services/channels.service';
-import { FormsModule } from '@angular/forms';
-import { UserService } from '../../../services/user.service';
-import { IUser } from '../../../interfaces/iuser';
+import { CommonModule } from "@angular/common";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { IChannels } from "../../../interfaces/ichannels";
+import { ChannelsService } from "../../../services/channels.service";
+import { FormsModule } from "@angular/forms";
+import { UserService } from "../../../services/user.service";
+import { IUser } from "../../../interfaces/iuser";
 
 @Component({
-  selector: 'app-edit-channel',
+  selector: "app-edit-channel",
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './edit-channel.component.html',
-  styleUrl: './edit-channel.component.scss'
+  templateUrl: "./edit-channel.component.html",
+  styleUrl: "./edit-channel.component.scss",
 })
 export class EditChannelComponent {
   @Output() close = new EventEmitter<void>();
@@ -29,10 +29,12 @@ export class EditChannelComponent {
   channelsList: IChannels[] = [];
   showErr: boolean = false;
 
-  constructor(private channelService: ChannelsService, private userService: UserService,){
+  constructor(
+    private channelService: ChannelsService,
+    private userService: UserService,
+  ) {
     this.userService.getUserList().subscribe((userList) => {
       this.userList = userList;
-      
     });
 
     this.userService.getCurrentUser().subscribe((user) => {
@@ -43,8 +45,7 @@ export class EditChannelComponent {
 
     this.channelService.getChannels().subscribe((channelList) => {
       this.channelsList = channelList;
-    })
-
+    });
   }
 
   closeEdit() {
@@ -53,11 +54,16 @@ export class EditChannelComponent {
 
   editTitle() {
     this.titleEdit = true;
-    this.channelTitle = this.channel.name
+    this.channelTitle = this.channel.name;
   }
 
   saveTitle() {
-    if(this.channelsList.some((channel: IChannels) => channel.name.toLowerCase() == this.channelTitle.toLowerCase())){
+    if (
+      this.channelsList.some(
+        (channel: IChannels) =>
+          channel.name.toLowerCase() == this.channelTitle.toLowerCase(),
+      )
+    ) {
       this.showErr = true;
       this.titleEdit = true;
     } else {
@@ -65,26 +71,28 @@ export class EditChannelComponent {
       this.channelService.updateChannel(this.channel.id!, this.channel);
       this.titleEdit = false;
     }
-    
   }
 
   editDescription() {
     this.descriptionEdit = true;
-    this.channelDescription = this.channel.description 
+    this.channelDescription = this.channel.description;
   }
 
   saveDescription() {
     this.channel.description = this.channelDescription;
     this.channelService.updateChannel(this.channel.id!, this.channel);
-    this.descriptionEdit = false; 
+    this.descriptionEdit = false;
   }
 
   getUsernameFromMail(email: string): string {
-    return this.userList.find((user) => user.email == email)!.name || this.userList[0].name;
+    return (
+      this.userList.find((user) => user.email == email)!.name ||
+      this.userList[0].name
+    );
   }
 
   getUserImage(email: string): string {
-    let foundUser = this.userList.find(userElem => userElem.email == email);
+    let foundUser = this.userList.find((userElem) => userElem.email == email);
     return foundUser ? foundUser.picture : "";
   }
 
@@ -93,13 +101,15 @@ export class EditChannelComponent {
     this.closeEdit();
   }
 
-  addMember(){
+  addMember() {
     this.addAMember.emit();
     this.closeEdit();
   }
 
-  leaveChannel(){
-    this.channel.users = this.channel.users.filter((user) => user!=this.currentUser.email);
+  leaveChannel() {
+    this.channel.users = this.channel.users.filter(
+      (user) => user != this.currentUser.email,
+    );
     this.channelService.updateChannel(this.channel.id!, this.channel);
     this.closeEdit();
   }

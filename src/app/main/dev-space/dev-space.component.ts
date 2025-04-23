@@ -109,9 +109,34 @@ export class DevSpaceComponent {
 
     this.filteredChannels = this.channels.filter(
       (channel) =>
-        channel.creator === this.currentUser.email ||
-        (channel.users && channel.users.includes(this.currentUser.email)),
+        channel.users && channel.users.includes(this.currentUser.email),
     );
+
+    this.channelsService.getCurrentChannel().subscribe((currentChannel) => {
+      const isCurrentChannelValid =
+        currentChannel &&
+        currentChannel.id &&
+        this.filteredChannels.some(
+          (channel) => channel.id === currentChannel.id,
+        );
+
+      if (!isCurrentChannelValid && this.filteredChannels.length > 0) {
+        const newChannel = this.filteredChannels[0];
+        this.channelsService.setCurrentChannel(newChannel);
+        this.activeService.setActiveLi(newChannel.id);
+        this.router.navigate(["/main"]);
+      } else if (!isCurrentChannelValid && this.filteredChannels.length === 0) {
+        this.channelsService.setCurrentChannel({
+          creator: "",
+          description: "",
+          messages: [],
+          name: "",
+          users: [],
+        });
+        this.activeService.setActiveLi(undefined);
+        this.router.navigate(["/main"]);
+      }
+    });
   }
 
   filterCurrentDirectMessages() {
@@ -192,8 +217,14 @@ export class DevSpaceComponent {
       return;
     }
 
-    const usersToAdd =
+    // Erstelle die Liste der Benutzer, die hinzugefügt werden sollen
+    let usersToAdd =
       channelData.members || this.allUsers.map((user) => user.email);
+
+    // Füge den Ersteller (currentUser.email) hinzu, falls er nicht bereits in der Liste ist
+    if (!usersToAdd.includes(this.currentUser.email)) {
+      usersToAdd = [...usersToAdd, this.currentUser.email];
+    }
 
     const newChannel: IChannels = {
       creator: this.currentUser.email,

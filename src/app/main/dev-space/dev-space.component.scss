@@ -149,19 +149,22 @@ ul {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 20%;
+  width: 25%;
   border-radius: 0 20px 20px 20px;
   padding: 2rem;
-  gap: 1rem;
+  gap: 0.5rem;
 
   span {
     font-size: 1rem;
     text-align: center;
   }
 
-  div {
+  #btn-container {
     display: flex;
-    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 }
 
@@ -182,7 +185,7 @@ ul {
   background-color: white;
   color: #444df2;
   border: 1px solid #444df2;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
   border-radius: 10px;
   cursor: pointer;
 

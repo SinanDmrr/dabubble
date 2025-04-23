@@ -16,23 +16,21 @@ export class LoginComponent {
   error: string = '';
   submitError: boolean = true;
   submitAttempted: boolean = false;
-  loginFailed$ = this.authService.getLoginFailed(); 
+  showErrorPopup: boolean = false;
+  loginFailed$ = this.authService.getLoginFailed();
 
   loginData = {
     email: "",
     password: ""
   }
 
-  constructor(private authService: AuthService, private router: Router) {
-
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
   }
 
   goToRegister() {
     this.router.navigate([{ outlets: { 'login-router': ['register'] } }]);
-    // this.authService.registerUserWithEmailAndPassword("Sascha", "sascha@keinelust.de", "keinelust", "assets/avatars/avatar_1.png")
   }
 
   goToChangePassword() {
@@ -40,12 +38,18 @@ export class LoginComponent {
   }
 
   login(ngForm: NgForm) {
-    this.submitAttempted = true;
-
     if (ngForm.valid && ngForm.submitted) {
       this.submitError = false;
       this.authService.loginWithEmailAndPassword(this.loginData.email, this.loginData.password);
-      // this.authService.loginWithEmailAndPassword("sascha@keinelust.de", "keinelust");
+      this.authService.getLoginFailed().subscribe(failed => {
+        if (failed) {
+          this.showErrorPopup = true;
+        }
+      });
+      if (this.submitAttempted && this.submitError) {
+        console.log(this.loginFailed$);
+        this.showErrorPopup = true;
+      }
     }
   }
 

@@ -215,7 +215,7 @@ export class MainChatComponent {
     ); old version of filter method */ 
 
     let filteredUsers = this.userList.filter(user =>
-      ![...this.channelMembers, ...this.membersAdded].some(member => member == user.email) && user.email.toLowerCase().includes(this.memberToAdd.toLowerCase())
+      ![...this.channelMembers, ...this.membersAdded].some(member => member == user.email) && user.name.toLowerCase().includes(this.memberToAdd.toLowerCase())
     );
     return filteredUsers;
   }

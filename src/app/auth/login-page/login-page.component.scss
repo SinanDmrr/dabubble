@@ -18,7 +18,7 @@ $btn-font: #666df8;
 main {
     max-width: 1920px;
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     @include standard-flex(space-between);
     flex-direction: column;
     background-color: #ECEEFE;
@@ -80,6 +80,10 @@ main {
 
                 @media (min-width: 1921px) {
                     left: 40%;
+                }
+
+                @media (min-width: 2879px) {
+                    width: 120%;
                 }
             }
 
@@ -395,13 +399,13 @@ main {
 
     60% {
         margin: 1rem;
-        left: 0%;
+        left: 10%;
         color: white;
     }
 
     100% {
         margin: 1rem;
-        left: 0%;
+        left: 10%;
         color: black;
     }
 }

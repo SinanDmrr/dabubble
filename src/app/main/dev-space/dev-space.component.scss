@@ -55,6 +55,12 @@ ul {
         display: block;
       }
     }
+
+    @media (max-width: 800px) {
+      .delete-icon {
+        display: block;
+      }
+    }
   }
 
   .active-li {

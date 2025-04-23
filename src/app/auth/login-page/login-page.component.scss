@@ -62,6 +62,7 @@ main {
                 position: relative;
                 left: 70%;
                 overflow: hidden;
+                width: 120%;
 
                 p {
                     position: relative;
@@ -80,10 +81,6 @@ main {
 
                 @media (min-width: 1921px) {
                     left: 40%;
-                }
-
-                @media (min-width: 2879px) {
-                    width: 120%;
                 }
             }
 

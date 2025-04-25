@@ -6,48 +6,39 @@
         #searchInput
         [(ngModel)]="searchText"
         type="text"
-        placeholder="An: #channel, oder @jemand oder E-Mail Adresse"
-        (keyup)="checkForAt($event); checkForHash($event); checkBackspace($event); checkForMail($event)"
+        placeholder="An: #Channel oder @User"
+        (keyup)="
+          checkForAt($event);
+          checkForHash($event);
+          checkBackspace($event);
+          checkForMail($event)
+        "
       />
-      
-      <!-- @if(showUserList && getFilteredUserList().length > 0){ -->
-      @if(showUserList){
-      <div class="tag-container">
-        <div class="tag-wrapper">
-          @for (user of getFilteredUserList(); track $index) {
-          <div class="tag-item" (click)="tagUser(user)">
-            <img src="assets/avatars/avatar_1.png" alt="">
-            <span>{{user}}</span>
-          </div>
-          }
-        </div>
-      </div>
-      }
 
-   <!--    @if(showMailList && getFilteredMailList().length > 0){
+      @if (showUserList) {
         <div class="tag-container">
           <div class="tag-wrapper">
-            @for (user of getFilteredMailList(); track $index) {
-            <div class="tag-item" (click)="tagUser(getUsernameFromMail(user))">
-              <img src="assets/avatars/avatar_1.png" alt="">
-              <span>{{user}}</span>
-            </div>
+            @for (user of getFilteredUserList(); track $index) {
+              <div class="tag-item" (click)="tagUser(user)">
+                <img src="assets/avatars/avatar_1.png" alt="" />
+                <span>{{ user }}</span>
+              </div>
             }
           </div>
         </div>
-        } -->
+      }
 
-      @if(showChannelList && getFilteredChannelList().length > 0){
-      <div class="tag-container">
-        <div class="tag-wrapper">
-          @for (channel of getFilteredChannelList(); track $index) {
-          <div class="tag-item" (click)="tagChannel(channel.name)">
-            <span>#</span>
-            <span>{{channel.name}}</span>
+      @if (showChannelList && getFilteredChannelList().length > 0) {
+        <div class="tag-container">
+          <div class="tag-wrapper">
+            @for (channel of getFilteredChannelList(); track $index) {
+              <div class="tag-item" (click)="tagChannel(channel.name)">
+                <span>#</span>
+                <span>{{ channel.name }}</span>
+              </div>
+            }
           </div>
-          }
         </div>
-      </div>
       }
     </div>
   </header>

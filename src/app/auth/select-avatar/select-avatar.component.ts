@@ -38,7 +38,7 @@ export class SelectAvatarComponent {
   }
 
   finishRegister() {
-    // this.authService.registerUserWithEmailAndPassword(this.userToRegister.name, this.userToRegister.email, this.userToRegister.password, this.choosenPicture);
+    this.authService.registerUserWithEmailAndPassword(this.userToRegister.name, this.userToRegister.email, this.userToRegister.password, this.choosenPicture);
     this.successPopup = true;
     setTimeout(() => {
       this.router.navigateByUrl('/(login-router:login)');

@@ -60,7 +60,7 @@ export class EditChannelComponent {
   }
 
   checkForAt(event: KeyboardEvent) {
-    if (event.key === '@') {
+    if (event.key == '@' || event.key == 'q') {
       this.tagStringAt = "";
       this.showUserList = true;
       this.startListeningAt = true;
@@ -127,7 +127,7 @@ export class EditChannelComponent {
   }
 
   checkIfUserListIncludesTagString(event: KeyboardEvent) {
-    if (/^[a-zA-Z\s]$/.test(event.key)) {
+    if (/^[a-pr-zA-PR-Z\s]$/.test(event.key)) {
       this.tagStringAt += event.key;
       if (this.filterUserList(this.tagStringAt).length < 1) {
         this.closeTagList();
@@ -225,6 +225,8 @@ export class EditChannelComponent {
   }
 
   getFilteredUserList(): string[] {
+    console.log("list" + this.filterUserList(this.tagStringAt));
+    
     return this.filterUserList(this.tagStringAt);
   }
 

@@ -10,7 +10,8 @@
         (keyup)="checkForAt($event); checkForHash($event); checkBackspace($event); checkForMail($event)"
       />
       
-      @if(showUserList && getFilteredUserList().length > 0){
+      <!-- @if(showUserList && getFilteredUserList().length > 0){ -->
+      @if(showUserList){
       <div class="tag-container">
         <div class="tag-wrapper">
           @for (user of getFilteredUserList(); track $index) {

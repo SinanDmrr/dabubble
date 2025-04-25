@@ -2,12 +2,12 @@
     <h1>Anmeldung</h1>
     <p>Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
     <form class="login-form" (ngSubmit)="login(loginForm)" #loginForm="ngForm">
-        <div class="input-section"><img class="mail-icon" src="../../../assets/icons/mail.png" alt=""><input class="text-input" #email="ngModel" [(ngModel)]="loginData.email" name="email" id="mail-input-login" type="text" placeholder="beispiel@email.com" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
+        <div class="input-section"><img class="mail-icon" src="assets/icons/mail.png" alt=""><input class="text-input" #email="ngModel" [(ngModel)]="loginData.email" name="email" id="mail-input-login" type="text" placeholder="beispiel@email.com" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
             @if (!email.valid && email.touched) {
                 <p>*Diese E-Mail ist leider ungültig</p>
             }
         </div>
-        <div class="input-section"><img class="lock-icon" src="../../../assets/icons/lock.png" alt=""><input class="text-input" #password="ngModel" [(ngModel)]="loginData.password" name="password" id="password-input-login" type="password" placeholder="Passwort" required>
+        <div class="input-section"><img class="lock-icon" src="assets/icons/lock.png" alt=""><input class="text-input" #password="ngModel" [(ngModel)]="loginData.password" name="password" id="password-input-login" type="password" placeholder="Passwort" required>
             @if (!password.valid && password.touched) {
                 <p>*Bitte geben Sie ein Passwort ein.</p>
                 <!-- <p>*Falsches Passwort, oder E-Mail.. Bitte erneut versuchen.</p> -->
@@ -23,7 +23,7 @@
             <div class="division-line"></div>
         </div>
         <div class="login-btns">
-            <button class="google-login" type="button" (click)="loginGoogle()"><img src="../../../assets/icons/Google.png" alt="">Anmelden mit Google</button>
+            <button class="google-login" type="button" (click)="loginGoogle()"><img src="assets/icons/Google.png" alt="">Anmelden mit Google</button>
             <div class="default-logins">
                 <button class="login" type="submit" [disabled]="loginForm.invalid">Anmelden</button>
                 <button type="button" (click)="guestLogin()">Gäste-Login</button>

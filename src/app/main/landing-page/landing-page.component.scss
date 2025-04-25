@@ -85,7 +85,7 @@ main {
       .sidebar-icon {
         height: 16rem;
         width: 3rem;
-        background-image: url("/assets/images/menu_close.png");
+        content: url("../../../assets/images/menu_close.png");
         background-size: contain;
         background-repeat: no-repeat;
         transition: all 0.2s ease;
@@ -96,14 +96,14 @@ main {
         }
 
         &:hover {
-          background-image: url("/assets/images/menu_close_hover.png");
+          content: url("../../../assets/images/menu_close_hover.png");
         }
 
         &.main-hidden {
-          background-image: url("/assets/images/menu_open.png");
+          content: url("../../../assets/images/menu_open.png");
 
           &:hover {
-            background-image: url("/assets/images/menu_open_hover.png");
+            content: url("../../../assets/images/menu_open_hover.png");
           }
         }
       }

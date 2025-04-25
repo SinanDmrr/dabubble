@@ -21,9 +21,9 @@ export class RegisterComponent {
   }
 
   imagePaths: Record<string, string> = {
-    person: '../../../assets/icons/person_inactive.png',
-    mail: '../../../assets/icons/mail_inactive.png',
-    lock: '../../../assets/icons/lock_inactive.png',
+    person: 'assets/icons/person_inactive.png',
+    mail: 'assets/icons/mail_inactive.png',
+    lock: 'assets/icons/lock_inactive.png',
   }
 
   isChecked: boolean = false;
@@ -65,6 +65,6 @@ export class RegisterComponent {
   }
 
   changeIcon(icon: string) {
-    this.imagePaths[icon] = this.imagePaths[icon] === `../../../assets/icons/${icon}_inactive.png` ? `../../../assets/icons/${icon}.png` : `../../../assets/icons/${icon}_inactive.png`;
+    this.imagePaths[icon] = this.imagePaths[icon] === `assets/icons/${icon}_inactive.png` ? `assets/icons/${icon}.png` : `assets/icons/${icon}_inactive.png`;
   }
 }

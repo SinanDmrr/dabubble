@@ -28,14 +28,14 @@ export class AuthService {
   }
 
   private initializeAuthState() {
-    onAuthStateChanged(this.auth, (user) => {
-      if (user) {
-        this.authSubject.next(true);
-        this.router.navigate(['/main']);
-      } else {
-        this.authSubject.next(false);
-      }
-    })
+    // onAuthStateChanged(this.auth, (user) => {
+    //   if (user) {
+    //     this.authSubject.next(true);
+    //     this.router.navigate(['/main']);
+    //   } else {
+    //     this.authSubject.next(false);
+    //   }
+    // })
   }
 
   async registerUserWithEmailAndPassword(name: string, email: string, password: string, avatar: string) {

@@ -282,24 +282,24 @@ main {
           .edit-icon {
             width: 1.2rem;
             height: 1.2rem;
-            background-image: url("/assets/icons/edit_icon.png");
+            background-image: url("../../../assets/icons/edit_icon.png");
             background-size: contain;
             background-repeat: no-repeat;
             transition: all 0.2s ease;
 
             &:hover {
-              background-image: url("/assets/icons/edit_icon_hover.png");
-              &::before {
-                content: "";
-                position: absolute;
-                width: 2rem;
-                height: 2rem;
-                background-color: rgba(128, 128, 128, 0.2);
-                border-radius: 50%;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-              }
+              background-image: url("../../../assets/icons/edit_icon_hover.png");
+              // &::before {
+              //   content: "";
+              //   position: absolute;
+              //   width: 2rem;
+              //   height: 2rem;
+              //   background-color: rgba(128, 128, 128, 0.2);
+              //   border-radius: 50%;
+              //   top: 50%;
+              //   left: 50%;
+              //   transform: translate(-50%, -50%);
+              // }
             }
           }
         }
@@ -346,7 +346,7 @@ main {
           .drop-down-icon {
             width: 2rem;
             height: 2rem;
-            background-image: url("/assets/icons/arrow_drop_down_icon.png");
+            background-image: url("../../../assets/icons/arrow_drop_down_icon.png");
             background-size: contain;
             background-repeat: no-repeat;
             transition: all 0.2s ease;
@@ -355,7 +355,7 @@ main {
           .channels-icon {
             width: 1rem;
             height: 1rem;
-            background-image: url("/assets/icons/channels_icon.png");
+            background-image: url("../../../assets/icons/channels_icon.png");
             background-size: contain;
             background-repeat: no-repeat;
             transition: all 0.2s ease;
@@ -369,10 +369,10 @@ main {
 
           &:hover {
             .drop-down-icon {
-              background-image: url("/assets/icons/arrow_drop_down_icon_hover.png");
+              background-image: url("../../../assets/icons/arrow_drop_down_icon_hover.png");
             }
             .channels-icon {
-              background-image: url("/assets/icons/channels_icon_hover.png");
+              background-image: url("../../../assets/icons/channels_icon_hover.png");
             }
             h3 {
               color: $primary-font-color;
@@ -383,13 +383,13 @@ main {
         #add-icon {
           width: 0.8rem;
           height: 0.8rem;
-          background-image: url("/assets/icons/add_icon.png");
+          background-image: url("../../../assets/icons/add_icon.png");
           background-size: 100% 100%;
           background-position: center;
           background-repeat: no-repeat;
           cursor: pointer;
           &:hover {
-            background-image: url("/assets/icons/add_icon_hover.png");
+            background-image: url("../../../assets/icons/add_icon_hover.png");
             transform: scale(1.5);
             &::before {
               content: "";
@@ -441,7 +441,7 @@ main {
         .drop-down-icon {
           width: 2rem;
           height: 2rem;
-          background-image: url("/assets/icons/arrow_drop_down_icon.png");
+          background-image: url("../../../assets/icons/arrow_drop_down_icon.png");
           background-size: contain;
           background-repeat: no-repeat;
           transition: all 0.2s ease;
@@ -450,7 +450,7 @@ main {
         .channels-icon {
           width: 1rem;
           height: 1rem;
-          background-image: url("/assets/icons/channels_icon.png");
+          background-image: url("../../../assets/icons/channels_icon.png");
           background-size: contain;
           background-repeat: no-repeat;
           transition: all 0.2s ease;
@@ -464,10 +464,10 @@ main {
 
         &:hover {
           .drop-down-icon {
-            background-image: url("/assets/icons/arrow_drop_down_icon_hover.png");
+            background-image: url("../../../assets/icons/arrow_drop_down_icon_hover.png");
           }
           .channels-icon {
-            background-image: url("/assets/icons/channels_icon_hover.png");
+            background-image: url("../../../assets/icons/channels_icon_hover.png");
           }
           h3 {
             color: #535af1;

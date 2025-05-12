@@ -1,30 +1,46 @@
 <main>
-    @if (!isDevSpaceVisible && screenWidth < 800) {
-        <div class="logo-container">
-            <img (click)="backToDevSpace()" src="assets/icons/arrow_back.png" alt="arrow_back">
-            <img src="../../../assets/images/Devspace_Logo.png" alt="Devspace_Logo">
-            <span>Devspace</span>
-        </div>
-    } @else {
-        <div class="logo-container">
-            <img src="assets/images/Logo.png" alt="logo">
-            <span>DABubble</span>
-        </div>
-    }
-    <div class="find-container">
-        <input (keyup)="changeFilterWord()" type="text" [(ngModel)]="searchQuery" placeholder="Devspace durchsuchen">
-        <div>
-            <img src="assets/icons/search.png" alt="">
-        </div>
+  @if (!isDevSpaceVisible && screenWidth < 800) {
+    <div class="logo-container">
+      <img
+        (click)="backToDevSpace()"
+        src="assets/icons/arrow_back.png"
+        alt="arrow_back"
+      />
+      <img src="../../../assets/images/Devspace_Logo.png" alt="Devspace_Logo" />
+      <span>Devspace</span>
     </div>
-    <div (click)="openProfilePopup($event)" class="profile-container">
-        <span>{{currentUser?.name}}</span>
-        <img class="avatar" src={{currentUser?.picture}} alt="profile-picture">
-        <img class="menu-icon" src="assets/icons/keyboard_arrow_down.png" alt="menu">
+  } @else {
+    <div class="logo-container">
+      <img src="assets/images/Logo.png" alt="logo" />
+      <span>DABubble</span>
     </div>
+  }
+  <div class="find-container">
+    <input
+      (keyup)="changeFilterWord()"
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="Devspace durchsuchen"
+    />
+    <!-- <div>
+      <img src="assets/icons/search.png" alt="" />
+    </div> -->
+  </div>
+  <div (click)="openProfilePopup($event)" class="profile-container">
+    <span>{{ currentUser?.name }}</span>
+    <img
+      class="avatar"
+      src="{{ currentUser?.picture }}"
+      alt="profile-picture"
+    />
+    <img
+      class="menu-icon"
+      src="assets/icons/keyboard_arrow_down.png"
+      alt="menu"
+    />
+  </div>
 
-    @if (isProfilePopupOpen) {
-        <app-userprofile (closePopup)="closeProfilePopup()"></app-userprofile>
-    }
-
+  @if (isProfilePopupOpen) {
+    <app-userprofile (closePopup)="closeProfilePopup()"></app-userprofile>
+  }
 </main>

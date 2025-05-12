@@ -120,7 +120,7 @@ export class FirebaseService {
     try {
       await updateDoc(this.getSingleDocRef(colId, docId), updatedData);
     } catch (error) {
-      console.error("Error updating document", error);
+      // console.error("Error updating document", error);
     }
   }
 

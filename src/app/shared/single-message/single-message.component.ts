@@ -286,10 +286,10 @@ export class SingleMessageComponent {
           );
         }
       } else {
-        console.error(
-          "Direktnachricht für diese Nachricht nicht gefunden:",
-          this.message,
-        );
+        // console.error(
+        //   "Direktnachricht für diese Nachricht nicht gefunden:",
+        //   this.message,
+        // );
       }
     }
     if (this.currentChannel.id != undefined) {
